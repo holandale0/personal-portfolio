@@ -22,7 +22,7 @@ export class Projects {
       title: 'Este Portfolio',
       description: 'Portfolio profissional desenvolvido com Angular 21 e design moderno. Estruturado como SPA com seções dedicadas para apresentação, skills, experiência e contato.',
       tags: ['Angular', 'TypeScript', 'SCSS'],
-      github: '#',
+      github: 'https://github.com/holandale0/personal-portfolio',
       highlight: true
     },
     {
