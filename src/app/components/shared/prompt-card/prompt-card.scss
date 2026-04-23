@@ -1,0 +1,152 @@
+$holo-color: #60a5fa;
+
+.pc-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.pc-trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 22px;
+  border-radius: 50px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background: transparent;
+  color: var(--text-secondary);
+  border: 1px solid rgba(96, 165, 250, 0.25);
+
+  &:hover {
+    color: $holo-color;
+    border-color: $holo-color;
+    background: rgba(96, 165, 250, 0.07);
+    box-shadow: 0 0 18px rgba(96, 165, 250, 0.12);
+  }
+
+  &--active {
+    color: $holo-color;
+    border-color: $holo-color;
+    background: rgba(96, 165, 250, 0.1);
+    box-shadow: 0 0 18px rgba(96, 165, 250, 0.15);
+  }
+
+  &__chevron {
+    transition: transform 0.3s ease;
+
+    &--open {
+      transform: rotate(180deg);
+    }
+  }
+}
+
+.pc-card {
+  position: relative;
+  width: 100%;
+  background: rgba(10, 14, 26, 0.92);
+  border: 1px solid rgba(96, 165, 250, 0.28);
+  border-radius: var(--radius-lg);
+  padding: 28px 36px;
+  margin-top: 16px;
+  box-shadow:
+    0 0 30px rgba(96, 165, 250, 0.07),
+    inset 0 0 50px rgba(96, 165, 250, 0.03);
+  animation: holoReveal 0.35s ease;
+  overflow: hidden;
+
+  &__scanlines {
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 3px,
+      rgba(96, 165, 250, 0.012) 3px,
+      rgba(96, 165, 250, 0.012) 4px
+    );
+    pointer-events: none;
+    border-radius: inherit;
+  }
+
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid rgba(96, 165, 250, 0.12);
+  }
+
+  &__label {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: $holo-color;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    &::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: $holo-color;
+      box-shadow: 0 0 8px $holo-color;
+      flex-shrink: 0;
+    }
+  }
+
+  &__model {
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    background: rgba(255, 255, 255, 0.04);
+    padding: 3px 12px;
+    border-radius: 20px;
+    border: 1px solid var(--border);
+    font-family: 'Courier New', monospace;
+  }
+
+  &__text {
+    font-size: 1rem;
+    line-height: 1.85;
+    color: var(--text-secondary);
+    font-style: italic;
+    border-left: 3px solid rgba(96, 165, 250, 0.35);
+    padding-left: 22px;
+    margin: 0 0 20px;
+  }
+
+  &__footer {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 0.76rem;
+    color: var(--text-muted);
+    padding-top: 16px;
+    border-top: 1px solid rgba(255, 255, 255, 0.04);
+  }
+}
+
+@keyframes holoReveal {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 768px) {
+  .pc-card {
+    padding: 20px;
+  }
+}

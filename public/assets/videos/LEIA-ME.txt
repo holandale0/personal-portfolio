@@ -1,0 +1,8 @@
+Coloque aqui o seu vídeo de apresentação com o nome:
+
+  apresentacao.mp4
+
+O arquivo será servido em: assets/videos/apresentacao.mp4
+
+Formatos suportados: MP4 (H.264) - recomendado para melhor compatibilidade entre browsers.
+Resolução sugerida: 1280x720 (720p) ou 1920x1080 (1080p)

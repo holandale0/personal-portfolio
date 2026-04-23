@@ -1,0 +1,125 @@
+.experience {
+  background: var(--bg-secondary);
+
+  &__timeline {
+    max-width: 800px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  &__item {
+    display: grid;
+    grid-template-columns: 40px 1fr;
+    gap: 24px;
+
+    &--current {
+      .experience__dot {
+        background: var(--accent);
+        box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.2);
+      }
+    }
+  }
+
+  &__marker {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 28px;
+  }
+
+  &__dot {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: var(--bg-card);
+    border: 2px solid var(--accent);
+    flex-shrink: 0;
+    z-index: 1;
+  }
+
+  &__line {
+    flex: 1;
+    width: 2px;
+    background: var(--border);
+    margin-top: 8px;
+    min-height: 24px;
+  }
+
+  &__card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 28px;
+    margin-bottom: 24px;
+    position: relative;
+    transition: border-color 0.3s, transform 0.3s;
+
+    &:hover {
+      border-color: rgba(99, 102, 241, 0.4);
+      transform: translateX(4px);
+    }
+  }
+
+  &__badge {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: linear-gradient(135deg, var(--accent), var(--accent-secondary));
+    color: #fff;
+    font-size: 0.7rem;
+    font-weight: 700;
+    padding: 4px 12px;
+    border-radius: 50px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  &__role {
+    font-size: 1.15rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+
+  &__meta {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+  }
+
+  &__company {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--accent);
+  }
+
+  &__period {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+  }
+
+  &__description {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    line-height: 1.7;
+    margin-bottom: 20px;
+  }
+
+  &__tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  &__tag {
+    font-size: 0.78rem;
+    font-weight: 600;
+    padding: 4px 14px;
+    border-radius: 50px;
+    background: rgba(99, 102, 241, 0.1);
+    color: var(--accent);
+    border: 1px solid rgba(99, 102, 241, 0.2);
+  }
+}

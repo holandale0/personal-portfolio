@@ -1,0 +1,57 @@
+<section id="skills" class="section skills">
+  <div class="container">
+    <h2 class="section-title">Poderes da <span>Força</span></h2>
+    <p class="section-subtitle">Tecnologias que domino — classificadas pela Ordem Jedi</p>
+
+    <div class="skills__prompt-toggle">
+      <app-prompt-card [promptText]="prompt"></app-prompt-card>
+    </div>
+
+    <div class="skills__grid">
+      @for (category of categories; track category.title) {
+        <div class="skills__category">
+          <h3 class="skills__category-title">{{ category.title }}</h3>
+          <div class="skills__list">
+            @for (skill of category.skills; track skill.name) {
+              <div class="skills__item">
+                <div class="skills__item-header">
+                  <span class="skills__item-icon">{{ skill.icon }}</span>
+                  <span class="skills__item-name">{{ skill.name }}</span>
+                  <span class="rank-badge rank-badge--{{ skill.rank }}">
+                    {{ rankLabel[skill.rank] }}
+                  </span>
+                </div>
+                <div class="saber">
+                  <div class="saber__hilt"></div>
+                  <div class="saber__track">
+                    <div
+                      class="saber__blade saber__blade--{{ skill.rank }}"
+                      [style.width.%]="skill.level"
+                    ></div>
+                  </div>
+                </div>
+              </div>
+            }
+          </div>
+        </div>
+      }
+    </div>
+
+    <div class="skills__legend">
+      <span class="skills__legend-item">
+        <span class="skills__legend-dot skills__legend-dot--padawan"></span>
+        Padawan
+      </span>
+      <span class="skills__legend-sep">·</span>
+      <span class="skills__legend-item">
+        <span class="skills__legend-dot skills__legend-dot--knight"></span>
+        Jedi Knight
+      </span>
+      <span class="skills__legend-sep">·</span>
+      <span class="skills__legend-item">
+        <span class="skills__legend-dot skills__legend-dot--master"></span>
+        Jedi Master
+      </span>
+    </div>
+  </div>
+</section>

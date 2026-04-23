@@ -1,0 +1,29 @@
+<nav class="navbar" [class.navbar--scrolled]="isScrolled()">
+  <div class="container navbar__inner">
+    <a class="navbar__logo" (click)="scrollTo('hero')">
+      <span class="navbar__logo-bracket">&lt;</span>dev<span class="navbar__logo-bracket">/&gt;</span>
+    </a>
+
+    <ul class="navbar__links">
+      @for (link of navLinks; track link.anchor) {
+        <li>
+          <a (click)="scrollTo(link.anchor)">{{ link.label }}</a>
+        </li>
+      }
+    </ul>
+
+    <button class="navbar__cta btn btn--primary" (click)="scrollTo('contact')">
+      Fale comigo
+    </button>
+
+    <button class="navbar__hamburger" (click)="toggleMenu()" [class.open]="isMenuOpen()">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+
+  <div class="navbar__mobile" [class.navbar__mobile--open]="isMenuOpen()">
+    @for (link of navLinks; track link.anchor) {
+      <a (click)="scrollTo(link.anchor)">{{ link.label }}</a>
+    }
+  </div>
+</nav>

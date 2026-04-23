@@ -1,0 +1,204 @@
+// Rank colors
+$padawan-color: #4ade80;
+$knight-color:  #60a5fa;
+$master-color:  #c084fc;
+
+.skills {
+  .section-subtitle {
+    margin-bottom: 28px;
+  }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 32px;
+  }
+
+  &__category {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 32px;
+    transition: border-color 0.3s;
+
+    &:hover {
+      border-color: rgba(99, 102, 241, 0.4);
+    }
+  }
+
+  &__category-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 28px;
+    color: var(--accent);
+  }
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  &__item-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+  }
+
+  &__item-icon {
+    font-size: 1.2rem;
+    line-height: 1;
+    flex-shrink: 0;
+  }
+
+  &__item-name {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    flex: 1;
+  }
+
+  &__prompt-toggle {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 36px;
+  }
+
+  &__legend {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    margin-top: 48px;
+  }
+
+  &__legend-item {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    letter-spacing: 0.04em;
+  }
+
+  &__legend-sep {
+    color: var(--text-muted);
+    font-size: 1rem;
+  }
+
+  &__legend-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    flex-shrink: 0;
+
+    &--padawan {
+      background: $padawan-color;
+      box-shadow: 0 0 6px $padawan-color;
+    }
+    &--knight {
+      background: $knight-color;
+      box-shadow: 0 0 6px $knight-color;
+    }
+    &--master {
+      background: $master-color;
+      box-shadow: 0 0 6px $master-color;
+    }
+  }
+}
+
+// Lightsaber
+.saber {
+  display: flex;
+  align-items: center;
+
+  &__hilt {
+    width: 28px;
+    height: 12px;
+    flex-shrink: 0;
+    background: linear-gradient(135deg, #999 0%, #444 45%, #777 60%, #333 100%);
+    border-radius: 3px 1px 1px 3px;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    position: relative;
+
+    &::before {
+      content: '';
+      position: absolute;
+      width: 4px;
+      height: 4px;
+      background: rgba(255, 255, 255, 0.35);
+      border-radius: 50%;
+      top: 50%;
+      left: 7px;
+      transform: translateY(-50%);
+    }
+  }
+
+  &__track {
+    flex: 1;
+    height: 8px;
+    background: rgba(255, 255, 255, 0.04);
+    border-radius: 0 4px 4px 0;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-left: none;
+    overflow: hidden;
+  }
+
+  &__blade {
+    height: 100%;
+    border-radius: 0 4px 4px 0;
+    transition: width 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+
+    &--padawan {
+      background: $padawan-color;
+      box-shadow: 0 0 8px $padawan-color, 0 0 16px rgba(74, 222, 128, 0.4);
+    }
+    &--knight {
+      background: $knight-color;
+      box-shadow: 0 0 8px $knight-color, 0 0 16px rgba(96, 165, 250, 0.4);
+    }
+    &--master {
+      background: $master-color;
+      box-shadow: 0 0 8px $master-color, 0 0 16px rgba(192, 132, 252, 0.4);
+    }
+  }
+}
+
+// Rank badge
+.rank-badge {
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.65rem;
+  font-weight: 700;
+  padding: 3px 9px;
+  border-radius: 20px;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  flex-shrink: 0;
+
+  &--padawan {
+    color: $padawan-color;
+    background: rgba(74, 222, 128, 0.1);
+    border: 1px solid rgba(74, 222, 128, 0.25);
+  }
+  &--knight {
+    color: $knight-color;
+    background: rgba(96, 165, 250, 0.1);
+    border: 1px solid rgba(96, 165, 250, 0.25);
+  }
+  &--master {
+    color: $master-color;
+    background: rgba(192, 132, 252, 0.1);
+    border: 1px solid rgba(192, 132, 252, 0.3);
+    box-shadow: 0 0 10px rgba(192, 132, 252, 0.15);
+  }
+}
+
+@media (max-width: 768px) {
+  .skills__grid {
+    grid-template-columns: 1fr;
+  }
+}

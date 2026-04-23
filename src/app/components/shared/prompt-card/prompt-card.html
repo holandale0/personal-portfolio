@@ -1,0 +1,39 @@
+<div class="pc-wrapper">
+  <button
+    class="pc-trigger"
+    [class.pc-trigger--active]="showPrompt()"
+    (click)="toggle()"
+  >
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="4 17 10 11 4 5"/>
+      <line x1="12" y1="19" x2="20" y2="19"/>
+    </svg>
+    {{ showPrompt() ? 'Ocultar prompt' : 'Ver prompt de IA utilizado' }}
+    <svg
+      class="pc-trigger__chevron"
+      [class.pc-trigger__chevron--open]="showPrompt()"
+      width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
+    >
+      <polyline points="6 9 12 15 18 9"/>
+    </svg>
+  </button>
+
+  @if (showPrompt()) {
+    <div class="pc-card">
+      <div class="pc-card__scanlines"></div>
+      <div class="pc-card__header">
+        <span class="pc-card__label">{{ label() }}</span>
+        <span class="pc-card__model">{{ model() }}</span>
+      </div>
+      <blockquote class="pc-card__text">"{{ promptText() }}"</blockquote>
+      <div class="pc-card__footer">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+          <circle cx="12" cy="12" r="10"/>
+          <line x1="12" y1="8" x2="12" y2="12"/>
+          <line x1="12" y1="16" x2="12.01" y2="16"/>
+        </svg>
+        Gerado com Engenharia de Prompt — sem código manual
+      </div>
+    </div>
+  }
+</div>

@@ -1,0 +1,69 @@
+<section id="hero" class="hero">
+  <div class="hero__bg">
+    <div class="hero__glow hero__glow--left"></div>
+    <div class="hero__glow hero__glow--right"></div>
+  </div>
+
+  <div class="container hero__content">
+    <div class="hero__text">
+      <div class="hero__avatar">
+        <img src="assets/fotos/foto1.png" alt="Leonardo Holanda Araujo" />
+      </div>
+
+      <p class="hero__greeting">👋 Olá, me chamo</p>
+      <h1 class="hero__name">Leonardo <span>Holanda</span></h1>
+      <h2 class="hero__role">Desenvolvedor de Software Back-End</h2>
+      <p class="hero__description">
+        Mais de 10 anos construindo APIs robustas, microserviços e soluções financeiras
+        com <strong>Java / Quarkus</strong> e <strong>Spring Boot</strong>.
+        Atuação em bancos, varejo e saúde — entregando software de alto impacto.
+      </p>
+      <p class="hero__force-quote">⚡ May the Code be with you.</p>
+
+      <div class="hero__actions">
+        <button class="btn btn--primary" (click)="scrollToContact()">
+          Entre em Contato
+        </button>
+        <button class="btn btn--outline" (click)="scrollToAbout()">
+          Saiba mais
+        </button>
+      </div>
+
+      <div class="hero__prompt-wrapper">
+        <app-prompt-card
+          [promptText]="heroPrompt"
+          label="Prompt inicial do projeto"
+        ></app-prompt-card>
+      </div>
+    </div>
+
+    <div class="hero__video-wrapper">
+      <div class="hero__video-card">
+        <div class="hero__video-label">
+          <span class="hero__video-dot"></span>
+          Apresentação Pessoal
+        </div>
+
+        <div class="hero__video-container">
+          <iframe
+            class="hero__iframe"
+            [src]="youtubeUrl"
+            title="Apresentação Pessoal"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen
+          ></iframe>
+        </div>
+
+        <p class="hero__video-caption">
+          Assista minha apresentação e trajetória profissional
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero__scroll-hint" (click)="scrollToAbout()">
+    <span>Role para baixo</span>
+    <div class="hero__scroll-arrow"></div>
+  </div>
+</section>
