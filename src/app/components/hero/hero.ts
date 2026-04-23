@@ -16,7 +16,7 @@ export class Hero {
 
   constructor(private sanitizer: DomSanitizer) {
     this.youtubeUrl = this.sanitizer.bypassSecurityTrustResourceUrl(
-      'https://www.youtube.com/embed/AJX57W9RKjo'
+      'https://www.youtube.com/embed/iqSYQ40vukU'
     );
   }
 
