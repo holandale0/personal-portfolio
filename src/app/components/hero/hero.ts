@@ -16,7 +16,8 @@ export class Hero {
 
   constructor(private sanitizer: DomSanitizer) {
     this.youtubeUrl = this.sanitizer.bypassSecurityTrustResourceUrl(
-      'https://www.youtube.com/embed/iqSYQ40vukU'
+      // 'https://www.youtube.com/embed/iqSYQ40vukU' // vídeo anterior (slides Canva)
+      'https://www.youtube.com/embed/0-kScbFRa90'
     );
   }
 

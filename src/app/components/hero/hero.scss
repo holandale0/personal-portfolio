@@ -160,7 +160,7 @@
     position: relative;
     border-radius: var(--radius);
     overflow: hidden;
-    aspect-ratio: 16/9;
+    aspect-ratio: 9/16; // shorts (vertical) — trocar para 16/9 se voltar ao vídeo anterior
     background: #000;
   }
 
