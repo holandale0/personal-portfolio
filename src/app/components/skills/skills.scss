@@ -1,7 +1,7 @@
 // Rank colors
-$padawan-color: #4ade80;
+$padawan-color: #fde68a;
 $knight-color:  #60a5fa;
-$master-color:  #c084fc;
+$master-color:  #4ade80;
 
 .skills {
   .section-subtitle {
@@ -153,7 +153,7 @@ $master-color:  #c084fc;
 
     &--padawan {
       background: $padawan-color;
-      box-shadow: 0 0 8px $padawan-color, 0 0 16px rgba(74, 222, 128, 0.4);
+      box-shadow: 0 0 8px $padawan-color, 0 0 16px rgba(253, 230, 138, 0.4);
     }
     &--knight {
       background: $knight-color;
@@ -161,7 +161,7 @@ $master-color:  #c084fc;
     }
     &--master {
       background: $master-color;
-      box-shadow: 0 0 8px $master-color, 0 0 16px rgba(192, 132, 252, 0.4);
+      box-shadow: 0 0 8px $master-color, 0 0 16px rgba(74, 222, 128, 0.4);
     }
   }
 }
@@ -181,8 +181,8 @@ $master-color:  #c084fc;
 
   &--padawan {
     color: $padawan-color;
-    background: rgba(74, 222, 128, 0.1);
-    border: 1px solid rgba(74, 222, 128, 0.25);
+    background: rgba(253, 230, 138, 0.1);
+    border: 1px solid rgba(253, 230, 138, 0.25);
   }
   &--knight {
     color: $knight-color;
@@ -191,9 +191,9 @@ $master-color:  #c084fc;
   }
   &--master {
     color: $master-color;
-    background: rgba(192, 132, 252, 0.1);
-    border: 1px solid rgba(192, 132, 252, 0.3);
-    box-shadow: 0 0 10px rgba(192, 132, 252, 0.15);
+    background: rgba(74, 222, 128, 0.1);
+    border: 1px solid rgba(74, 222, 128, 0.3);
+    box-shadow: 0 0 10px rgba(74, 222, 128, 0.15);
   }
 }
 

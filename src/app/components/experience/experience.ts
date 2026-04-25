@@ -29,7 +29,9 @@ export class Experience {
       description: 'Projeto de pesquisa científica para migração de sistema de manejo florestal de Delphi para Java Swing. Persistência com Hibernate e PostgreSQL, geração de relatórios com JasperReports. Sistema utilizado por engenheiros florestais para planejamento de colheita sustentável.',
       tags: ['Java', 'Hibernate', 'PostgreSQL', 'JasperReports'],
       imageBefore: 'assets/fotos/padawan1.png',
+      imageBeforeCard: true,
       imageAfter: 'assets/fotos/padawan2.png',
+      imageAfterCard: true,
     },
     {
       role: 'Desenvolvedor Back-End Java',
