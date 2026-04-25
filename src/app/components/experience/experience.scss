@@ -45,6 +45,7 @@
     background: var(--border);
     margin-top: 8px;
     min-height: 24px;
+    visibility: visible;
   }
 
   &__card {
@@ -111,6 +112,72 @@
     display: flex;
     flex-wrap: wrap;
     gap: 8px;
+  }
+
+  &__card-img {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 20px;
+
+    img {
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      object-fit: cover;
+      padding: 2px;
+      background: linear-gradient(135deg, var(--accent), var(--accent-secondary));
+      box-shadow: 0 0 16px rgba(99, 102, 241, 0.25);
+    }
+  }
+
+  // Milestone images between items
+  &__milestone {
+    display: grid;
+    grid-template-columns: 40px 1fr;
+    gap: 24px;
+    align-items: center;
+  }
+
+  &__milestone-line {
+    width: 2px;
+    height: 100%;
+    min-height: 40px;
+    background: var(--border);
+    margin: 0 auto;
+  }
+
+  &__milestone-img {
+    display: flex;
+    justify-content: center;
+    padding: 8px 0;
+
+    img {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      object-fit: cover;
+      padding: 3px;
+      background: linear-gradient(135deg, var(--accent), var(--accent-secondary));
+      box-shadow: 0 0 24px rgba(99, 102, 241, 0.2);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+      &:hover {
+        transform: scale(1.06);
+        box-shadow: 0 0 36px rgba(99, 102, 241, 0.4);
+      }
+    }
+
+    &--card {
+      img {
+        width: auto;
+        height: auto;
+        max-height: 160px;
+        max-width: 110px;
+        border-radius: var(--radius-lg);
+        object-fit: contain;
+        padding: 4px;
+      }
+    }
   }
 
   &__tag {

@@ -4,13 +4,21 @@
     <p class="section-subtitle">A jornada de Padawan a Jedi Master — experiências que forjaram minhas habilidades</p>
 
     <div class="experience__timeline">
-      @for (item of items; track item.company; let i = $index) {
+      @for (item of items; track item.company) {
+
+        @if (item.imageBefore) {
+          <div class="experience__milestone">
+            <div class="experience__milestone-line"></div>
+            <div class="experience__milestone-img" [class.experience__milestone-img--card]="item.imageBeforeCard">
+              <img [src]="item.imageBefore" [alt]="item.company" />
+            </div>
+          </div>
+        }
+
         <div class="experience__item" [class.experience__item--current]="item.current">
           <div class="experience__marker">
             <div class="experience__dot"></div>
-            @if (!$last) {
-              <div class="experience__line"></div>
-            }
+            <div class="experience__line"></div>
           </div>
 
           <div class="experience__card">
@@ -30,6 +38,16 @@
             </div>
           </div>
         </div>
+
+        @if (item.imageAfter) {
+          <div class="experience__milestone">
+            <div class="experience__milestone-line"></div>
+            <div class="experience__milestone-img" [class.experience__milestone-img--card]="item.imageAfterCard">
+              <img [src]="item.imageAfter" [alt]="item.company" />
+            </div>
+          </div>
+        }
+
       }
     </div>
   </div>
