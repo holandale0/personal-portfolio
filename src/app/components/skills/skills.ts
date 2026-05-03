@@ -68,7 +68,7 @@ export class Skills {
       title: 'DevOps & Cloud',
       skills: [
         { name: 'Docker',          icon: '🐳', level: 80, rank: 'knight'  },
-        { name: 'Grafana',         icon: '📊', level: 75, rank: 'knight'  },
+        { name: 'Grafana',         icon: '📊', level: 65, rank: 'padawan' },
         { name: 'Azure',           icon: '☁️', level: 60, rank: 'padawan' },
         { name: 'Kubernetes',      icon: '⚙️', level: 65, rank: 'padawan' },
         { name: 'Jenkins',         icon: '🔧', level: 65, rank: 'padawan' },
