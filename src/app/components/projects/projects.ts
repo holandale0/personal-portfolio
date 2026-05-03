@@ -32,11 +32,10 @@ export class Projects {
       github: '#'
     },
     {
-      title: 'Dashboard Analítico',
-      description: 'Dashboard interativo para visualização de dados de negócio. Gráficos em tempo real, filtros dinâmicos e exportação de relatórios.',
-      tags: ['Angular', 'RxJS', 'Chart.js', 'REST API'],
-      github: '#',
-      demo: '#'
+      title: 'WebSocket App com Quarkus',
+      description: 'Aplicação de comunicação em tempo real utilizando WebSocket com Java e Quarkus. Demonstra troca de mensagens bidirecional entre cliente e servidor com baixa latência.',
+      tags: ['Java', 'Quarkus', 'WebSocket'],
+      github: 'https://github.com/holandale0/websocket-java-quarkus-app'
     }
   ];
 }
