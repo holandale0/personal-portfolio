@@ -26,15 +26,15 @@ export class Projects {
       highlight: true
     },
     {
-      title: 'API REST com Quarkus',
-      description: 'API RESTful de alta performance construída com Quarkus e Java. Inclui autenticação JWT, validação de dados e documentação via OpenAPI.',
-      tags: ['Java', 'Quarkus', 'PostgreSQL', 'Docker'],
-      github: '#'
+      title: 'Sistema de Processamento de Pedidos',
+      description: 'Sistema de processamento de pedidos baseado em arquitetura orientada a eventos (Event-Driven) utilizando Java 21, Spring Boot e Apache Kafka.',
+      tags: ['Java', 'SpringBoot', 'PostgreSQL', 'Apache Kafka' ],
+      github: 'https://github.com/holandale0/order-processing-system'
     },
     {
       title: 'WebSocket App com Quarkus',
       description: 'Aplicação de comunicação em tempo real utilizando WebSocket com Java e Quarkus. Demonstra troca de mensagens bidirecional entre cliente e servidor com baixa latência.',
-      tags: ['Java', 'Quarkus', 'WebSocket'],
+      tags: ['Java', 'Quarkus', 'WebSocket', 'Redis', 'PostgreSQL'],
       github: 'https://github.com/holandale0/websocket-java-quarkus-app'
     }
   ];
