@@ -19,11 +19,17 @@ export interface Project {
 export class Projects {
   items: Project[] = [
     {
+      title: 'Conciliação Financeira Batch',
+      description: 'Aplicação batch de conciliação financeira com Java e Spring Batch. Processa grandes volumes de transações financeiras, validando e reconciliando registros entre sistemas de pagamento.',
+      tags: ['Java', 'Spring Batch', 'Spring Boot', 'PostgreSQL'],
+      github: 'https://github.com/holandale0/financial-reconciliation-batch',
+      highlight: true
+    },
+    {
       title: 'Este Portfolio',
       description: 'Portfolio profissional desenvolvido com Angular 21 e design moderno. Estruturado como SPA com seções dedicadas para apresentação, skills, experiência e contato.',
       tags: ['Angular', 'TypeScript', 'SCSS'],
       github: 'https://github.com/holandale0/personal-portfolio',
-      highlight: true
     },
     {
       title: 'Sistema de Processamento de Pedidos',
