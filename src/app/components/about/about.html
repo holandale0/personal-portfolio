@@ -33,13 +33,19 @@
         </a>
       </div>
 
-      <div class="about__stats">
-        @for (stat of stats; track stat.label) {
-          <div class="about__stat">
-            <span class="about__stat-value">{{ stat.value }}</span>
-            <span class="about__stat-label">{{ stat.label }}</span>
-          </div>
-        }
+      <div class="about__right">
+        <div class="about__visual">
+          <img src="assets/fotos/foto2.png" alt="Leonardo Holanda - Jedi Developer" />
+        </div>
+
+        <div class="about__stats">
+          @for (stat of stats; track stat.label) {
+            <div class="about__stat">
+              <span class="about__stat-value">{{ stat.value }}</span>
+              <span class="about__stat-label">{{ stat.label }}</span>
+            </div>
+          }
+        </div>
       </div>
     </div>
   </div>
