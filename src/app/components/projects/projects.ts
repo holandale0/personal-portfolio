@@ -26,10 +26,16 @@ export class Projects {
       highlight: true
     },
     {
+      title: 'Quarkus Concurrency Lab',
+      description: 'Plataforma de simulação e benchmark de concorrência que compara o desempenho de Virtual Threads (Project Loom) vs Platform Threads (pool fixo) em cenários realistas de carga — I/O-bound e CPU-bound.',
+      tags: ['Java', 'Quarkus', 'Micrometer + Prometheus', 'Grafana', 'k6', 'Mutiny'],
+      github: 'https://github.com/holandale0/quarkus-concurrency-lab'
+    },
+    {
       title: 'Este Portfolio',
       description: 'Portfolio profissional desenvolvido com Angular 21 e design moderno. Estruturado como SPA com seções dedicadas para apresentação, skills, experiência e contato.',
       tags: ['Angular', 'TypeScript', 'SCSS'],
-      github: 'https://github.com/holandale0/personal-portfolio',
+      github: 'https://github.com/holandale0/personal-portfolio'
     },
     {
       title: 'Sistema de Processamento de Pedidos',
