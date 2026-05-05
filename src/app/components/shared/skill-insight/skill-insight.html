@@ -1,0 +1,17 @@
+<div class="si-card si-card--{{ rank() }}">
+  <div class="si-card__scanlines"></div>
+  <div class="si-card__header">
+    <span class="si-card__label">
+      <span class="si-card__dot"></span>
+      {{ skillName() }}
+    </span>
+    <span class="si-card__rank">{{ rankLabel() }}</span>
+  </div>
+  <p class="si-card__text">{{ description() }}</p>
+  <div class="si-card__footer">
+    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+      <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+    </svg>
+    Experiência na Força
+  </div>
+</div>

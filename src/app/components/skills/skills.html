@@ -26,10 +26,20 @@
           <h3 class="skills__category-title">{{ category.title }}</h3>
           <div class="skills__list">
             @for (skill of category.skills; track skill.name) {
-              <div class="skills__item">
+              <div
+                class="skills__item"
+                [class.skills__item--interactive]="!!skill.description"
+                [class.skills__item--active]="activeSkill() === skill.name"
+                (mouseenter)="onEnter(skill)"
+                (mouseleave)="onLeave()"
+                (click)="onClick(skill)"
+              >
                 <div class="skills__item-header">
                   <span class="skills__item-icon">{{ skill.icon }}</span>
                   <span class="skills__item-name">{{ skill.name }}</span>
+                  @if (skill.description) {
+                    <span class="skills__item-hint" title="Clique ou passe o mouse para saber mais">⚡</span>
+                  }
                   <span class="rank-badge rank-badge--{{ skill.rank }}">
                     {{ rankLabel[skill.rank] }}
                   </span>
@@ -43,6 +53,14 @@
                     ></div>
                   </div>
                 </div>
+
+                @if (activeSkill() === skill.name && skill.description) {
+                  <app-skill-insight
+                    [skillName]="skill.name"
+                    [description]="skill.description"
+                    [rank]="skill.rank"
+                  />
+                }
               </div>
             }
           </div>
