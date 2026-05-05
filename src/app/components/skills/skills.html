@@ -3,10 +3,6 @@
     <h2 class="section-title">Poderes da <span>Força</span></h2>
     <p class="section-subtitle">Tecnologias que domino — classificadas pela Ordem Jedi</p>
 
-    <div class="skills__prompt-toggle">
-      <app-prompt-card [promptText]="prompt"></app-prompt-card>
-    </div>
-
     <div class="skills__grid">
       @for (category of categories; track category.title) {
         <div class="skills__category">

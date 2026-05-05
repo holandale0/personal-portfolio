@@ -1,7 +1,5 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { PromptCard } from '../shared/prompt-card/prompt-card';
-
 type Rank = 'padawan' | 'knight' | 'master';
 
 interface Skill {
@@ -18,13 +16,11 @@ interface SkillCategory {
 
 @Component({
   selector: 'app-skills',
-  imports: [CommonModule, PromptCard],
+  imports: [CommonModule],
   templateUrl: './skills.html',
   styleUrl: './skills.scss'
 })
 export class Skills {
-  readonly prompt = `Eu tive uma idéia para incorporar algo que sou apaixonado ao meu portfolio. Eu sou muito fã de Star Wars, e gostaria de usar isso de alguma forma. Um exemplo que podemos fazer é classificar o nível de perícia em linguagens, ferramentas, frameworks como padawan, knight e master. De resto, você pode usar sua criatividade, e eu indicarei se ficou bom ou se eu gostaria que mudasse algo.`;
-
   readonly rankLabel: Record<Rank, string> = {
     padawan: 'Padawan',
     knight:  'Jedi Knight',
