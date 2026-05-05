@@ -3,6 +3,23 @@
     <h2 class="section-title">Poderes da <span>Força</span></h2>
     <p class="section-subtitle">Tecnologias que domino — classificadas pela Ordem Jedi</p>
 
+    <div class="skills__legend">
+      <span class="skills__legend-item">
+        <span class="skills__legend-dot skills__legend-dot--padawan"></span>
+        Padawan <span class="skills__legend-level">(Básico)</span>
+      </span>
+      <span class="skills__legend-sep">·</span>
+      <span class="skills__legend-item">
+        <span class="skills__legend-dot skills__legend-dot--knight"></span>
+        Jedi Knight <span class="skills__legend-level">(Intermediário)</span>
+      </span>
+      <span class="skills__legend-sep">·</span>
+      <span class="skills__legend-item">
+        <span class="skills__legend-dot skills__legend-dot--master"></span>
+        Jedi Master <span class="skills__legend-level">(Avançado)</span>
+      </span>
+    </div>
+
     <div class="skills__grid">
       @for (category of categories; track category.title) {
         <div class="skills__category">
@@ -31,23 +48,6 @@
           </div>
         </div>
       }
-    </div>
-
-    <div class="skills__legend">
-      <span class="skills__legend-item">
-        <span class="skills__legend-dot skills__legend-dot--padawan"></span>
-        Padawan <span class="skills__legend-level">(Básico)</span>
-      </span>
-      <span class="skills__legend-sep">·</span>
-      <span class="skills__legend-item">
-        <span class="skills__legend-dot skills__legend-dot--knight"></span>
-        Jedi Knight <span class="skills__legend-level">(Intermediário)</span>
-      </span>
-      <span class="skills__legend-sep">·</span>
-      <span class="skills__legend-item">
-        <span class="skills__legend-dot skills__legend-dot--master"></span>
-        Jedi Master <span class="skills__legend-level">(Avançado)</span>
-      </span>
     </div>
   </div>
 </section>
