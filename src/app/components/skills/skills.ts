@@ -63,7 +63,7 @@ export class Skills {
         },
         {
           name: 'Spring Boot', icon: '🌱', level: 90, rank: 'master',
-          description: 'Utilizado em projetos de alta criticidade, incluindo uma plataforma de conciliação financeira na Destaqa com arquitetura reativa (WebFlux + R2DBC + Java 17). Experiência também com Spring Batch para processamento em lote no Banco Original.',
+          description: 'Utilizado em projetos de alta criticidade, incluindo uma plataforma de conciliação financeira na Destaxa com arquitetura reativa (WebFlux + R2DBC + Java 17). Experiência também com Spring Batch para processamento em lote no Banco Original.',
         },
         {
           name: 'Quarkus', icon: '⚡', level: 85, rank: 'master',
@@ -71,7 +71,7 @@ export class Skills {
         },
         {
           name: 'Spring WebFlux', icon: '🌊', level: 80, rank: 'knight',
-          description: 'Experiência com programação reativa usando Spring WebFlux e R2DBC na Destaqa, desenvolvendo serviços de conciliação de transações financeiras com Java 17. Foco em performance, non-blocking I/O e integração com bancos de dados reativos.',
+          description: 'Experiência com programação reativa usando Spring WebFlux e R2DBC na Destaxa, desenvolvendo serviços de conciliação de transações financeiras com Java 17. Foco em performance, non-blocking I/O e integração com bancos de dados reativos.',
         },
         {
           name: 'Apache Kafka', icon: '📨', level: 75, rank: 'knight',
@@ -92,7 +92,7 @@ export class Skills {
         },
         {
           name: 'Clean Architecture', icon: '🎯', level: 85, rank: 'master',
-          description: 'Aplicada na Destaqa com separação explícita entre camadas Domain, Application e Infrastructure em Java 17 + Spring Boot. Foco em testabilidade, inversão de dependências e isolamento das regras de negócio da plataforma de conciliação financeira.',
+          description: 'Aplicada na Destaxa com separação explícita entre camadas Domain, Application e Infrastructure em Java 17 + Spring Boot. Foco em testabilidade, inversão de dependências e isolamento das regras de negócio da plataforma de conciliação financeira.',
         },
         {
           name: 'PostgreSQL', icon: '🐘', level: 85, rank: 'master',
@@ -142,11 +142,11 @@ export class Skills {
       skills: [
         {
           name: 'Docker', icon: '🐳', level: 80, rank: 'knight',
-          description: 'Utilizado na Destaqa para containerização dos serviços da plataforma de conciliação financeira, garantindo ambientes consistentes entre desenvolvimento e produção com Java 17 e Spring Boot.',
+          description: 'Utilizado na Destaxa para containerização dos serviços da plataforma de conciliação financeira, garantindo ambientes consistentes entre desenvolvimento e produção com Java 17 e Spring Boot.',
         },
         {
           name: 'Grafana', icon: '📊', level: 65, rank: 'padawan',
-          description: 'Configuração de dashboards de observabilidade na Destaqa para monitoramento da plataforma de conciliação de transações de adquirentes, acompanhando métricas de latência e volume de processamento.',
+          description: 'Configuração de dashboards de observabilidade na Destaxa para monitoramento da plataforma de conciliação de transações de adquirentes, acompanhando métricas de latência e volume de processamento.',
         },
         {
           name: 'Azure', icon: '☁️', level: 60, rank: 'padawan',
