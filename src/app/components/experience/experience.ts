@@ -35,6 +35,7 @@ export class Experience {
 
   introText(i: number): string  { return INTRO_TEXTS[i] ?? ''; }
   roman(i: number): string      { return ROMAN[i] ?? String(i + 1); }
+  webpOf(path: string): string  { return path.replace('.png', '.webp'); }
 
   items: ExperienceItem[] = [
     {

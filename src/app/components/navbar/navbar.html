@@ -1,4 +1,4 @@
-<nav class="navbar" [class.navbar--scrolled]="isScrolled()">
+<nav class="navbar" [class.navbar--scrolled]="isScrolled()" aria-label="Navegação principal">
   <div class="container navbar__inner">
     <a class="navbar__logo" (click)="scrollTo('hero')">
       <span class="navbar__logo-bracket">&lt;</span>dev<span class="navbar__logo-bracket">/&gt;</span>
@@ -16,12 +16,17 @@
       Fale comigo
     </button>
 
-    <button class="navbar__hamburger" (click)="toggleMenu()" [class.open]="isMenuOpen()">
+    <button class="navbar__hamburger"
+            (click)="toggleMenu()"
+            [class.open]="isMenuOpen()"
+            [attr.aria-expanded]="isMenuOpen()"
+            aria-label="Abrir menu de navegação"
+            aria-controls="navbar-mobile-menu">
       <span></span><span></span><span></span>
     </button>
   </div>
 
-  <div class="navbar__mobile" [class.navbar__mobile--open]="isMenuOpen()">
+  <div class="navbar__mobile" id="navbar-mobile-menu" [class.navbar__mobile--open]="isMenuOpen()">
     @for (link of navLinks; track link.anchor) {
       <a (click)="scrollTo(link.anchor)">{{ link.label }}</a>
     }

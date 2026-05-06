@@ -33,6 +33,12 @@
                 (mouseenter)="onEnter(skill)"
                 (mouseleave)="onLeave()"
                 (click)="onClick(skill)"
+                [attr.role]="skill.description ? 'button' : null"
+                [attr.tabindex]="skill.description ? 0 : null"
+                [attr.aria-label]="skill.description ? 'Detalhes sobre ' + skill.name : null"
+                [attr.aria-expanded]="skill.description ? (activeSkill() === skill.name) : null"
+                (keydown.enter)="skill.description && onClick(skill)"
+                (keydown.space)="$event.preventDefault(); skill.description && onClick(skill)"
               >
                 <div class="skills__item-header">
                   <span class="skills__item-icon">{{ skill.icon }}</span>
