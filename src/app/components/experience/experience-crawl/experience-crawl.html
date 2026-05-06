@@ -1,4 +1,10 @@
-<div class="crawl-backdrop" (click)="close()"></div>
+<div class="crawl-backdrop"
+     role="button"
+     tabindex="0"
+     aria-label="Fechar modal"
+     (click)="close()"
+     (keydown.enter)="close()"
+     (keydown.space)="$event.preventDefault(); close()"></div>
 <div class="crawl-scene">
 
   <!-- Starfield -->

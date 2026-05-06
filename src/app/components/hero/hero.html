@@ -55,7 +55,13 @@
     </div>
   </div>
 
-  <div class="hero__scroll-hint" (click)="scrollToAbout()">
+  <div class="hero__scroll-hint"
+       role="button"
+       tabindex="0"
+       aria-label="Rolar para baixo"
+       (click)="scrollToAbout()"
+       (keydown.enter)="scrollToAbout()"
+       (keydown.space)="$event.preventDefault(); scrollToAbout()">
     <span>Role para baixo</span>
     <div class="hero__scroll-arrow"></div>
   </div>
