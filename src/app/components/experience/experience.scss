@@ -56,11 +56,29 @@
     margin-bottom: 24px;
     position: relative;
     transition: border-color 0.3s, transform 0.3s;
+    cursor: pointer;
 
     &:hover {
-      border-color: rgba(99, 102, 241, 0.4);
+      border-color: rgba(254, 218, 74, 0.35);
       transform: translateX(4px);
+
+      .experience__card-hint {
+        opacity: 1;
+      }
     }
+  }
+
+  &__card-hint {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    margin-top: 16px;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    color: rgba(254, 218, 74, 0.6);
+    opacity: 0;
+    transition: opacity 0.3s;
   }
 
   &__badge {

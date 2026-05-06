@@ -1,0 +1,41 @@
+<div class="crawl-backdrop" (click)="close()"></div>
+<div class="crawl-scene">
+
+  <!-- Starfield -->
+  <div class="stars-layer">
+    @for (star of stars; track $index) {
+      <div class="star"
+           [style.left.%]="star.x"
+           [style.top.%]="star.y"
+           [style.width.px]="star.size"
+           [style.height.px]="star.size"
+           [style.opacity]="star.opacity">
+      </div>
+    }
+  </div>
+
+  <!-- Close button -->
+  <button class="crawl-close" (click)="close()" title="Fechar">✕</button>
+
+  <!-- Per-experience blue intro text -->
+  <div class="crawl-intro">
+    <p>{{ introText() }}</p>
+  </div>
+
+  <!-- Crawl (single experience) -->
+  <div class="crawl-stage">
+    <div class="crawl-content">
+      <p class="crawl-ep-number">Episódio {{ episodeNumber() }}</p>
+      <h2 class="crawl-company">{{ item().company | uppercase }}</h2>
+      <p class="crawl-period">{{ item().period }}</p>
+      <p class="crawl-role">{{ item().role }}</p>
+      <p class="crawl-desc">{{ item().description }}</p>
+      <div class="crawl-tags">
+        @for (tag of item().tags; track tag) {
+          <span class="crawl-tag">{{ tag }}</span>
+        }
+      </div>
+    </div>
+  </div>
+
+</div>

@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ExperienceCrawl } from './experience-crawl/experience-crawl';
 
 export interface ExperienceItem {
   role: string;
@@ -14,13 +15,27 @@ export interface ExperienceItem {
   imageAfterCard?: boolean;
 }
 
+const ROMAN       = ['I', 'II', 'III', 'IV', 'V'];
+const INTRO_TEXTS = [
+  'Onde tudo começou.',
+  'A primeira evolução importante.',
+  'Experiência desafiadora.',
+  'A evolução continua.',
+];
+
 @Component({
   selector: 'app-experience',
-  imports: [CommonModule],
+  imports: [CommonModule, ExperienceCrawl],
   templateUrl: './experience.html',
   styleUrl: './experience.scss'
 })
+
 export class Experience {
+  readonly activeIndex = signal<number | null>(null);
+
+  introText(i: number): string  { return INTRO_TEXTS[i] ?? ''; }
+  roman(i: number): string      { return ROMAN[i] ?? String(i + 1); }
+
   items: ExperienceItem[] = [
     {
       role: 'Desenvolvedor Java',
