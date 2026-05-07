@@ -9,7 +9,7 @@
 [![ESLint](https://img.shields.io/badge/ESLint-0_erros-4B32C3?style=flat-square&logo=eslint)](./eslint.config.js)
 [![License](https://img.shields.io/badge/Licença-MIT-green?style=flat-square)](./LICENSE)
 
-[🚀 Ver online](https://leonardoholanda.dev) · [📂 Repositório](https://github.com/holandale0/personal-portfolio)
+[🚀 Ver online](https://www.devleoholandaportfolio.com.br) · [📂 Repositório](https://github.com/holandale0/personal-portfolio)
 
 </div>
 
