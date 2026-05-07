@@ -48,6 +48,12 @@ export class Projects {
       description: 'Aplicação de comunicação em tempo real utilizando WebSocket com Java e Quarkus. Demonstra troca de mensagens bidirecional entre cliente e servidor com baixa latência.',
       tags: ['Java', 'Quarkus', 'WebSocket', 'Redis', 'PostgreSQL'],
       github: 'https://github.com/holandale0/websocket-java-quarkus-app'
+    },
+    {
+      title: 'Port Killer',
+      description: 'Utilitário desktop para verificar e encerrar processos que estão ocupando uma porta de rede — com interface gráfica moderna e suporte a Windows, Linux e macOS.',
+      tags: ['Python', 'Shell'],
+      github: 'https://github.com/holandale0/port-killer'
     }
   ];
 }
