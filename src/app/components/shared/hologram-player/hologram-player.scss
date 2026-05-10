@@ -41,7 +41,7 @@ $holo-dim: rgba(96, 200, 245, 0.55);
   &__image {
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: contain;
     object-position: center;
     display: block;
     border-radius: var(--radius);
