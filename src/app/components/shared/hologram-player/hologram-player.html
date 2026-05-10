@@ -1,44 +1,29 @@
 <div class="hologram" [class.hologram--active]="active()">
 
-  @if (!active()) {
-    <div class="hologram__idle"
-         role="button"
-         tabindex="0"
-         aria-label="Reproduzir apresentação em vídeo"
-         (click)="activate()"
-         (keydown.enter)="activate()"
-         (keydown.space)="$event.preventDefault(); activate()">
-
-      <div class="hologram__base">
-        <div class="hologram__ring hologram__ring--1"></div>
-        <div class="hologram__ring hologram__ring--2"></div>
-        <div class="hologram__projector">
-          <div class="hologram__proj-dome"></div>
-          <div class="hologram__proj-shaft"></div>
-          <div class="hologram__proj-plate"></div>
-        </div>
-      </div>
-
-      <div class="hologram__beam"></div>
-
-      <div class="hologram__projection">
-        <div class="hologram__scanlines"></div>
-
-        <div class="hologram__noise"></div>
-      </div>
-
-      <div class="hologram__play-hint">
-        <span class="hologram__play-icon">▶</span>
-        <span class="hologram__play-label">Reproduzir</span>
-      </div>
+  <div class="hologram__idle"
+       role="button"
+       tabindex="0"
+       aria-label="Reproduzir apresentação em vídeo"
+       (click)="activate()"
+       (keydown.enter)="activate()"
+       (keydown.space)="$event.preventDefault(); activate()">
+    <picture>
+      <source srcset="assets/fotos/hologram.webp" type="image/webp">
+      <img class="hologram__image"
+           src="assets/fotos/hologram.png"
+           alt="Clique para assistir a apresentação"
+           draggable="false" />
+    </picture>
+    <div class="hologram__play-overlay">
+      <div class="hologram__play-btn" aria-hidden="true">&#9654;</div>
     </div>
-  }
+  </div>
 
-  @if (active()) {
-    <div class="hologram__player">
-      <button class="hologram__close"
-              aria-label="Fechar vídeo"
-              (click)="close($event)">✕</button>
+  <div class="hologram__player">
+    <button class="hologram__close"
+            aria-label="Fechar vídeo"
+            (click)="close($event)">✕</button>
+    @if (active()) {
       <iframe
         class="hologram__iframe"
         [src]="safeUrl()"
@@ -47,7 +32,7 @@
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
         allowfullscreen
       ></iframe>
-    </div>
-  }
+    }
+  </div>
 
 </div>
