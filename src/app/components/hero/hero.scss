@@ -129,7 +129,8 @@
 
   &__video-wrapper {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    align-self: stretch;
   }
 
   &__video-card {
@@ -140,6 +141,9 @@
     width: 100%;
     max-width: 460px;
     box-shadow: var(--shadow);
+    display: flex;
+    flex-direction: column;
+    flex: 1;
   }
 
   &__video-label {
