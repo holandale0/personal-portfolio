@@ -138,17 +138,6 @@ $holo-glow: rgba(96, 200, 245, 0.25);
     }
   }
 
-  &__arms {
-    position: absolute;
-    bottom: 50px;
-    width: 64px;
-    height: 44px;
-    border: 2px solid $holo;
-    border-radius: 2px 2px 16px 16px;
-    background: transparent;
-    pointer-events: none;
-  }
-
   &__scanlines {
     position: absolute;
     inset: 0;
