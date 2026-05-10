@@ -135,6 +135,10 @@ export class Skills {
           name: 'CSS', icon: 'assets/icons/css.svg', level: 65, rank: 'padawan',
           description: 'Experiência adquirida nos projetos do Grupo Fleury e Casas Bahia, com estilização de componentes em aplicações Angular. Este portfolio também foi uma oportunidade de aprofundar o conhecimento em CSS/SCSS.',
         },
+        {
+          name: 'Flexbox', icon: 'assets/icons/flexbox.svg', level: 60, rank: 'padawan',
+          description: 'Conhecimento básico de layout com Flexbox aplicado no desenvolvimento deste portfolio e nos projetos de front-end do Grupo Fleury e Casas Bahia, para alinhamento e distribuição de elementos em interfaces Angular.',
+        },
       ]
     },
     {
