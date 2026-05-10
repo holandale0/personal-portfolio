@@ -37,19 +37,10 @@
           Apresentação Pessoal
         </div>
 
-        <div class="hero__video-container">
-          <iframe
-            class="hero__iframe"
-            [src]="youtubeUrl"
-            title="Apresentação Pessoal"
-            frameborder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            allowfullscreen
-          ></iframe>
-        </div>
+        <app-hologram-player [videoUrl]="youtubeEmbedUrl" />
 
         <p class="hero__video-caption">
-          Assista minha apresentação e trajetória profissional
+          Clique no holograma para assistir minha apresentação
         </p>
       </div>
     </div>

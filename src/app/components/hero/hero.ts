@@ -1,19 +1,15 @@
-import { Component, inject } from '@angular/core';
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { HologramPlayer } from '../shared/hologram-player/hologram-player';
 
 @Component({
   selector: 'app-hero',
-  imports: [CommonModule],
+  imports: [CommonModule, HologramPlayer],
   templateUrl: './hero.html',
   styleUrl: './hero.scss'
 })
 export class Hero {
-  private sanitizer = inject(DomSanitizer);
-
-  readonly youtubeUrl: SafeResourceUrl = this.sanitizer.bypassSecurityTrustResourceUrl(
-    'https://www.youtube.com/embed/0-kScbFRa90'
-  );
+  readonly youtubeEmbedUrl = 'https://www.youtube.com/embed/0-kScbFRa90';
 
   scrollToAbout() {
     const el = document.getElementById('about');

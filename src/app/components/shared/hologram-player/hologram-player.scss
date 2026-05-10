@@ -1,0 +1,385 @@
+$holo: #60c8f5;
+$holo-dim: rgba(96, 200, 245, 0.55);
+$holo-faint: rgba(96, 200, 245, 0.12);
+$holo-glow: rgba(96, 200, 245, 0.25);
+
+@keyframes flicker {
+  0%, 100% { opacity: 1; }
+  4%        { opacity: 0.85; }
+  8%        { opacity: 1; }
+  15%       { opacity: 0.92; }
+  40%       { opacity: 1; }
+  55%       { opacity: 0.88; }
+  60%       { opacity: 1; }
+  90%       { opacity: 0.94; }
+}
+
+@keyframes sweep {
+  0%   { transform: translateY(-100%); opacity: 0; }
+  10%  { opacity: 0.18; }
+  90%  { opacity: 0.18; }
+  100% { transform: translateY(100%); opacity: 0; }
+}
+
+@keyframes ring-pulse {
+  0%, 100% { transform: scaleX(1);    opacity: 0.55; }
+  50%       { transform: scaleX(1.06); opacity: 1; }
+}
+
+@keyframes ring-pulse-2 {
+  0%, 100% { transform: scaleX(1);    opacity: 0.35; }
+  50%       { transform: scaleX(1.1);  opacity: 0.75; }
+}
+
+@keyframes emitter-glow {
+  0%, 100% { box-shadow: 0 0 6px $holo, 0 0 12px $holo-dim; }
+  50%       { box-shadow: 0 0 10px $holo, 0 0 20px $holo-glow; }
+}
+
+@keyframes led-pulse {
+  0%, 100% { opacity: 0.6; box-shadow: 0 0 3px $holo; }
+  50%       { opacity: 1;   box-shadow: 0 0 6px $holo, 0 0 10px rgba(96, 200, 245, 0.5); }
+}
+
+.hologram {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+
+  &--active {
+    aspect-ratio: 16 / 9;
+    overflow: visible;
+  }
+
+  // ── Idle hologram ──────────────────────────────────────────────
+
+  &__idle {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    cursor: pointer;
+    outline: none;
+
+    &:focus-visible .hologram__projection {
+      outline: 2px solid $holo;
+      outline-offset: 8px;
+      border-radius: 4px;
+    }
+
+    &:hover .hologram__projection {
+      filter: brightness(1.12);
+    }
+  }
+
+  // ── Projection (figure + scanlines) ───────────────────────────
+
+  &__projection {
+    position: absolute;
+    bottom: 80px;
+    width: 90px;
+    height: 155px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    animation: flicker 5.5s ease-in-out infinite;
+    overflow: hidden;
+  }
+
+  &__figure {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+    filter: drop-shadow(0 0 8px $holo) drop-shadow(0 0 18px $holo-dim);
+  }
+
+  &__head {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: transparent;
+    border: 2px solid $holo;
+    box-shadow: 0 0 6px $holo, inset 0 0 4px rgba(96, 200, 245, 0.3);
+  }
+
+  &__body {
+    width: 36px;
+    height: 60px;
+    border: 2px solid $holo;
+    border-top: none;
+    border-radius: 0 0 6px 6px;
+    background: $holo-faint;
+    margin-top: -1px;
+    position: relative;
+
+    &::after {
+      content: '';
+      position: absolute;
+      top: 12px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 20px;
+      height: 1px;
+      background: $holo-dim;
+    }
+  }
+
+  &__arms {
+    position: absolute;
+    bottom: 50px;
+    width: 64px;
+    height: 44px;
+    border: 2px solid $holo;
+    border-radius: 2px 2px 16px 16px;
+    background: transparent;
+    pointer-events: none;
+  }
+
+  &__scanlines {
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      to bottom,
+      transparent 0px,
+      transparent 3px,
+      rgba(96, 200, 245, 0.06) 3px,
+      rgba(96, 200, 245, 0.06) 4px
+    );
+    pointer-events: none;
+    z-index: 2;
+  }
+
+  &__noise {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 3;
+
+    &::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      right: 0;
+      height: 28px;
+      background: linear-gradient(
+        to bottom,
+        transparent,
+        rgba(96, 200, 245, 0.18),
+        transparent
+      );
+      animation: sweep 3.8s linear infinite;
+    }
+  }
+
+  // ── Beam ──────────────────────────────────────────────────────
+
+  &__beam {
+    position: absolute;
+    bottom: 60px;
+    width: 0;
+    height: 0;
+    border-left: 60px solid transparent;
+    border-right: 60px solid transparent;
+    border-bottom: 180px solid rgba(96, 200, 245, 0.05);
+    pointer-events: none;
+    filter: blur(2px);
+  }
+
+  // ── Base (rings + projector device) ───────────────────────────
+
+  &__base {
+    position: absolute;
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3px;
+  }
+
+  &__ring {
+    border-radius: 50%;
+    border: 1px solid $holo;
+
+    &--1 {
+      width: 92px;
+      height: 18px;
+      opacity: 0.55;
+      animation: ring-pulse 2.4s ease-in-out infinite;
+    }
+    &--2 {
+      width: 64px;
+      height: 12px;
+      opacity: 0.35;
+      animation: ring-pulse-2 2.4s ease-in-out infinite 0.3s;
+    }
+  }
+
+  // ── Projector device ──────────────────────────────────────────
+
+  &__projector {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 1px;
+    filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.6));
+  }
+
+  // Top dome — half-ellipse with center emitter lens
+  &__proj-dome {
+    width: 70px;
+    height: 18px;
+    border-radius: 50% 50% 0 0 / 100% 100% 0 0;
+    background:
+      linear-gradient(to right, rgba(255,255,255,0.09) 0%, rgba(255,255,255,0) 55%, rgba(255,255,255,0.05) 100%),
+      linear-gradient(to bottom, #686868 0%, #353535 55%, #232323 100%);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-bottom: none;
+    position: relative;
+
+    // Emitter lens
+    &::after {
+      content: '';
+      position: absolute;
+      top: 3px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 20px;
+      height: 10px;
+      border-radius: 50%;
+      background: radial-gradient(ellipse at 40% 35%, rgba(255,255,255,0.85) 0%, $holo 35%, rgba(96, 200, 245, 0.4) 100%);
+      box-shadow: 0 0 8px $holo, 0 0 18px $holo-dim;
+      animation: emitter-glow 2.4s ease-in-out infinite;
+    }
+  }
+
+  // Cylindrical shaft — narrower, with groove details and indicator LED
+  &__proj-shaft {
+    width: 52px;
+    height: 17px;
+    background:
+      repeating-linear-gradient(
+        180deg,
+        transparent        0px,
+        transparent        4px,
+        rgba(0,0,0,0.22)   4px,
+        rgba(0,0,0,0.22)   5px
+      ),
+      linear-gradient(to right, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0) 60%, rgba(255,255,255,0.04) 100%),
+      linear-gradient(to bottom, #424242 0%, #1e1e1e 100%);
+    border-left:  1px solid rgba(255, 255, 255, 0.07);
+    border-right: 1px solid rgba(255, 255, 255, 0.07);
+    position: relative;
+
+    // Indicator LED
+    &::after {
+      content: '';
+      position: absolute;
+      right: 7px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: $holo;
+      animation: led-pulse 1.8s ease-in-out infinite;
+    }
+
+    // Second smaller amber LED
+    &::before {
+      content: '';
+      position: absolute;
+      left: 7px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 3px;
+      height: 3px;
+      border-radius: 50%;
+      background: rgba(200, 170, 120, 0.85);
+      box-shadow: 0 0 4px rgba(200, 170, 120, 0.6);
+    }
+  }
+
+  // Base plate — wide and flat, metallic with shadow
+  &__proj-plate {
+    width: 92px;
+    height: 11px;
+    background:
+      linear-gradient(to right, rgba(255,255,255,0.04) 0%, rgba(255,255,255,0.09) 50%, rgba(255,255,255,0.04) 100%),
+      linear-gradient(135deg, #5e5e5e 0%, #2c2c2c 42%, #4a4a4a 62%, #1a1a1a 100%);
+    border-radius: 3px 3px 7px 7px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 5px 14px rgba(0, 0, 0, 0.55), 0 2px 4px rgba(0, 0, 0, 0.4);
+  }
+
+  // ── Play hint ─────────────────────────────────────────────────
+
+  &__play-hint {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    color: $holo;
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.07em;
+    opacity: 0.7;
+    transition: opacity 0.2s;
+    pointer-events: none;
+
+    .hologram__idle:hover & {
+      opacity: 1;
+    }
+  }
+
+  &__play-icon {
+    font-size: 0.55rem;
+  }
+
+  // ── Active player ─────────────────────────────────────────────
+
+  &__player {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__close {
+    position: absolute;
+    top: -34px;
+    right: 0;
+    background: rgba(96, 200, 245, 0.1);
+    border: 1px solid rgba(96, 200, 245, 0.3);
+    color: $holo;
+    font-size: 0.75rem;
+    padding: 4px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.2s;
+    z-index: 10;
+
+    &:hover {
+      background: rgba(96, 200, 245, 0.2);
+    }
+  }
+
+  &__iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+    border-radius: var(--radius);
+    display: block;
+  }
+}
