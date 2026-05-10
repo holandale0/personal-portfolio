@@ -1,0 +1,57 @@
+<div class="hologram" [class.hologram--active]="active()">
+
+  @if (!active()) {
+    <div class="hologram__idle"
+         role="button"
+         tabindex="0"
+         aria-label="Reproduzir apresentação em vídeo"
+         (click)="activate()"
+         (keydown.enter)="activate()"
+         (keydown.space)="$event.preventDefault(); activate()">
+
+      <div class="hologram__base">
+        <div class="hologram__ring hologram__ring--1"></div>
+        <div class="hologram__ring hologram__ring--2"></div>
+        <div class="hologram__projector">
+          <div class="hologram__proj-dome"></div>
+          <div class="hologram__proj-shaft"></div>
+          <div class="hologram__proj-plate"></div>
+        </div>
+      </div>
+
+      <div class="hologram__beam"></div>
+
+      <div class="hologram__projection">
+        <div class="hologram__scanlines"></div>
+        <div class="hologram__figure">
+          <div class="hologram__head"></div>
+          <div class="hologram__body"></div>
+          <div class="hologram__arms"></div>
+        </div>
+        <div class="hologram__noise"></div>
+      </div>
+
+      <div class="hologram__play-hint">
+        <span class="hologram__play-icon">▶</span>
+        <span class="hologram__play-label">Reproduzir</span>
+      </div>
+    </div>
+  }
+
+  @if (active()) {
+    <div class="hologram__player">
+      <button class="hologram__close"
+              aria-label="Fechar vídeo"
+              (click)="close($event)">✕</button>
+      <iframe
+        class="hologram__iframe"
+        [src]="safeUrl()"
+        title="Apresentação Pessoal"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        allowfullscreen
+      ></iframe>
+    </div>
+  }
+
+</div>

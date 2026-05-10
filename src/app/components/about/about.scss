@@ -3,15 +3,15 @@
 
   &__grid {
     display: grid;
-    grid-template-columns: 1fr 520px;
-    gap: 64px;
+    grid-template-columns: 1fr 480px;
+    gap: 56px;
     align-items: start;
   }
 
   &__right {
     display: flex;
     flex-direction: column;
-    gap: 24px;
+    gap: 20px;
   }
 
   &__visual {
@@ -19,12 +19,12 @@
       width: 100%;
       border-radius: var(--radius-lg);
       border: 1px solid var(--border);
-      box-shadow: 0 0 32px rgba(99, 102, 241, 0.15);
+      box-shadow: 0 0 28px rgba(200, 170, 120, 0.08);
       transition: box-shadow 0.3s ease, transform 0.3s ease;
       display: block;
 
       &:hover {
-        box-shadow: 0 0 48px rgba(99, 102, 241, 0.3);
+        box-shadow: 0 0 44px rgba(200, 170, 120, 0.2);
         transform: scale(1.01);
       }
     }
@@ -33,12 +33,12 @@
   &__text {
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 16px;
 
     p {
       color: var(--text-secondary);
       line-height: 1.8;
-      font-size: 1rem;
+      font-size: 0.95rem;
 
       strong {
         color: var(--accent);
@@ -49,65 +49,67 @@
 
   &__cv-btn {
     align-self: flex-start;
-    margin-top: 8px;
+    margin-top: 4px;
   }
 
   &__stats {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 24px;
+    gap: 16px;
   }
 
   &__stat {
     background: var(--bg-card);
     border: 1px solid var(--border);
     border-radius: var(--radius);
-    padding: 32px 24px;
+    padding: 24px 20px;
     text-align: center;
     transition: border-color 0.3s, transform 0.3s;
 
     &:hover {
-      border-color: var(--accent);
-      transform: translateY(-4px);
+      border-color: var(--border-hover);
+      transform: translateY(-3px);
     }
   }
 
   &__stat-value {
     display: block;
-    font-size: 2.5rem;
+    font-size: 2.1rem;
     font-weight: 800;
     background: linear-gradient(135deg, var(--accent), var(--accent-secondary));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    margin-bottom: 8px;
+    margin-bottom: 6px;
+    letter-spacing: -0.03em;
   }
 
   &__stat-label {
-    font-size: 0.85rem;
+    font-size: 0.8rem;
     color: var(--text-secondary);
     font-weight: 500;
+    line-height: 1.3;
   }
 }
 
 @media (max-width: 1024px) {
   .about__grid {
-    grid-template-columns: 1fr 420px;
-    gap: 48px;
+    grid-template-columns: 1fr 380px;
+    gap: 40px;
   }
 }
 
 @media (max-width: 768px) {
   .about__grid {
     grid-template-columns: 1fr;
-    gap: 40px;
+    gap: 36px;
   }
 
   .about__visual {
     position: static;
 
     img {
-      max-width: 380px;
+      max-width: 300px;
       margin: 0 auto;
     }
   }

@@ -4,51 +4,53 @@
   &__grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 80px;
+    gap: 64px;
     align-items: start;
   }
 
   &__info {
     h3 {
-      font-size: 1.5rem;
+      font-size: 1.4rem;
       font-weight: 700;
-      margin-bottom: 16px;
+      margin-bottom: 12px;
+      letter-spacing: -0.01em;
     }
 
     p {
       color: var(--text-secondary);
       line-height: 1.8;
-      margin-bottom: 40px;
+      margin-bottom: 32px;
+      font-size: 0.95rem;
     }
   }
 
   &__socials {
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: 10px;
   }
 
   &__social {
     display: flex;
     align-items: center;
-    gap: 16px;
-    padding: 16px 20px;
+    gap: 14px;
+    padding: 14px 16px;
     background: var(--bg-card);
     border: 1px solid var(--border);
     border-radius: var(--radius);
     transition: border-color 0.3s, transform 0.3s;
 
     &:hover {
-      border-color: var(--accent);
-      transform: translateX(4px);
+      border-color: var(--border-hover);
+      transform: translateX(3px);
     }
   }
 
   &__social-icon {
-    width: 44px;
-    height: 44px;
-    border-radius: 10px;
-    background: rgba(255, 255, 255, 0.05);
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.04);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -56,19 +58,19 @@
     flex-shrink: 0;
 
     &--linkedin { color: #0a66c2; }
-    &--email { color: var(--accent); }
+    &--email    { color: var(--accent); }
   }
 
   &__social-label {
     display: block;
-    font-size: 0.85rem;
+    font-size: 0.82rem;
     font-weight: 700;
     color: var(--text-primary);
   }
 
   &__social-handle {
     display: block;
-    font-size: 0.8rem;
+    font-size: 0.77rem;
     color: var(--text-muted);
     margin-top: 2px;
   }
@@ -77,34 +79,35 @@
     background: var(--bg-card);
     border: 1px solid var(--border);
     border-radius: var(--radius-lg);
-    padding: 40px;
+    padding: 32px;
   }
 
   &__form {
     display: flex;
     flex-direction: column;
-    gap: 24px;
+    gap: 20px;
   }
 
   &__field {
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 6px;
 
     label {
-      font-size: 0.85rem;
+      font-size: 0.8rem;
       font-weight: 600;
       color: var(--text-secondary);
+      letter-spacing: 0.02em;
     }
 
     input, textarea {
-      background: rgba(255, 255, 255, 0.04);
+      background: rgba(200, 170, 120, 0.03);
       border: 1px solid var(--border);
       border-radius: var(--radius);
-      padding: 14px 16px;
+      padding: 12px 14px;
       color: var(--text-primary);
       font-family: inherit;
-      font-size: 0.95rem;
+      font-size: 0.9rem;
       transition: border-color 0.2s, background 0.2s;
       resize: vertical;
 
@@ -113,7 +116,7 @@
       &:focus {
         outline: none;
         border-color: var(--accent);
-        background: rgba(99, 102, 241, 0.04);
+        background: rgba(200, 170, 120, 0.05);
       }
     }
   }
@@ -126,39 +129,36 @@
 
   &__success {
     text-align: center;
-    padding: 40px 20px;
+    padding: 32px 20px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 16px;
+    gap: 14px;
 
-    &-icon { font-size: 3rem; }
-
-    h3 { font-size: 1.4rem; }
-
-    p { color: var(--text-secondary); }
+    &-icon { font-size: 2.5rem; }
+    h3     { font-size: 1.3rem; }
+    p      { color: var(--text-secondary); font-size: 0.9rem; }
   }
 }
 
 .footer {
   background: var(--bg-primary);
   border-top: 1px solid var(--border);
-  padding: 32px 0;
+  padding: 28px 0;
   text-align: center;
 
-  p {
-    color: var(--text-muted);
-    font-size: 0.9rem;
-  }
-
-  span { color: var(--accent-secondary); }
-
+  p      { color: var(--text-muted); font-size: 0.85rem; }
+  span   { color: var(--accent-secondary); }
   strong { color: var(--text-secondary); }
 }
 
 @media (max-width: 768px) {
   .contact__grid {
     grid-template-columns: 1fr;
-    gap: 48px;
+    gap: 40px;
+  }
+
+  .contact__form-wrapper {
+    padding: 24px;
   }
 }
