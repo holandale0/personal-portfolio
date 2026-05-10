@@ -41,7 +41,12 @@
                 (keydown.space)="$event.preventDefault(); skill.description && onClick(skill)"
               >
                 <div class="skills__item-header">
-                  <span class="skills__item-icon">{{ skill.icon }}</span>
+                  <img class="skills__item-icon"
+                       [src]="skill.icon"
+                       [alt]="skill.name"
+                       width="20"
+                       height="20"
+                       loading="lazy" />
                   <span class="skills__item-name">{{ skill.name }}</span>
                   @if (skill.description) {
                     <span class="skills__item-hint" title="Clique ou passe o mouse para saber mais">⚡</span>
