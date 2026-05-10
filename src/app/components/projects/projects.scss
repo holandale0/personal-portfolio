@@ -17,14 +17,14 @@
     transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s;
 
     &:hover {
-      border-color: rgba(59, 130, 246, 0.38);
+      border-color: rgba(200, 170, 120, 0.38);
       transform: translateY(-4px);
       box-shadow: 0 16px 36px rgba(0, 0, 0, 0.3);
     }
 
     &--highlight {
-      border-color: rgba(59, 130, 246, 0.2);
-      background: linear-gradient(160deg, var(--bg-card) 0%, rgba(59, 130, 246, 0.04) 100%);
+      border-color: rgba(200, 170, 120, 0.2);
+      background: linear-gradient(160deg, var(--bg-card) 0%, rgba(200, 170, 120, 0.04) 100%);
     }
   }
 
@@ -41,8 +41,8 @@
     width: 48px;
     height: 48px;
     border-radius: var(--radius);
-    background: rgba(59, 130, 246, 0.07);
-    border: 1px solid rgba(59, 130, 246, 0.14);
+    background: rgba(200, 170, 120, 0.07);
+    border: 1px solid rgba(200, 170, 120, 0.14);
     display: flex;
     align-items: center;
     justify-content: center;

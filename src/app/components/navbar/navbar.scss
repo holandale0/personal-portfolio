@@ -8,7 +8,7 @@
   transition: background 0.3s ease, box-shadow 0.3s ease;
 
   &--scrolled {
-    background: rgba(5, 9, 21, 0.92);
+    background: rgba(13, 9, 7, 0.92);
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
     box-shadow: 0 1px 0 var(--border);
@@ -100,7 +100,7 @@
   &__mobile {
     display: none;
     flex-direction: column;
-    background: rgba(5, 9, 21, 0.97);
+    background: rgba(13, 9, 7, 0.97);
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
     padding: 12px 24px 20px;
@@ -133,6 +133,6 @@
     &__links, &__cta { display: none; }
     &__hamburger { display: flex; }
     &__mobile { display: flex; }
-    &--scrolled { background: rgba(5, 9, 21, 0.97); }
+    &--scrolled { background: rgba(13, 9, 7, 0.97); }
   }
 }

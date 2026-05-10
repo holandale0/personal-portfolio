@@ -5,23 +5,23 @@
 }
 
 :root {
-  --bg-primary:       #050915;
-  --bg-secondary:     #090e1a;
-  --bg-card:          #0d1526;
-  --accent:           #3b82f6;
-  --accent-hover:     #2563eb;
-  --accent-secondary: #10b981;
-  --text-primary:     #e8ecf4;
-  --text-secondary:   #8896ae;
-  --text-muted:       #4a5568;
-  --border:           rgba(59, 130, 246, 0.09);
-  --border-hover:     rgba(59, 130, 246, 0.35);
-  --shadow:           0 16px 48px rgba(0, 0, 0, 0.5);
+  --bg-primary:       #0d0907;
+  --bg-secondary:     #130e09;
+  --bg-card:          #1b1410;
+  --accent:           #c8aa78;
+  --accent-hover:     #b89860;
+  --accent-secondary: #8f8f8f;
+  --text-primary:     #f5f0ea;
+  --text-secondary:   #9e8c7a;
+  --text-muted:       #5a4a3d;
+  --border:           rgba(200, 170, 120, 0.09);
+  --border-hover:     rgba(200, 170, 120, 0.35);
+  --shadow:           0 16px 48px rgba(0, 0, 0, 0.6);
   --radius:           10px;
   --radius-lg:        16px;
   --nav-height:       68px;
-  --gold:             #f59e0b;
-  --gold-dim:         rgba(245, 158, 11, 0.6);
+  --gold:             #c8aa78;
+  --gold-dim:         rgba(200, 170, 120, 0.65);
 }
 
 html {
@@ -108,12 +108,12 @@ img, video {
   &--primary {
     background: var(--accent);
     color: #fff;
-    box-shadow: 0 4px 16px rgba(59, 130, 246, 0.2);
+    box-shadow: 0 4px 16px rgba(200, 170, 120, 0.2);
 
     &:hover {
       background: var(--accent-hover);
       transform: translateY(-1px);
-      box-shadow: 0 8px 24px rgba(59, 130, 246, 0.35);
+      box-shadow: 0 8px 24px rgba(200, 170, 120, 0.35);
     }
   }
 
@@ -125,7 +125,7 @@ img, video {
     &:hover {
       border-color: var(--accent);
       color: var(--accent);
-      background: rgba(59, 130, 246, 0.06);
+      background: rgba(200, 170, 120, 0.06);
     }
   }
 }
@@ -137,12 +137,12 @@ img, video {
   background: var(--bg-primary);
 }
 ::-webkit-scrollbar-thumb {
-  background: rgba(59, 130, 246, 0.35);
+  background: rgba(200, 170, 120, 0.35);
   border-radius: 3px;
 }
 
 ::selection {
-  background: rgba(59, 130, 246, 0.3);
+  background: rgba(200, 170, 120, 0.3);
   color: #fff;
 }
 

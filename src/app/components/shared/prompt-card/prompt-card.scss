@@ -1,4 +1,4 @@
-$holo-color: #60a5fa;
+$holo-color: #c8aa78;
 
 .pc-wrapper {
   display: flex;
@@ -20,20 +20,20 @@ $holo-color: #60a5fa;
   transition: all 0.3s ease;
   background: transparent;
   color: var(--text-secondary);
-  border: 1px solid rgba(96, 165, 250, 0.25);
+  border: 1px solid rgba(200, 170, 120, 0.25);
 
   &:hover {
     color: $holo-color;
     border-color: $holo-color;
-    background: rgba(96, 165, 250, 0.07);
-    box-shadow: 0 0 18px rgba(96, 165, 250, 0.12);
+    background: rgba(200, 170, 120, 0.07);
+    box-shadow: 0 0 18px rgba(200, 170, 120, 0.12);
   }
 
   &--active {
     color: $holo-color;
     border-color: $holo-color;
-    background: rgba(96, 165, 250, 0.1);
-    box-shadow: 0 0 18px rgba(96, 165, 250, 0.15);
+    background: rgba(200, 170, 120, 0.1);
+    box-shadow: 0 0 18px rgba(200, 170, 120, 0.15);
   }
 
   &__chevron {
@@ -49,13 +49,13 @@ $holo-color: #60a5fa;
   position: relative;
   width: 100%;
   background: rgba(10, 14, 26, 0.92);
-  border: 1px solid rgba(96, 165, 250, 0.28);
+  border: 1px solid rgba(200, 170, 120, 0.28);
   border-radius: var(--radius-lg);
   padding: 28px 36px;
   margin-top: 16px;
   box-shadow:
-    0 0 30px rgba(96, 165, 250, 0.07),
-    inset 0 0 50px rgba(96, 165, 250, 0.03);
+    0 0 30px rgba(200, 170, 120, 0.07),
+    inset 0 0 50px rgba(200, 170, 120, 0.03);
   animation: holoReveal 0.35s ease;
   overflow: hidden;
 
@@ -66,8 +66,8 @@ $holo-color: #60a5fa;
       0deg,
       transparent,
       transparent 3px,
-      rgba(96, 165, 250, 0.012) 3px,
-      rgba(96, 165, 250, 0.012) 4px
+      rgba(200, 170, 120, 0.012) 3px,
+      rgba(200, 170, 120, 0.012) 4px
     );
     pointer-events: none;
     border-radius: inherit;
@@ -79,7 +79,7 @@ $holo-color: #60a5fa;
     justify-content: space-between;
     margin-bottom: 20px;
     padding-bottom: 16px;
-    border-bottom: 1px solid rgba(96, 165, 250, 0.12);
+    border-bottom: 1px solid rgba(200, 170, 120, 0.12);
   }
 
   &__label {
@@ -118,7 +118,7 @@ $holo-color: #60a5fa;
     line-height: 1.85;
     color: var(--text-secondary);
     font-style: italic;
-    border-left: 3px solid rgba(96, 165, 250, 0.35);
+    border-left: 3px solid rgba(200, 170, 120, 0.35);
     padding-left: 22px;
     margin: 0 0 20px;
   }

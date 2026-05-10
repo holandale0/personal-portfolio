@@ -19,12 +19,12 @@
       width: 100%;
       border-radius: var(--radius-lg);
       border: 1px solid var(--border);
-      box-shadow: 0 0 28px rgba(59, 130, 246, 0.08);
+      box-shadow: 0 0 28px rgba(200, 170, 120, 0.08);
       transition: box-shadow 0.3s ease, transform 0.3s ease;
       display: block;
 
       &:hover {
-        box-shadow: 0 0 44px rgba(59, 130, 246, 0.2);
+        box-shadow: 0 0 44px rgba(200, 170, 120, 0.2);
         transform: scale(1.01);
       }
     }

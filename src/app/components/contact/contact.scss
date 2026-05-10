@@ -101,7 +101,7 @@
     }
 
     input, textarea {
-      background: rgba(59, 130, 246, 0.03);
+      background: rgba(200, 170, 120, 0.03);
       border: 1px solid var(--border);
       border-radius: var(--radius);
       padding: 12px 14px;
@@ -116,7 +116,7 @@
       &:focus {
         outline: none;
         border-color: var(--accent);
-        background: rgba(59, 130, 246, 0.05);
+        background: rgba(200, 170, 120, 0.05);
       }
     }
   }
