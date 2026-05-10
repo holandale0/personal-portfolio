@@ -8,8 +8,9 @@
   transition: background 0.3s ease, box-shadow 0.3s ease;
 
   &--scrolled {
-    background: rgba(13, 13, 13, 0.9);
-    backdrop-filter: blur(12px);
+    background: rgba(5, 9, 21, 0.92);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
     box-shadow: 0 1px 0 var(--border);
   }
 
@@ -21,10 +22,11 @@
   }
 
   &__logo {
-    font-size: 1.4rem;
+    font-size: 1.3rem;
     font-weight: 800;
     cursor: pointer;
     flex-shrink: 0;
+    letter-spacing: -0.01em;
 
     &-bracket {
       color: var(--accent);
@@ -38,12 +40,13 @@
     margin-left: auto;
 
     a {
-      font-size: 0.9rem;
+      font-size: 0.85rem;
       font-weight: 500;
       color: var(--text-secondary);
       cursor: pointer;
       transition: color 0.2s;
       position: relative;
+      letter-spacing: 0.01em;
 
       &::after {
         content: '';
@@ -51,9 +54,9 @@
         bottom: -4px;
         left: 0;
         width: 0;
-        height: 2px;
+        height: 1px;
         background: var(--accent);
-        transition: width 0.3s ease;
+        transition: width 0.25s ease;
       }
 
       &:hover {
@@ -66,8 +69,8 @@
 
   &__cta {
     flex-shrink: 0;
-    padding: 10px 24px;
-    font-size: 0.85rem;
+    padding: 9px 20px;
+    font-size: 0.82rem;
   }
 
   &__hamburger {
@@ -80,9 +83,9 @@
 
     span {
       display: block;
-      width: 24px;
+      width: 22px;
       height: 2px;
-      background: var(--text-primary);
+      background: var(--text-secondary);
       border-radius: 2px;
       transition: all 0.3s ease;
     }
@@ -97,24 +100,25 @@
   &__mobile {
     display: none;
     flex-direction: column;
-    background: rgba(13, 13, 13, 0.97);
-    backdrop-filter: blur(12px);
-    padding: 16px 24px 24px;
+    background: rgba(5, 9, 21, 0.97);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    padding: 12px 24px 20px;
     border-top: 1px solid var(--border);
     max-height: 0;
     overflow: hidden;
     transition: max-height 0.3s ease;
 
     &--open {
-      max-height: 400px;
+      max-height: 360px;
     }
 
     a {
-      font-size: 1rem;
+      font-size: 0.95rem;
       font-weight: 500;
       color: var(--text-secondary);
       cursor: pointer;
-      padding: 14px 0;
+      padding: 13px 0;
       border-bottom: 1px solid var(--border);
       transition: color 0.2s;
 
@@ -129,6 +133,6 @@
     &__links, &__cta { display: none; }
     &__hamburger { display: flex; }
     &__mobile { display: flex; }
-    &--scrolled { background: rgba(13, 13, 13, 0.97); }
+    &--scrolled { background: rgba(5, 9, 21, 0.97); }
   }
 }

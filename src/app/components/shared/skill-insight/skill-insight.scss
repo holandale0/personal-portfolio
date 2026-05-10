@@ -1,14 +1,14 @@
-$color-padawan: #fde68a;
+$color-padawan: #fbbf24;
 $color-knight:  #60a5fa;
-$color-master:  #4ade80;
+$color-master:  #34d399;
 
 @mixin rank-theme($color) {
-  border-color: rgba($color, 0.3);
-  box-shadow: 0 0 30px rgba($color, 0.07), inset 0 0 50px rgba($color, 0.03);
+  border-color: rgba($color, 0.28);
+  box-shadow: 0 0 28px rgba($color, 0.06), inset 0 0 48px rgba($color, 0.025);
 
   .si-card__dot {
     background: $color;
-    box-shadow: 0 0 8px $color;
+    box-shadow: 0 0 7px $color;
   }
 
   .si-card__label {
@@ -16,15 +16,15 @@ $color-master:  #4ade80;
   }
 
   .si-card__header {
-    border-bottom-color: rgba($color, 0.15);
+    border-bottom-color: rgba($color, 0.14);
   }
 
   .si-card__text {
-    border-left-color: rgba($color, 0.4);
+    border-left-color: rgba($color, 0.38);
   }
 
   .si-card__footer {
-    color: rgba($color, 0.6);
+    color: rgba($color, 0.55);
   }
 }
 
@@ -34,13 +34,13 @@ $color-master:  #4ade80;
   left: 0;
   right: 0;
   z-index: 100;
-  background: rgba(10, 14, 26, 0.96);
+  background: rgba(8, 12, 22, 0.97);
   border: 1px solid transparent;
   border-radius: var(--radius-lg);
-  padding: 20px 24px;
+  padding: 18px 22px;
   overflow: hidden;
   animation: siReveal 0.25s ease;
-  backdrop-filter: blur(8px);
+  backdrop-filter: blur(10px);
 
   &--padawan { @include rank-theme($color-padawan); }
   &--knight  { @include rank-theme($color-knight);  }
@@ -53,8 +53,8 @@ $color-master:  #4ade80;
       0deg,
       transparent,
       transparent 3px,
-      rgba(255, 255, 255, 0.008) 3px,
-      rgba(255, 255, 255, 0.008) 4px
+      rgba(255, 255, 255, 0.006) 3px,
+      rgba(255, 255, 255, 0.006) 4px
     );
     pointer-events: none;
     border-radius: inherit;
@@ -64,19 +64,19 @@ $color-master:  #4ade80;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-bottom: 14px;
-    padding-bottom: 12px;
+    margin-bottom: 12px;
+    padding-bottom: 10px;
     border-bottom: 1px solid transparent;
   }
 
   &__label {
-    font-size: 0.75rem;
+    font-size: 0.72rem;
     font-weight: 700;
     letter-spacing: 0.1em;
     text-transform: uppercase;
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 7px;
   }
 
   &__dot {
@@ -87,30 +87,30 @@ $color-master:  #4ade80;
   }
 
   &__rank {
-    font-size: 0.68rem;
+    font-size: 0.66rem;
     color: var(--text-muted);
     background: rgba(255, 255, 255, 0.04);
-    padding: 3px 10px;
-    border-radius: 20px;
+    padding: 2px 9px;
+    border-radius: 4px;
     border: 1px solid var(--border);
     font-family: 'Courier New', monospace;
   }
 
   &__text {
-    font-size: 0.88rem;
+    font-size: 0.86rem;
     line-height: 1.75;
     color: var(--text-secondary);
     border-left: 2px solid transparent;
-    padding-left: 16px;
-    margin: 0 0 14px;
+    padding-left: 14px;
+    margin: 0 0 12px;
   }
 
   &__footer {
     display: flex;
     align-items: center;
     gap: 6px;
-    font-size: 0.72rem;
-    padding-top: 12px;
+    font-size: 0.7rem;
+    padding-top: 10px;
     border-top: 1px solid rgba(255, 255, 255, 0.04);
   }
 }
