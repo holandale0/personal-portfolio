@@ -45,10 +45,16 @@ $holo-dim: rgba(96, 200, 245, 0.55);
     object-position: center;
     display: block;
     border-radius: var(--radius);
-    transition: transform 0.38s ease;
+    filter:
+      drop-shadow(0 0 18px rgba(96, 200, 245, 0.45))
+      drop-shadow(0 0 48px rgba(96, 200, 245, 0.18));
+    transition: transform 0.38s ease, filter 0.38s ease;
 
     .hologram__idle:hover & {
       transform: scale(1.025);
+      filter:
+        drop-shadow(0 0 24px rgba(96, 200, 245, 0.6))
+        drop-shadow(0 0 60px rgba(96, 200, 245, 0.25));
     }
 
     .hologram--active .hologram__idle & {
