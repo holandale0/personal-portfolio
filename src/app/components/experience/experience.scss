@@ -10,41 +10,19 @@
   }
 
   &__item {
-    display: grid;
-    grid-template-columns: 40px 1fr;
-    gap: 20px;
-
-    &--current {
-      .experience__dot {
-        background: var(--accent);
-        box-shadow: 0 0 0 4px rgba(200, 170, 120, 0.15);
-      }
-    }
+    display: block;
   }
 
   &__marker {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding-top: 28px;
+    display: none;
   }
 
   &__dot {
-    width: 14px;
-    height: 14px;
-    border-radius: 50%;
-    background: var(--bg-card);
-    border: 2px solid var(--accent);
-    flex-shrink: 0;
-    z-index: 1;
+    display: none;
   }
 
   &__line {
-    flex: 1;
-    width: 1px;
-    background: var(--border);
-    margin-top: 8px;
-    min-height: 24px;
+    display: none;
   }
 
   &__card {
@@ -149,18 +127,12 @@
   }
 
   &__milestone {
-    display: grid;
-    grid-template-columns: 40px 1fr;
-    gap: 20px;
-    align-items: center;
+    display: flex;
+    justify-content: center;
   }
 
   &__milestone-line {
-    width: 1px;
-    height: 100%;
-    min-height: 36px;
-    background: var(--border);
-    margin: 0 auto;
+    display: none;
   }
 
   &__milestone-img {
