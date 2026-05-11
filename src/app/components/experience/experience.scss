@@ -4,9 +4,11 @@
   &__evolution {
     max-width: 800px;
     margin: 0 auto 40px;
+    display: flex;
+    justify-content: center;
 
     img {
-      width: 100%;
+      width: 70%;
       height: auto;
       display: block;
       object-fit: contain;
