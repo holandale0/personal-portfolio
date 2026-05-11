@@ -1,23 +1,15 @@
 <nav class="navbar" [class.navbar--scrolled]="isScrolled()" aria-label="Navegação principal">
   <div class="container navbar__inner">
     <a class="navbar__logo"
-       role="button"
-       tabindex="0"
        aria-label="Ir ao topo"
-       (click)="scrollTo('hero')"
-       (keydown.enter)="scrollTo('hero')"
-       (keydown.space)="$event.preventDefault(); scrollTo('hero')">
+       (click)="scrollTo('hero')">
       <span class="navbar__logo-bracket">&lt;</span>dev<span class="navbar__logo-bracket">/&gt;</span>
     </a>
 
     <ul class="navbar__links">
       @for (link of navLinks; track link.anchor) {
         <li>
-          <a role="button"
-             tabindex="0"
-             (click)="scrollTo(link.anchor)"
-             (keydown.enter)="scrollTo(link.anchor)"
-             (keydown.space)="$event.preventDefault(); scrollTo(link.anchor)">{{ link.label }}</a>
+          <a (click)="scrollTo(link.anchor)"> {{ link.label }}</a>
         </li>
       }
     </ul>
@@ -38,11 +30,7 @@
 
   <div class="navbar__mobile" id="navbar-mobile-menu" [class.navbar__mobile--open]="isMenuOpen()">
     @for (link of navLinks; track link.anchor) {
-      <a role="button"
-         tabindex="0"
-         (click)="scrollTo(link.anchor)"
-         (keydown.enter)="scrollTo(link.anchor)"
-         (keydown.space)="$event.preventDefault(); scrollTo(link.anchor)">{{ link.label }}</a>
+      <a (click)="scrollTo(link.anchor)"> {{ link.label }}</a>
     }
   </div>
 </nav>
