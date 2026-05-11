@@ -9,6 +9,16 @@
 
     picture {
       width: 35%;
+      position: relative;
+      display: block;
+
+      &::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(ellipse at center, transparent 40%, var(--bg-secondary) 82%);
+        pointer-events: none;
+      }
     }
 
     img {
