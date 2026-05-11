@@ -7,8 +7,12 @@
     display: flex;
     justify-content: center;
 
-    img {
+    picture {
       width: 35%;
+    }
+
+    img {
+      width: 100%;
       height: auto;
       display: block;
       object-fit: contain;
