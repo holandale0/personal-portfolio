@@ -65,57 +65,11 @@
         </div>
       </div>
 
-      <div class="contact__form-wrapper">
-        @if (submitted()) {
-          <div class="contact__success">
-            <div class="contact__success-icon">✅</div>
-            <h3>Mensagem enviada!</h3>
-            <p>Obrigado pelo contato. Retornarei em breve.</p>
-          </div>
-        } @else {
-          <form class="contact__form" (ngSubmit)="onSubmit()">
-            <div class="contact__field">
-              <label for="name">Nome</label>
-              <input
-                id="name"
-                type="text"
-                placeholder="Seu nome completo"
-                [(ngModel)]="name"
-                name="name"
-                required
-              >
-            </div>
-            <div class="contact__field">
-              <label for="email">E-mail</label>
-              <input
-                id="email"
-                type="email"
-                placeholder="seu@exemplo.com"
-                [(ngModel)]="email"
-                name="email"
-                required
-              >
-            </div>
-            <div class="contact__field">
-              <label for="message">Mensagem</label>
-              <textarea
-                id="message"
-                placeholder="Conte-me sobre seu projeto ou oportunidade..."
-                [(ngModel)]="message"
-                name="message"
-                rows="5"
-                required
-              ></textarea>
-            </div>
-            <button type="submit" class="btn btn--primary contact__submit">
-              Enviar Mensagem
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <line x1="22" y1="2" x2="11" y2="13"/>
-                <polygon points="22 2 15 22 11 13 2 9 22 2"/>
-              </svg>
-            </button>
-          </form>
-        }
+      <div class="contact__photo">
+        <picture>
+          <source srcset="assets/fotos/foto1.webp" type="image/webp">
+          <img src="assets/fotos/foto1.png" alt="Leonardo Holanda Araujo" />
+        </picture>
       </div>
     </div>
   </div>

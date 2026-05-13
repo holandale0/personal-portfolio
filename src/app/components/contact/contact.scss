@@ -76,69 +76,26 @@
     margin-top: 2px;
   }
 
-  &__form-wrapper {
-    background: var(--bg-card);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-lg);
-    padding: 32px;
-  }
-
-  &__form {
+  &__photo {
     display: flex;
-    flex-direction: column;
-    gap: 20px;
-  }
-
-  &__field {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-
-    label {
-      font-size: 0.8rem;
-      font-weight: 600;
-      color: var(--text-secondary);
-      letter-spacing: 0.02em;
-    }
-
-    input, textarea {
-      background: rgba(200, 170, 120, 0.03);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 12px 14px;
-      color: var(--text-primary);
-      font-family: inherit;
-      font-size: 0.9rem;
-      transition: border-color 0.2s, background 0.2s;
-      resize: vertical;
-
-      &::placeholder { color: var(--text-muted); }
-
-      &:focus {
-        outline: none;
-        border-color: var(--accent);
-        background: rgba(200, 170, 120, 0.05);
-      }
-    }
-  }
-
-  &__submit {
-    align-self: flex-start;
-    width: 100%;
-    justify-content: center;
-  }
-
-  &__success {
-    text-align: center;
-    padding: 32px 20px;
-    display: flex;
-    flex-direction: column;
     align-items: center;
-    gap: 14px;
+    justify-content: center;
 
-    &-icon { font-size: 2.5rem; }
-    h3     { font-size: 1.3rem; }
-    p      { color: var(--text-secondary); font-size: 0.9rem; }
+    picture {
+      display: block;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      border: 1px solid var(--border);
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.35);
+    }
+
+    img {
+      width: 100%;
+      max-width: 400px;
+      height: auto;
+      display: block;
+      object-fit: cover;
+    }
   }
 }
 
