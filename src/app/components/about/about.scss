@@ -58,6 +58,8 @@
     max-width: 148px;
     justify-content: center;
     white-space: nowrap;
+
+    svg { flex-shrink: 0; }
   }
 
   &__stats {
