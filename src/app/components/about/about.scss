@@ -47,9 +47,16 @@
     }
   }
 
-  &__cv-btn {
-    align-self: flex-start;
+  &__actions {
+    display: flex;
+    gap: 12px;
     margin-top: 4px;
+  }
+
+  &__btn {
+    flex: 1;
+    max-width: 180px;
+    justify-content: center;
   }
 
   &__stats {
