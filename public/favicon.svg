@@ -6,74 +6,29 @@
     </radialGradient>
   </defs>
 
-  <!-- Background -->
   <rect width="64" height="64" rx="11" fill="url(#bg)"/>
 
   <!-- Stars -->
   <circle cx="5"  cy="5"  r="0.55" fill="white" opacity="0.65"/>
-  <circle cx="55" cy="4"  r="0.40" fill="white" opacity="0.50"/>
-  <circle cx="61" cy="14" r="0.45" fill="white" opacity="0.40"/>
-  <circle cx="3"  cy="30" r="0.40" fill="white" opacity="0.45"/>
-  <circle cx="60" cy="42" r="0.50" fill="white" opacity="0.55"/>
-  <circle cx="6"  cy="58" r="0.35" fill="white" opacity="0.40"/>
+  <circle cx="21" cy="3"  r="0.40" fill="white" opacity="0.50"/>
+  <circle cx="55" cy="7"  r="0.50" fill="white" opacity="0.60"/>
+  <circle cx="61" cy="19" r="0.40" fill="white" opacity="0.40"/>
+  <circle cx="3"  cy="38" r="0.45" fill="white" opacity="0.50"/>
+  <circle cx="59" cy="52" r="0.50" fill="white" opacity="0.55"/>
+  <circle cx="9"  cy="59" r="0.35" fill="white" opacity="0.40"/>
   <circle cx="32" cy="2"  r="0.35" fill="white" opacity="0.35"/>
 
-  <!-- ═══════════════════════════════════════════
-       H  —  sabre roxo  (topo, centrado)
-  ════════════════════════════════════════════ -->
-
-  <!-- glow externo -->
-  <line x1="24" y1="5" x2="24" y2="32" stroke="#440077" stroke-width="9" stroke-linecap="round" opacity="0.20"/>
-  <line x1="36" y1="5" x2="36" y2="32" stroke="#440077" stroke-width="9" stroke-linecap="round" opacity="0.20"/>
-  <line x1="24" y1="18" x2="36" y2="18" stroke="#440077" stroke-width="7" stroke-linecap="round" opacity="0.20"/>
-  <!-- glow médio -->
-  <line x1="24" y1="5" x2="24" y2="32" stroke="#9900CC" stroke-width="6" stroke-linecap="round" opacity="0.32"/>
-  <line x1="36" y1="5" x2="36" y2="32" stroke="#9900CC" stroke-width="6" stroke-linecap="round" opacity="0.32"/>
-  <line x1="24" y1="18" x2="36" y2="18" stroke="#9900CC" stroke-width="5" stroke-linecap="round" opacity="0.32"/>
-  <!-- núcleo -->
-  <line x1="24" y1="5" x2="24" y2="32" stroke="#CC77FF" stroke-width="2.8" stroke-linecap="round"/>
-  <line x1="36" y1="5" x2="36" y2="32" stroke="#CC77FF" stroke-width="2.8" stroke-linecap="round"/>
-  <line x1="24" y1="18" x2="36" y2="18" stroke="#CC77FF" stroke-width="2.5" stroke-linecap="round"/>
-  <!-- centro branco -->
-  <line x1="24" y1="5" x2="24" y2="32" stroke="white" stroke-width="1.0" stroke-linecap="round" opacity="0.88"/>
-  <line x1="36" y1="5" x2="36" y2="32" stroke="white" stroke-width="1.0" stroke-linecap="round" opacity="0.88"/>
-  <line x1="24" y1="18" x2="36" y2="18" stroke="white" stroke-width="0.7" stroke-linecap="round" opacity="0.88"/>
-
-  <!-- ═══════════════════════════════════════════
-       L  —  sabre azul  (baixo-esquerda)
-  ════════════════════════════════════════════ -->
-
-  <polyline points="9,35 9,58 21,58"
+  <!-- L — sabre azul -->
+  <polyline points="22,8 22,55 42,55"
     fill="none" stroke="#0055CC" stroke-width="9"
     stroke-linecap="round" stroke-linejoin="round" opacity="0.18"/>
-  <polyline points="9,35 9,58 21,58"
+  <polyline points="22,8 22,55 42,55"
     fill="none" stroke="#0077FF" stroke-width="6"
     stroke-linecap="round" stroke-linejoin="round" opacity="0.30"/>
-  <polyline points="9,35 9,58 21,58"
+  <polyline points="22,8 22,55 42,55"
     fill="none" stroke="#66CCFF" stroke-width="2.8"
     stroke-linecap="round" stroke-linejoin="round"/>
-  <polyline points="9,35 9,58 21,58"
+  <polyline points="22,8 22,55 42,55"
     fill="none" stroke="white" stroke-width="1.0"
     stroke-linecap="round" stroke-linejoin="round" opacity="0.90"/>
-
-  <!-- ═══════════════════════════════════════════
-       A  —  sabre verde  (baixo-direita)
-  ════════════════════════════════════════════ -->
-
-  <!-- glow externo -->
-  <line x1="36" y1="58" x2="47" y2="35" stroke="#005522" stroke-width="9" stroke-linecap="round" opacity="0.18"/>
-  <line x1="47" y1="35" x2="58" y2="58" stroke="#005522" stroke-width="9" stroke-linecap="round" opacity="0.18"/>
-  <line x1="40" y1="48" x2="54" y2="48" stroke="#005522" stroke-width="7" stroke-linecap="round" opacity="0.18"/>
-  <!-- glow médio -->
-  <line x1="36" y1="58" x2="47" y2="35" stroke="#00AA44" stroke-width="6" stroke-linecap="round" opacity="0.30"/>
-  <line x1="47" y1="35" x2="58" y2="58" stroke="#00AA44" stroke-width="6" stroke-linecap="round" opacity="0.30"/>
-  <line x1="40" y1="48" x2="54" y2="48" stroke="#00AA44" stroke-width="5" stroke-linecap="round" opacity="0.30"/>
-  <!-- núcleo -->
-  <line x1="36" y1="58" x2="47" y2="35" stroke="#66FF99" stroke-width="2.8" stroke-linecap="round"/>
-  <line x1="47" y1="35" x2="58" y2="58" stroke="#66FF99" stroke-width="2.8" stroke-linecap="round"/>
-  <line x1="40" y1="48" x2="54" y2="48" stroke="#66FF99" stroke-width="2.5" stroke-linecap="round"/>
-  <!-- centro branco -->
-  <line x1="36" y1="58" x2="47" y2="35" stroke="white" stroke-width="1.0" stroke-linecap="round" opacity="0.88"/>
-  <line x1="47" y1="35" x2="58" y2="58" stroke="white" stroke-width="1.0" stroke-linecap="round" opacity="0.88"/>
-  <line x1="40.5" y1="48" x2="53.5" y2="48" stroke="white" stroke-width="0.7" stroke-linecap="round" opacity="0.88"/>
 </svg>
