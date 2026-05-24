@@ -3,6 +3,79 @@ $padawan-color: #e8e3d8;   // warm opaque white
 $knight-color:  #60a5fa;   // blue
 $master-color:  #34d399;   // emerald
 
+// ══════════════════════════════════════════════════════════════════════════
+// LIGHTSABER EFFECTS — troque 'animation' em .saber__blade::after para mudar:
+//   A · saber-pulse    — Pulso: brilho que respira suavemente
+//   B · saber-flicker  — Flicker: instabilidade de plasma
+//   C · saber-scan     — Scan: núcleo de energia percorre a lâmina  [PADRÃO]
+//   D · saber-crackle  — Descarga: arcos elétricos irregulares
+//   E · saber-hum      — Vibração: oscilação sutil da lâmina
+// ══════════════════════════════════════════════════════════════════════════
+
+// A: Breathing glow
+@keyframes saber-pulse {
+  0%, 100% { filter: brightness(1);    }
+  50%       { filter: brightness(1.75); }
+}
+
+// B: Plasma flicker
+@keyframes saber-flicker {
+  0%, 17%, 21%, 55%, 100% { filter: brightness(1);   opacity: 1;    }
+  18%, 56%                 { filter: brightness(0.5); opacity: 0.65; }
+  20%                      { filter: brightness(1.5); opacity: 0.95; }
+}
+
+// C: Energy scan shimmer (runs on ::after pseudo-element)
+@keyframes saber-scan {
+  0%   { transform: translateX(-150%); }
+  55%  { transform: translateX(350%);  }
+  100% { transform: translateX(350%);  }
+}
+
+// D: Electric crackle
+@keyframes saber-crackle {
+  0%, 100% { filter: brightness(1);    }
+  8%        { filter: brightness(1.55); }
+  16%       { filter: brightness(0.68); }
+  32%       { filter: brightness(1.68); }
+  48%       { filter: brightness(0.78); }
+  64%       { filter: brightness(1.5);  }
+  80%       { filter: brightness(0.85); }
+}
+
+// E: Blade hum
+@keyframes saber-hum {
+  0%, 100% { transform: scaleY(1);    filter: brightness(1);    }
+  25%       { transform: scaleY(0.84); filter: brightness(1.3);  }
+  75%       { transform: scaleY(1.16); filter: brightness(0.84); }
+}
+
+// Lightning burst: 3 flashes decrescentes, igual a um relâmpago real
+@keyframes saber-lightning-burst {
+  0%   { opacity: 0; box-shadow: none; }
+  4%   {
+    opacity: 1;
+    box-shadow:
+      0 0 12px  6px rgba(255, 255, 255, 0.88),
+      0 0 30px 15px rgba(255, 255, 255, 0.50),
+      0 0 55px 28px rgba(255, 255, 255, 0.20);
+  }
+  9%   { opacity: 0.07; box-shadow: none; }
+  15%  {
+    opacity: 0.95;
+    box-shadow:
+      0 0 18px  9px rgba(255, 255, 255, 0.85),
+      0 0 42px 21px rgba(255, 255, 255, 0.40);
+  }
+  24%  { opacity: 0.04; }
+  30%  {
+    opacity: 0.6;
+    box-shadow: 0 0 8px 4px rgba(255, 255, 255, 0.58);
+  }
+  46%  { opacity: 0; box-shadow: none; }
+  100% { opacity: 0; }
+}
+
 .skills {
   .section-subtitle {
     margin-bottom: 24px;
@@ -28,14 +101,12 @@ $master-color:  #34d399;   // emerald
   }
 
   &__category-title {
-    font-size: 0.95rem;
+    font-size: 0.78rem;
     font-weight: 700;
     margin-bottom: 22px;
     color: var(--accent);
-    letter-spacing: 0.01em;
-    text-transform: uppercase;
-    font-size: 0.78rem;
     letter-spacing: 0.08em;
+    text-transform: uppercase;
   }
 
   &__list {
@@ -156,10 +227,27 @@ $master-color:  #34d399;   // emerald
   }
 }
 
+// Hover / active blade brightness boost
+.skills__item--interactive:hover .saber__blade,
+.skills__item--active .saber__blade {
+  filter: brightness(1.65);
+}
+
 // Lightsaber
 .saber {
   display: flex;
   align-items: center;
+  position: relative;
+
+  // Flash overlay — hidden by default; animated on hover/click
+  &::after {
+    content: '';
+    position: absolute;
+    inset: -5px;
+    border-radius: 8px;
+    pointer-events: none;
+    opacity: 0;
+  }
 
   &__hilt {
     width: 26px;
@@ -196,7 +284,23 @@ $master-color:  #34d399;   // emerald
   &__blade {
     height: 100%;
     border-radius: 0 4px 4px 0;
-    transition: width 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+    transition: width 1.2s cubic-bezier(0.4, 0, 0.2, 1), filter 0.15s ease;
+
+    // Effect E — Hum [ATIVO]
+    animation: saber-hum 1.8s ease-in-out infinite;
+
+    // Effect C — Scan shimmer [desativado]
+    // Para reativar: remova 'animation' acima e descomente o bloco abaixo
+    // &::after {
+    //   content: '';
+    //   position: absolute;
+    //   top: 0; left: 0; bottom: 0; width: 40%;
+    //   background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.7) 50%, transparent 100%);
+    //   animation: saber-scan 3.5s ease-in-out infinite;
+    //   pointer-events: none;
+    // }
 
     &--padawan {
       background: $padawan-color;
@@ -211,6 +315,16 @@ $master-color:  #34d399;   // emerald
       box-shadow: 0 0 7px $master-color, 0 0 14px rgba(52, 211, 153, 0.3);
     }
   }
+}
+
+// Lightning: hover (dispara ao entrar no item)
+.skills__item--interactive:hover .saber::after {
+  animation: saber-lightning-burst 0.7s ease-out;
+}
+
+// Lightning: click (via Angular class binding)
+.saber--lightning::after {
+  animation: saber-lightning-burst 0.7s ease-out !important;
 }
 
 // Rank badge

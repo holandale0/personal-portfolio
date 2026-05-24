@@ -8,6 +8,27 @@ Histórico de todas as alterações relevantes do projeto **Leonardo Holanda —
 
 ---
 
+## 2026-05-24 — Animações: Skills e Experience
+
+### Seção Skills — efeitos nos sabres de luz
+
+- Criados 5 efeitos CSS nomeados para as lâminas dos sabres de luz:
+  - **A · Pulso** — brilho que respira suavemente
+  - **B · Flicker** — instabilidade de plasma com cintilação
+  - **C · Scan** — shimmer de energia percorre a lâmina
+  - **D · Descarga** — arcos elétricos irregulares
+  - **E · Vibração** — oscilação sutil da lâmina *(ativo)*
+- Efeito de **relâmpago** no hover (3 flashes brancos decrescentes ao passar o mouse) e no click (via binding Angular `saber--lightning`)
+- Lâmina fica 65% mais brilhante no hover/estado ativo
+
+### Seção Experience — hint "Mais detalhes"
+
+- Botão "Mais detalhes" dos cards de experiência deixou de ser invisível (opacity 0)
+- Adicionado efeito **crackle dourado** contínuo (inspirado no efeito D) para indicar que o card é clicável
+- No hover: crackle para e o hint exibe glow dourado constante (`drop-shadow`)
+
+---
+
 ## 2026-05-13 — Seção About: botões de ação
 
 - Adicionado botão **"Fale comigo"** ao lado do botão "Download CV"

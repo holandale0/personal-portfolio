@@ -55,7 +55,7 @@
                     {{ rankLabel[skill.rank] }}
                   </span>
                 </div>
-                <div class="saber">
+                <div class="saber" [class.saber--lightning]="flashSkill() === skill.name">
                   <div class="saber__hilt"></div>
                   <div class="saber__track">
                     <div

@@ -1,3 +1,14 @@
+@keyframes hint-crackle {
+  0%,  100% { opacity: 0.38; filter: brightness(1);    }
+  8%         { opacity: 0.68; filter: brightness(1.8);  }
+  15%        { opacity: 0.20; filter: brightness(0.55); }
+  30%        { opacity: 0.75; filter: brightness(2.0);  }
+  44%        { opacity: 0.22; filter: brightness(0.52); }
+  60%        { opacity: 0.65; filter: brightness(1.7);  }
+  74%        { opacity: 0.21; filter: brightness(0.56); }
+  88%        { opacity: 0.58; filter: brightness(1.55); }
+}
+
 .experience {
   background: var(--bg-secondary);
 
@@ -68,7 +79,9 @@
       transform: translateX(3px);
 
       .experience__card-hint {
+        animation: none;
         opacity: 1;
+        filter: brightness(1.5) drop-shadow(0 0 6px rgba(200, 170, 120, 0.65));
       }
     }
   }
@@ -82,8 +95,8 @@
     font-weight: 600;
     letter-spacing: 0.08em;
     color: var(--gold-dim);
-    opacity: 0;
-    transition: opacity 0.3s;
+    animation: hint-crackle 6s linear infinite;
+    transition: opacity 0.2s, filter 0.2s;
   }
 
   &__badge {

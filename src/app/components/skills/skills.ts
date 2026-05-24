@@ -25,6 +25,7 @@ interface SkillCategory {
 })
 export class Skills {
   readonly activeSkill = signal<string | null>(null);
+  readonly flashSkill  = signal<string>('');
 
   private readonly isTouch =
     typeof window !== 'undefined' && window.matchMedia('(pointer: coarse)').matches;
@@ -51,6 +52,8 @@ export class Skills {
     if (this.isTouch && skill.description) {
       this.activeSkill.update(v => v === skill.name ? null : skill.name);
     }
+    this.flashSkill.set(skill.name);
+    setTimeout(() => this.flashSkill.set(''), 800);
   }
 
   categories: SkillCategory[] = [
