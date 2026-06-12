@@ -8,6 +8,17 @@ Histórico de todas as alterações relevantes do projeto **Leonardo Holanda —
 
 ---
 
+## 2026-06-12 — SEO: indexação e metadados
+
+- Corrigido domínio incorreto nas tags `og:url`, `og:image` e `twitter:image` (`leonardoholanda.dev` → `www.devleoholandaportfolio.com.br`)
+- Adicionado `<link rel="canonical" href="https://www.devleoholandaportfolio.com.br">`
+- Adicionado `<meta name="robots" content="index, follow">`
+- Adicionado Schema.org `Person` (JSON-LD) com `name`, `jobTitle`, `url`, `sameAs` (GitHub + LinkedIn) e `knowsAbout`
+- Criado `public/robots.txt` com `Allow: /` e referência ao sitemap
+- Criado `public/sitemap.xml` com a URL raiz, `lastmod` e `priority`
+
+---
+
 ## 2026-06-12 — Seção Experience: nova imagem e brisa de areia Canvas
 
 ### Imagem de evolução

@@ -45,7 +45,7 @@ O projeto incorpora um **tema Star Wars** como diferencial criativo: tecnologias
 - **Paleta Warm Earthy** — tema escuro com tons marrom, nude e off-white; tokens CSS globais para consistência visual
 - **Imagens Otimizadas** — conversão PNG → WebP com sharp, redução média de 90–95% no peso
 - **Acessibilidade WCAG** — `role`, `tabindex`, `aria-label` e `aria-expanded` em todos os elementos interativos
-- **Open Graph / Twitter Card** — meta tags para compartilhamento correto em redes sociais
+- **SEO** — canonical, `robots.txt`, `sitemap.xml`, Schema.org `Person` (JSON-LD) e Open Graph / Twitter Card completos
 
 ---
 
