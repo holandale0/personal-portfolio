@@ -38,12 +38,12 @@ O projeto incorpora um **tema Star Wars** como diferencial criativo: tecnologias
 - **Star Wars Crawl** — ao clicar em uma experiência profissional, uma intro cinematográfica com perspectiva CSS 3D exibe os detalhes no estilo Episode IV
 - **Skill Insight** — tooltip interativo com histórico real de uso de cada tecnologia, ativado por hover (desktop) ou clique (mobile), sem bibliotecas externas
 - **Ranking Jedi de Habilidades** — lightsabers animados em amarelo/azul/verde representam o nível Padawan, Knight ou Master de cada tecnologia
-- **Timeline de Trajetória** — linha do tempo com imagens ilustrativas e cards clicáveis por experiência
-- **Vídeo de Apresentação** — iframe do YouTube integrado diretamente na seção hero
-- **Formulário de Contato** — validação e estado de confirmação gerenciados por Angular Signals
+- **Brisa de Areia Canvas** — sistema de partículas em `<canvas>` sobreposto à imagem de evolução na seção Trajetória; spine bezier cúbico com forma orgânica que muda a cada ciclo de 4 s de pausa + 4 s de efeito
+- **HologramPlayer** — apresentação no Hero via imagem holográfica interativa com transição suave para iframe YouTube ao clicar
+- **Timeline de Trajetória** — linha do tempo com imagem de evolução animada e cards clicáveis por experiência
 - **Design Responsivo** — mobile-first, adaptado para smartphones, tablets e desktops
-- **Modo Escuro Nativo** — paleta cósmica `#0d0d0d` com acentos roxo (`#6366f1`) e rosa (`#ec4899`)
-- **Imagens Otimizadas** — conversão automática PNG → WebP com redução média de 95% no peso
+- **Paleta Warm Earthy** — tema escuro com tons marrom, nude e off-white; tokens CSS globais para consistência visual
+- **Imagens Otimizadas** — conversão PNG → WebP com sharp, redução média de 90–95% no peso
 - **Acessibilidade WCAG** — `role`, `tabindex`, `aria-label` e `aria-expanded` em todos os elementos interativos
 - **Open Graph / Twitter Card** — meta tags para compartilhamento correto em redes sociais
 
@@ -114,9 +114,9 @@ personal-portfolio/
 | 1 | **Hero** | Avatar circular com gradiente, nome, cargo, descrição e vídeo de apresentação |
 | 2 | **Sobre Mim** | Bio profissional, lista de clientes e download do CV em PDF |
 | 3 | **Poderes da Força** | Habilidades técnicas com lightsabers animados e ranking Padawan / Jedi Knight / Jedi Master |
-| 4 | **Minha Trajetória** | Timeline de experiências com imagens e modal Star Wars crawl ao clicar |
+| 4 | **Minha Trajetória** | Imagem de evolução com brisa de areia animada em Canvas + cards clicáveis com modal Star Wars crawl |
 | 5 | **Projetos** | Cards com repositórios públicos: Spring Batch, Quarkus, Kafka e mais |
-| 6 | **Contato** | Formulário e links para GitHub, LinkedIn e e-mail |
+| 6 | **Contato** | Foto retrato e links para GitHub, LinkedIn, e-mail e Discord |
 
 ---
 

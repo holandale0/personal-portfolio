@@ -8,6 +8,25 @@ Histórico de todas as alterações relevantes do projeto **Leonardo Holanda —
 
 ---
 
+## 2026-06-12 — Seção Experience: nova imagem e brisa de areia Canvas
+
+### Imagem de evolução
+
+- Substituída `evolution.webp` por `evolution2.webp` (nova arte com degradê já embutido na imagem)
+- Convertida `evolution2.png` → `evolution2.webp` via sharp (quality 90, 56 KB)
+- Removido overlay CSS `radial-gradient` que era aplicado sobre a imagem anterior
+
+### Brisa de areia — sistema de partículas Canvas
+
+- Criado sistema de partículas em `<canvas>` sobreposto à imagem de evolução
+- **Spine bezier cúbico** com 4 pontos de controle define o caminho da nuvem; pontos são gerados aleatoriamente a cada ciclo e interpolados suavemente durante o efeito, garantindo formas orgânicas sempre distintas
+- **Distribuição gaussiana de grãos** com spread perpendicular modulado pelo envelope `sin(π·t)` — nuvem mais larga no centro, afilada nas extremidades (referência visual: redemoinhos de areia desértica)
+- **Timing em duas fases:** 4 s sem efeito (imagem limpa) → ~4 s de brisa passando → repete em loop
+- `mix-blend-mode: screen` integra as partículas douradas à imagem sem gerar máscara opaca sobre as silhuetas
+- Loop de animação roda via `NgZone.runOutsideAngular` + `requestAnimationFrame`, sem custo em change detection do Angular
+
+---
+
 ## 2026-05-24 — Animações: Skills e Experience
 
 ### Seção Skills — efeitos nos sabres de luz
