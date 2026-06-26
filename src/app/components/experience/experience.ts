@@ -27,6 +27,7 @@ const INTRO_TEXTS = [
   'A primeira evolução importante.',
   'Experiência desafiadora.',
   'A evolução continua.',
+  'A missão em curso.',
 ];
 
 @Component({
@@ -230,6 +231,14 @@ export class Experience implements AfterViewInit, OnDestroy {
       period: 'Out 2024 — Mar 2026',
       description: 'Desenvolvimento de soluções para carteiras digitais (Apple Pay) com integração entre Caixa Econômica Federal e Visa. APIs REST com Java 17 e Quarkus para gerenciamento do ciclo de vida de tokens, implementação de criptografia JWS/JWE e integração via Azure API Management.',
       tags: ['Java 17', 'Quarkus', 'Azure', 'REST APIs', 'JWS/JWE'],
+    },
+    {
+      role: 'Desenvolvedor Back-End Java',
+      company: 'Basis',
+      period: 'Mai 2026 — Atual',
+      current: true,
+      description: 'Atuação no time de engenharia do cliente TJPR (Tribunal de Justiça do Estado do Paraná), definindo padrões de engenharia de software, processos de desenvolvimento e gestão de tecnologias. Desenvolvimento de novas features, sustentação de sistemas legados e migração do Spring Boot 3.5 para 4.0. Observabilidade com Graylog, Grafana e Dynatrace. Suporte a front-end Angular 22.',
+      tags: ['Java', 'Spring Boot', 'Angular 22', 'Graylog', 'Grafana', 'Dynatrace'],
     },
   ];
 }

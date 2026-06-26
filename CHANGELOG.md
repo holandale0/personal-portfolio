@@ -8,6 +8,15 @@ Histórico de todas as alterações relevantes do projeto **Leonardo Holanda —
 
 ---
 
+## 2026-06-25 — Seção Experience: experiência atual na Basis
+
+- Adicionada experiência na **Basis** (Mai 2026 — Atual) como card de emprego atual na timeline
+- Card exibe badge "Atual" e descrição das atividades no cliente TJPR (Tribunal de Justiça do Estado do Paraná)
+- Tags: Java, Spring Boot, Angular 22, Graylog, Grafana, Dynatrace
+- Adicionado texto introdutório do Star Wars Crawl para o episódio V: "A missão em curso."
+
+---
+
 ## 2026-06-12 — SEO: indexação e metadados
 
 - Corrigido domínio incorreto nas tags `og:url`, `og:image` e `twitter:image` (`leonardoholanda.dev` → `www.devleoholandaportfolio.com.br`)
