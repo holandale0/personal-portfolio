@@ -126,6 +126,10 @@
     letter-spacing: -0.01em;
   }
 
+  &__item--current &__role {
+    padding-right: 72px;
+  }
+
   &__meta {
     display: flex;
     gap: 14px;
