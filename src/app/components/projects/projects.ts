@@ -26,6 +26,18 @@ export class Projects {
       highlight: true
     },
     {
+      title: 'Este Portfolio',
+      description: 'Portfolio profissional desenvolvido com Angular 21 e design moderno. Estruturado como SPA com seções dedicadas para apresentação, skills, experiência e contato.',
+      tags: ['Angular', 'TypeScript', 'SCSS'],
+      github: 'https://github.com/holandale0/personal-portfolio'
+    },
+    {
+      title: 'Port Killer',
+      description: 'Utilitário desktop para verificar e encerrar processos que estão ocupando uma porta de rede — com interface gráfica moderna e suporte a Windows, Linux e macOS.',
+      tags: ['Python', 'Shell'],
+      github: 'https://github.com/holandale0/port-killer'
+    },
+    {
       title: 'Conciliação Financeira Batch',
       description: 'Aplicação batch de conciliação financeira com Java e Spring Batch. Processa grandes volumes de transações financeiras, validando e reconciliando registros entre sistemas de pagamento.',
       tags: ['Java', 'Spring Batch', 'Spring Boot', 'PostgreSQL'],
@@ -36,13 +48,7 @@ export class Projects {
       description: 'Plataforma de simulação e benchmark de concorrência que compara o desempenho de Virtual Threads (Project Loom) vs Platform Threads (pool fixo) em cenários realistas de carga — I/O-bound e CPU-bound.',
       tags: ['Java', 'Quarkus', 'Micrometer + Prometheus', 'Grafana', 'k6', 'Mutiny'],
       github: 'https://github.com/holandale0/quarkus-concurrency-lab'
-    },
-    {
-      title: 'Este Portfolio',
-      description: 'Portfolio profissional desenvolvido com Angular 21 e design moderno. Estruturado como SPA com seções dedicadas para apresentação, skills, experiência e contato.',
-      tags: ['Angular', 'TypeScript', 'SCSS'],
-      github: 'https://github.com/holandale0/personal-portfolio'
-    },
+    },  
     {
       title: 'Sistema de Processamento de Pedidos',
       description: 'Sistema de processamento de pedidos baseado em arquitetura orientada a eventos (Event-Driven) utilizando Java 21, Spring Boot e Apache Kafka.',
@@ -54,12 +60,6 @@ export class Projects {
       description: 'Aplicação de comunicação em tempo real utilizando WebSocket com Java e Quarkus. Demonstra troca de mensagens bidirecional entre cliente e servidor com baixa latência.',
       tags: ['Java', 'Quarkus', 'WebSocket', 'Redis', 'PostgreSQL'],
       github: 'https://github.com/holandale0/websocket-java-quarkus-app'
-    },
-    {
-      title: 'Port Killer',
-      description: 'Utilitário desktop para verificar e encerrar processos que estão ocupando uma porta de rede — com interface gráfica moderna e suporte a Windows, Linux e macOS.',
-      tags: ['Python', 'Shell'],
-      github: 'https://github.com/holandale0/port-killer'
     }
   ];
 }
