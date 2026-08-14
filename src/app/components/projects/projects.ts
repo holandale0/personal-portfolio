@@ -19,11 +19,17 @@ export interface Project {
 export class Projects {
   items: Project[] = [
     {
+      title: 'Flight Monitor',
+      description: 'Monitor silencioso de preços de passagens aéreas. Roda em background, varre janelas de datas configuradas e avisa quando encontra uma oferta dentro dos seus critérios. Só incomoda quando há oportunidade real.',
+      tags: ['Java', 'SpringBoot','RabbitMQ', 'PostgreSQL', 'Python' , 'FastAPI', 'Vue.js', 'TypeScript', 'Vite', 'Docker'],
+      github: 'https://github.com/holandale0/3layers-flightmonitor',
+      highlight: true
+    },
+    {
       title: 'Conciliação Financeira Batch',
       description: 'Aplicação batch de conciliação financeira com Java e Spring Batch. Processa grandes volumes de transações financeiras, validando e reconciliando registros entre sistemas de pagamento.',
       tags: ['Java', 'Spring Batch', 'Spring Boot', 'PostgreSQL'],
-      github: 'https://github.com/holandale0/financial-reconciliation-batch',
-      highlight: true
+      github: 'https://github.com/holandale0/financial-reconciliation-batch'
     },
     {
       title: 'Quarkus Concurrency Lab',
