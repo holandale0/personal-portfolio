@@ -1,49 +1,253 @@
 <section id="projects" class="section projects">
   <div class="container">
     <h2 class="section-title">Meus <span>Projetos</span></h2>
+    <div class="section-banner">
+      <picture>
+        <source srcset="assets/fotos/projects.webp" type="image/webp">
+        <img src="assets/fotos/projects.png" alt="Ilustração da seção de projetos" loading="lazy" />
+      </picture>
+    </div>
+
     <p class="section-subtitle">Alguns projetos e POCs que desenvolvi.</p>
 
-    <div class="projects__grid">
-      @for (project of items; track project.title) {
-        <div class="projects__card" [class.projects__card--highlight]="project.highlight">
-          @if (project.highlight) {
-            <div class="projects__featured-badge">⭐ Em Destaque</div>
-          }
-          <div class="projects__card-icon">
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-              <polyline points="16 18 22 12 16 6"/>
-              <polyline points="8 6 2 12 8 18"/>
-            </svg>
+    <div
+      class="console"
+      tabindex="0"
+      role="group"
+      aria-roledescription="carrossel"
+      aria-label="Estação de controle — projetos"
+      (keydown.arrowleft)="prev()"
+      (keydown.arrowright)="next()"
+      (touchstart)="onTouchStart($event)"
+      (touchend)="onTouchEnd($event)"
+    >
+      <div class="console__frame">
+        <div class="console__brand">
+          <span class="console__brand-rule"></span>
+          <span class="console__brand-text">PROJECTS</span>
+          <span class="console__brand-rule"></span>
+        </div>
+
+        <div class="console__bezel">
+          <div class="console__rail">
+            <div class="console__leds">
+              @for (led of leds; track led) {
+                <span class="console__led" [style.animation-delay.ms]="led * 320"></span>
+              }
+            </div>
+            <button
+              type="button"
+              class="console__arrow"
+              aria-label="Projeto anterior"
+              (click)="prev()"
+            >
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <polyline points="15 5 8 12 15 19" />
+              </svg>
+            </button>
           </div>
-          <h3 class="projects__title">{{ project.title }}</h3>
-          <p class="projects__description">{{ project.description }}</p>
-          <div class="projects__tags">
-            @for (tag of project.tags; track tag) {
-              <span class="projects__tag">{{ tag }}</span>
-            }
+
+          <div class="console__screen">
+            <span class="console__screen-grid" aria-hidden="true"></span>
+            <span class="console__screen-scan" aria-hidden="true"></span>
+            <span class="console__corner console__corner--tl" aria-hidden="true"></span>
+            <span class="console__corner console__corner--tr" aria-hidden="true"></span>
+            <span class="console__corner console__corner--bl" aria-hidden="true"></span>
+            <span class="console__corner console__corner--br" aria-hidden="true"></span>
+
+            <div class="console__stage" aria-live="polite">
+              @for (project of current(); track index()) {
+                <article
+                  class="projects__card"
+                  [class.projects__card--highlight]="project.highlight"
+                  [class.projects__card--from-right]="direction() === 1"
+                  [class.projects__card--from-left]="direction() === -1"
+                >
+                  <div class="projects__info">
+                    @if (project.highlight) {
+                      <div class="projects__featured-badge">
+                        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                          <path d="M12 2l2.9 6.26 6.85.7-5.12 4.6 1.45 6.72L12 16.9l-6.08 3.38 1.45-6.72-5.12-4.6 6.85-.7z" />
+                        </svg>
+                        Em Destaque
+                      </div>
+                    }
+
+                    <div class="projects__card-icon">
+                      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                        <polyline points="16 18 22 12 16 6" />
+                        <polyline points="8 6 2 12 8 18" />
+                      </svg>
+                    </div>
+
+                    <h3 class="projects__title">{{ project.title }}</h3>
+                    <p class="projects__description">{{ project.description }}</p>
+
+                    <div class="projects__tags">
+                      @for (tag of project.tags; track tag) {
+                        <span class="projects__tag">{{ tag }}</span>
+                      }
+                    </div>
+
+                    <div class="projects__links">
+                      @if (project.github) {
+                        <a
+                          [href]="project.github"
+                          class="projects__cta"
+                          target="_blank"
+                          rel="noopener"
+                          [attr.aria-label]="'Acessar ' + project.title + ' no GitHub (abre em nova aba)'"
+                        >
+                          <svg class="projects__cta-mark" width="19" height="19" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                            <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z" />
+                          </svg>
+                          Ver projeto no GitHub
+                          <svg class="projects__cta-arrow" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <line x1="5" y1="12" x2="18" y2="12" />
+                            <polyline points="12 6 18 12 12 18" />
+                          </svg>
+                        </a>
+                      }
+                      @if (project.demo) {
+                        <a [href]="project.demo" class="projects__link projects__link--demo" target="_blank" rel="noopener">
+                          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+                            <polyline points="15 3 21 3 21 9" />
+                            <line x1="10" y1="14" x2="21" y2="3" />
+                          </svg>
+                          Demo
+                        </a>
+                      }
+                    </div>
+                  </div>
+
+                  <div class="projects__telemetry" aria-hidden="true">
+                    <svg viewBox="0 0 200 200" class="projects__flow">
+                      <!-- Trilhas fixas do diagrama -->
+                      <g class="projects__flow-track" fill="none" stroke="var(--gold)" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M100 40 V64" />
+                        <path d="M100 92 V106 H42 V116" />
+                        <path d="M100 92 V106 H158 V116" />
+                        <path d="M42 144 V158 H100 V168" />
+                        <path d="M158 144 V158 H100 V168" />
+                      </g>
+
+                      <!-- Pacotes trafegando (pathLength normaliza o dash em todas) -->
+                      <g class="projects__flow-pulse" fill="none" stroke="var(--gold)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path pathLength="100" d="M100 40 V64" />
+                        <path pathLength="100" d="M100 92 V106 H42 V116" />
+                        <path pathLength="100" d="M100 92 V106 H158 V116" />
+                        <path pathLength="100" d="M42 144 V158 H100 V168" />
+                        <path pathLength="100" d="M158 144 V158 H100 V168" />
+                      </g>
+
+                      <!-- Nós -->
+                      <g class="projects__flow-nodes" stroke="var(--gold)" stroke-width="1.2">
+                        <g class="projects__flow-node">
+                          <rect x="72" y="16" width="56" height="24" rx="5" />
+                          <line x1="82" y1="26" x2="112" y2="26" />
+                          <line x1="82" y1="32" x2="102" y2="32" />
+                        </g>
+                        <g class="projects__flow-node">
+                          <rect x="72" y="68" width="56" height="24" rx="5" />
+                          <line x1="82" y1="78" x2="118" y2="78" />
+                          <line x1="82" y1="84" x2="98" y2="84" />
+                        </g>
+                        <g class="projects__flow-node">
+                          <rect x="14" y="120" width="56" height="24" rx="5" />
+                          <line x1="24" y1="130" x2="54" y2="130" />
+                          <line x1="24" y1="136" x2="44" y2="136" />
+                        </g>
+                        <g class="projects__flow-node">
+                          <rect x="130" y="120" width="56" height="24" rx="5" />
+                          <line x1="140" y1="130" x2="170" y2="130" />
+                          <line x1="140" y1="136" x2="160" y2="136" />
+                        </g>
+                        <g class="projects__flow-node">
+                          <rect x="72" y="168" width="56" height="24" rx="5" />
+                          <line x1="82" y1="178" x2="112" y2="178" />
+                          <line x1="82" y1="184" x2="96" y2="184" />
+                        </g>
+                      </g>
+                    </svg>
+
+                    <div class="projects__bars">
+                      @for (tag of project.tags; track tag; let i = $index) {
+                        <span class="projects__bar" [style.height.%]="30 + ((i * 37) % 70)"></span>
+                      }
+                    </div>
+                  </div>
+                </article>
+              }
+            </div>
+
+            <span class="console__screen-glare" aria-hidden="true"></span>
           </div>
-          <div class="projects__links">
-            @if (project.github) {
-              <a [href]="project.github" class="projects__link" target="_blank" rel="noopener">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/>
-                </svg>
-                GitHub
-              </a>
-            }
-            @if (project.demo) {
-              <a [href]="project.demo" class="projects__link projects__link--demo" target="_blank" rel="noopener">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
-                  <polyline points="15 3 21 3 21 9"/>
-                  <line x1="10" y1="14" x2="21" y2="3"/>
-                </svg>
-                Demo
-              </a>
-            }
+
+          <div class="console__rail">
+            <div class="console__leds">
+              @for (led of leds; track led) {
+                <span class="console__led" [style.animation-delay.ms]="led * 260 + 120"></span>
+              }
+            </div>
+            <button
+              type="button"
+              class="console__arrow"
+              aria-label="Próximo projeto"
+              (click)="next()"
+            >
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <polyline points="9 5 16 12 9 19" />
+              </svg>
+            </button>
           </div>
         </div>
-      }
+
+        <div class="console__dots">
+          @for (project of items; track project.title; let i = $index) {
+            <button
+              type="button"
+              class="console__dot"
+              [class.console__dot--active]="i === index()"
+              [attr.aria-label]="'Ir para ' + project.title"
+              [attr.aria-current]="i === index() ? 'true' : null"
+              (click)="goTo(i)"
+            ></button>
+          }
+        </div>
+      </div>
+
+      <div class="console__deck" aria-hidden="true">
+        <div class="console__module console__module--sliders">
+          <span class="console__slider"></span>
+          <span class="console__slider"></span>
+          <span class="console__slider"></span>
+        </div>
+
+        <div class="console__module console__module--display">
+          <span class="console__display-label">SYSTEM STATUS</span>
+          <span class="console__display-value">ONLINE</span>
+          <span class="console__display-bars"></span>
+        </div>
+
+        <div class="console__module console__module--keys">
+          @for (key of deckKeys; track key) {
+            <span class="console__key" [style.animation-delay.ms]="key * 190"></span>
+          }
+        </div>
+
+        <div class="console__module console__module--display">
+          <span class="console__display-label">PROJECT</span>
+          <span class="console__display-value">{{ index() + 1 }} / {{ items.length }}</span>
+          <span class="console__display-bars"></span>
+        </div>
+
+        <div class="console__module console__module--knobs">
+          <span class="console__knob"></span>
+          <span class="console__knob"></span>
+          <span class="console__knob"></span>
+        </div>
+      </div>
     </div>
   </div>
 </section>

@@ -14,7 +14,9 @@
 
   &__evolution {
     max-width: 800px;
-    margin: 0 auto 40px;
+    /* Mesma folga do .section-banner: a imagem agora fica entre o título e
+       o subtítulo, como nas demais seções. */
+    margin: 4px auto 14px;
     display: flex;
     justify-content: center;
 

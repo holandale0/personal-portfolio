@@ -1,5 +1,4 @@
-import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, computed, signal } from '@angular/core';
 
 export interface Project {
   title: string;
@@ -12,7 +11,6 @@ export interface Project {
 
 @Component({
   selector: 'app-projects',
-  imports: [CommonModule],
   templateUrl: './projects.html',
   styleUrl: './projects.scss'
 })
@@ -48,7 +46,7 @@ export class Projects {
       description: 'Plataforma de simulação e benchmark de concorrência que compara o desempenho de Virtual Threads (Project Loom) vs Platform Threads (pool fixo) em cenários realistas de carga — I/O-bound e CPU-bound.',
       tags: ['Java', 'Quarkus', 'Micrometer + Prometheus', 'Grafana', 'k6', 'Mutiny'],
       github: 'https://github.com/holandale0/quarkus-concurrency-lab'
-    },  
+    },
     {
       title: 'Sistema de Processamento de Pedidos',
       description: 'Sistema de processamento de pedidos baseado em arquitetura orientada a eventos (Event-Driven) utilizando Java 21, Spring Boot e Apache Kafka.',
@@ -62,4 +60,53 @@ export class Projects {
       github: 'https://github.com/holandale0/websocket-java-quarkus-app'
     }
   ];
+
+  /** Índice do projeto exibido na tela do console. */
+  readonly index = signal(0);
+
+  /** 1 = avançou (entra pela direita), -1 = voltou (entra pela esquerda). */
+  readonly direction = signal(1);
+
+  /**
+   * Lista de um item só. O `track index()` no template força o Angular a
+   * recriar o nó a cada troca, disparando a animação de entrada do CSS.
+   */
+  readonly current = computed(() => [this.items[this.index()]]);
+
+  /** Decorativos: LEDs das laterais e teclas da mesa de controle. */
+  readonly leds = [0, 1, 2, 3, 4];
+  readonly deckKeys = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
+
+  private touchStartX = 0;
+
+  next(): void {
+    this.step(1);
+  }
+
+  prev(): void {
+    this.step(-1);
+  }
+
+  goTo(target: number): void {
+    if (target === this.index()) return;
+    this.direction.set(target > this.index() ? 1 : -1);
+    this.index.set(target);
+  }
+
+  onTouchStart(event: TouchEvent): void {
+    this.touchStartX = event.changedTouches[0].clientX;
+  }
+
+  onTouchEnd(event: TouchEvent): void {
+    const deltaX = event.changedTouches[0].clientX - this.touchStartX;
+    if (Math.abs(deltaX) < 45) return;
+    if (deltaX < 0) this.next();
+    else this.prev();
+  }
+
+  private step(delta: number): void {
+    const total = this.items.length;
+    this.direction.set(delta);
+    this.index.set((this.index() + delta + total) % total);
+  }
 }

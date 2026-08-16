@@ -1,48 +1,432 @@
-.projects {
-  &__grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
+/* ==========================================================================
+   Estação de controle / mainframe — moldura, tela CRT e mesa de comando.
+   Tudo em CSS + SVG (sem asset raster): nítido em qualquer DPI e temável
+   pelas custom properties globais (--gold, --accent, --text-*).
+   ========================================================================== */
+
+.console {
+  --metal-hi: #34302b;
+  --metal:    #201d1a;
+  --metal-lo: #100e0c;
+  --crt:      #071018;
+  --crt-deep: #04090e;
+
+  position: relative;
+  outline: none;
+
+  &:focus-visible .console__frame {
+    box-shadow:
+      0 0 0 2px var(--accent),
+      0 28px 60px rgba(0, 0, 0, 0.55);
   }
 
-  &__card {
-    background: var(--bg-card);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-lg);
-    padding: 28px;
+  /* ---------- Moldura externa (a carcaça de metal) ---------- */
+  &__frame {
+    position: relative;
+    padding: 18px 20px 14px;
+    border-radius: 20px;
+    background:
+      linear-gradient(180deg, var(--metal-hi) 0%, var(--metal) 22%, var(--metal-lo) 100%);
+    border: 1px solid rgba(200, 170, 120, 0.14);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 245, 230, 0.07),
+      inset 0 -2px 6px rgba(0, 0, 0, 0.6),
+      0 28px 60px rgba(0, 0, 0, 0.5);
+    transition: box-shadow 0.3s ease;
+
+    /* Ranhuras/painéis da carcaça */
+    &::before {
+      content: '';
+      position: absolute;
+      inset: 6px;
+      border-radius: 14px;
+      border: 1px solid rgba(0, 0, 0, 0.45);
+      pointer-events: none;
+    }
+  }
+
+  /* ---------- Placa "PROJECTS" no topo ---------- */
+  &__brand {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    margin-bottom: 14px;
+  }
+
+  &__brand-rule {
+    flex: 0 1 120px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(200, 170, 120, 0.55), transparent);
+  }
+
+  &__brand-text {
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.42em;
+    text-indent: 0.42em;
+    color: var(--accent);
+    text-shadow: 0 0 12px rgba(200, 170, 120, 0.45);
+  }
+
+  /* ---------- Área entre os painéis laterais ---------- */
+  &__bezel {
+    display: grid;
+    grid-template-columns: 74px 1fr 74px;
+    align-items: stretch;
+    gap: 14px;
+  }
+
+  /* ---------- Painéis laterais com LEDs + setas ---------- */
+  &__rail {
     display: flex;
     flex-direction: column;
-    gap: 14px;
-    position: relative;
-    transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s;
+    align-items: center;
+    justify-content: center;
+    gap: 18px;
+    padding: 16px 0;
+    border-radius: 10px;
+    background: linear-gradient(180deg, rgba(255, 245, 230, 0.05), rgba(0, 0, 0, 0.35));
+    border: 1px solid rgba(0, 0, 0, 0.5);
+    box-shadow: inset 0 1px 0 rgba(255, 245, 230, 0.05);
+  }
+
+  &__leds {
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+  }
+
+  &__led {
+    width: 22px;
+    height: 8px;
+    border-radius: 2px;
+    background: rgba(200, 170, 120, 0.16);
+    box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.7);
+    animation: console-led 3.2s ease-in-out infinite;
+  }
+
+  &__arrow {
+    width: 46px;
+    height: 46px;
+    display: grid;
+    place-items: center;
+    border-radius: 8px;
+    background: linear-gradient(180deg, rgba(200, 170, 120, 0.12), rgba(200, 170, 120, 0.03));
+    border: 1px solid rgba(200, 170, 120, 0.28);
+    color: var(--accent);
+    transition: background 0.2s ease, border-color 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
+
+    svg {
+      width: 24px;
+      height: 24px;
+      filter: drop-shadow(0 0 6px rgba(200, 170, 120, 0.5));
+    }
 
     &:hover {
-      border-color: rgba(200, 170, 120, 0.38);
-      transform: translateY(-4px);
-      box-shadow: 0 16px 36px rgba(0, 0, 0, 0.3);
+      background: rgba(200, 170, 120, 0.22);
+      border-color: var(--accent);
+      box-shadow: 0 0 18px rgba(200, 170, 120, 0.3);
     }
 
-    &--highlight {
-      border-color: rgba(200, 170, 120, 0.2);
-      background: linear-gradient(160deg, var(--bg-card) 0%, rgba(200, 170, 120, 0.04) 100%);
+    &:active {
+      transform: scale(0.94);
     }
+
+    &:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+    }
+  }
+
+  /* ---------- A tela ---------- */
+  &__screen {
+    position: relative;
+    overflow: hidden;
+    border-radius: 12px;
+    padding: 26px 30px;
+    /* Altura fixa: evita que a tela "pule" ao trocar de projeto. */
+    min-height: 452px;
+    display: flex;
+    background:
+      radial-gradient(120% 90% at 50% 0%, #0c1b26 0%, var(--crt) 55%, var(--crt-deep) 100%);
+    border: 1px solid rgba(200, 170, 120, 0.22);
+    box-shadow:
+      inset 0 0 60px rgba(0, 0, 0, 0.75),
+      inset 0 0 0 1px rgba(200, 170, 120, 0.06),
+      0 0 34px rgba(120, 180, 220, 0.06);
+  }
+
+  &__screen-grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(200, 170, 120, 0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(200, 170, 120, 0.05) 1px, transparent 1px);
+    background-size: 42px 42px;
+    pointer-events: none;
+  }
+
+  &__screen-scan {
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      180deg,
+      rgba(0, 0, 0, 0.16) 0px,
+      rgba(0, 0, 0, 0.16) 1px,
+      transparent 1px,
+      transparent 3px
+    );
+    pointer-events: none;
+  }
+
+  /* Reflexo diagonal no vidro + vinheta */
+  &__screen-glare {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background:
+      linear-gradient(105deg, rgba(255, 255, 255, 0.05) 0%, transparent 32%),
+      radial-gradient(115% 85% at 50% 45%, transparent 55%, rgba(0, 0, 0, 0.55) 100%);
+  }
+
+  /* Cantos de HUD */
+  &__corner {
+    position: absolute;
+    width: 26px;
+    height: 26px;
+    border: 1px solid rgba(200, 170, 120, 0.5);
+    pointer-events: none;
+
+    &--tl { top: 12px;    left: 14px;  border-right: 0; border-bottom: 0; }
+    &--tr { top: 12px;    right: 14px; border-left: 0;  border-bottom: 0; }
+    &--bl { bottom: 12px; left: 14px;  border-right: 0; border-top: 0; }
+    &--br { bottom: 12px; right: 14px; border-left: 0;  border-top: 0; }
+  }
+
+  &__stage {
+    position: relative;
+    z-index: 1;
+    flex: 1;
+    display: flex;
+  }
+
+  /* ---------- Paginação ---------- */
+  &__dots {
+    display: flex;
+    justify-content: center;
+    gap: 9px;
+    margin-top: 14px;
+  }
+
+  &__dot {
+    width: 9px;
+    height: 9px;
+    padding: 0;
+    border-radius: 50%;
+    background: rgba(200, 170, 120, 0.2);
+    box-shadow: inset 0 0 2px rgba(0, 0, 0, 0.8);
+    transition: background 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
+
+    &:hover { background: rgba(200, 170, 120, 0.45); }
+
+    &:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 3px;
+    }
+
+    &--active {
+      background: var(--accent);
+      transform: scale(1.15);
+      box-shadow: 0 0 10px rgba(200, 170, 120, 0.75);
+    }
+  }
+
+  /* ---------- Mesa de comando (base) ---------- */
+  &__deck {
+    display: grid;
+    grid-template-columns: 1fr 1.1fr 1.4fr 1.1fr 1fr;
+    gap: 10px;
+    margin: 12px 26px 0;
+    padding: 12px 14px;
+    border-radius: 0 0 16px 16px;
+    background: linear-gradient(180deg, var(--metal) 0%, var(--metal-lo) 100%);
+    border: 1px solid rgba(0, 0, 0, 0.6);
+    border-top: 0;
+    box-shadow:
+      inset 0 1px 0 rgba(255, 245, 230, 0.05),
+      0 18px 34px rgba(0, 0, 0, 0.45);
+  }
+
+  &__module {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-height: 58px;
+    padding: 8px 10px;
+    border-radius: 6px;
+    background: linear-gradient(180deg, rgba(255, 245, 230, 0.045), rgba(0, 0, 0, 0.3));
+    border: 1px solid rgba(0, 0, 0, 0.5);
+    box-shadow: inset 0 1px 0 rgba(255, 245, 230, 0.04);
+
+    &--display {
+      flex-direction: column;
+      gap: 2px;
+      background: #060d0a;
+      border-color: rgba(120, 220, 150, 0.16);
+      box-shadow: inset 0 0 16px rgba(0, 0, 0, 0.85);
+    }
+
+    &--keys {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 6px;
+    }
+  }
+
+  &__slider {
+    position: relative;
+    width: 8px;
+    height: 34px;
+    border-radius: 3px;
+    background: #0a0908;
+    box-shadow: inset 0 0 4px rgba(0, 0, 0, 0.9);
+
+    &::after {
+      content: '';
+      position: absolute;
+      left: -3px;
+      width: 14px;
+      height: 8px;
+      border-radius: 2px;
+      background: linear-gradient(180deg, #4c453d, #241f1b);
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.7);
+      top: 30%;
+    }
+
+    &:nth-child(2)::after { top: 55%; }
+    &:nth-child(3)::after { top: 12%; }
+  }
+
+  &__display-label {
+    font-family: 'Courier New', monospace;
+    font-size: 0.5rem;
+    letter-spacing: 0.16em;
+    color: rgba(120, 220, 150, 0.55);
+  }
+
+  &__display-value {
+    font-family: 'Courier New', monospace;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    color: #7fe3a0;
+    text-shadow: 0 0 8px rgba(120, 220, 150, 0.6);
+  }
+
+  &__display-bars {
+    width: 100%;
+    height: 4px;
+    border-radius: 2px;
+    background: repeating-linear-gradient(
+      90deg,
+      rgba(120, 220, 150, 0.5) 0 4px,
+      transparent 4px 8px
+    );
+    opacity: 0.5;
+  }
+
+  &__key {
+    height: 12px;
+    border-radius: 2px;
+    background: linear-gradient(180deg, #47403a, #201c19);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(255, 245, 230, 0.06);
+    animation: console-key 4.6s ease-in-out infinite;
+  }
+
+  &__knob {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 30%, #514a42, #1c1815 70%);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(255, 245, 230, 0.08);
+    position: relative;
+
+    &::after {
+      content: '';
+      position: absolute;
+      top: 3px;
+      left: 50%;
+      width: 2px;
+      height: 7px;
+      border-radius: 1px;
+      background: var(--gold-dim);
+      transform: translateX(-50%);
+    }
+
+    &:nth-child(2)::after { transform: translateX(-50%) rotate(120deg); transform-origin: 50% 8px; }
+    &:nth-child(3)::after { transform: translateX(-50%) rotate(-95deg); transform-origin: 50% 8px; }
+  }
+}
+
+@keyframes console-led {
+  0%, 100% { background: rgba(200, 170, 120, 0.16); box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.7); }
+  50%      { background: var(--gold); box-shadow: 0 0 10px rgba(200, 170, 120, 0.7); }
+}
+
+@keyframes console-key {
+  0%, 92%, 100% { background: linear-gradient(180deg, #47403a, #201c19); }
+  96%           { background: linear-gradient(180deg, var(--gold), #8a713f); }
+}
+
+/* ==========================================================================
+   Card do projeto (o conteúdo exibido na tela)
+   ========================================================================== */
+
+.projects {
+  &__card {
+    flex: 1;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 250px;
+    align-items: center;
+    gap: 34px;
+    animation: card-in 0.42s cubic-bezier(0.22, 0.85, 0.3, 1) both;
+
+    &--from-right { --card-from: 46px; }
+    &--from-left  { --card-from: -46px; }
+  }
+
+  &__info {
+    display: flex;
+    flex-direction: column;
+    gap: 13px;
+    min-width: 0;
   }
 
   &__featured-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
     font-size: 0.66rem;
     font-weight: 700;
     color: var(--accent);
     text-transform: uppercase;
-    letter-spacing: 0.08em;
-    margin-bottom: -4px;
+    letter-spacing: 0.12em;
+
+    svg {
+      width: 12px;
+      height: 12px;
+      filter: drop-shadow(0 0 5px rgba(200, 170, 120, 0.6));
+    }
   }
 
   &__card-icon {
-    width: 48px;
-    height: 48px;
+    width: 46px;
+    height: 46px;
     border-radius: var(--radius);
     background: rgba(200, 170, 120, 0.07);
-    border: 1px solid rgba(200, 170, 120, 0.14);
+    border: 1px solid rgba(200, 170, 120, 0.22);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -50,16 +434,16 @@
   }
 
   &__title {
-    font-size: 1rem;
+    font-size: 1.45rem;
     font-weight: 700;
     letter-spacing: -0.01em;
   }
 
   &__description {
-    font-size: 0.875rem;
+    font-size: 0.9rem;
     color: var(--text-secondary);
-    line-height: 1.7;
-    flex: 1;
+    line-height: 1.75;
+    max-width: 60ch;
   }
 
   &__tags {
@@ -73,45 +457,237 @@
     font-weight: 600;
     padding: 3px 10px;
     border-radius: 4px;
-    background: rgba(255, 255, 255, 0.04);
+    background: rgba(200, 170, 120, 0.06);
     color: var(--text-secondary);
     border: 1px solid var(--border);
   }
 
   &__links {
     display: flex;
-    gap: 16px;
-    margin-top: 4px;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 14px;
+    margin-top: 8px;
   }
 
+  /* CTA principal: é por aqui que se chega ao projeto de verdade. Dourado
+     sólido sobre a tela escura — o único elemento preenchido do card. */
+  &__cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    padding: 12px 22px;
+    border-radius: 8px;
+    background: linear-gradient(180deg, var(--accent) 0%, var(--accent-hover) 100%);
+    color: #17110b;
+    font-size: 0.88rem;
+    font-weight: 700;
+    letter-spacing: 0.01em;
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.3),
+      0 6px 18px rgba(200, 170, 120, 0.26);
+    animation: cta-attention 3.4s ease-in-out infinite;
+    transition: transform 0.18s ease, box-shadow 0.25s ease, filter 0.2s ease;
+
+    &:hover {
+      transform: translateY(-2px);
+      filter: brightness(1.08);
+      box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.35),
+        0 12px 28px rgba(200, 170, 120, 0.5);
+    }
+
+    &:active {
+      transform: translateY(0);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--text-primary);
+      outline-offset: 3px;
+    }
+
+    &:hover .projects__cta-arrow {
+      transform: translateX(4px);
+    }
+  }
+
+  &__cta-arrow {
+    transition: transform 0.2s ease;
+  }
+
+  /* Secundário: presente, mas claramente subordinado ao CTA. */
   &__link {
     display: inline-flex;
     align-items: center;
-    gap: 5px;
+    gap: 6px;
+    padding: 10px 16px;
+    border-radius: 8px;
+    border: 1px solid rgba(200, 170, 120, 0.3);
     font-size: 0.82rem;
     font-weight: 600;
     color: var(--text-secondary);
-    transition: color 0.2s;
+    transition: color 0.2s, border-color 0.2s, background 0.2s;
 
-    &:hover { color: var(--accent); }
+    &:hover {
+      color: var(--accent);
+      border-color: var(--accent);
+      background: rgba(200, 170, 120, 0.08);
+    }
 
     &--demo {
       color: var(--accent-secondary);
-
-      &:hover { opacity: 0.8; }
     }
   }
-}
 
-@media (max-width: 1024px) {
-  .projects__grid {
-    grid-template-columns: 1fr 1fr;
+  /* ---------- Painel de telemetria (radar + barras) ---------- */
+  &__telemetry {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 16px;
+    border-radius: 10px;
+    background: rgba(200, 170, 120, 0.02);
+    border: 1px solid rgba(200, 170, 120, 0.14);
+  }
+
+  /* Diagrama de fluxo ilustrativo (não representa o projeto exibido) */
+  &__flow {
+    width: 100%;
+    height: auto;
+  }
+
+  &__flow-track {
+    stroke-opacity: 0.22;
+  }
+
+  /* Traço curto correndo por cada trilha; pathLength=100 uniformiza a
+     velocidade independente do comprimento real de cada caminho. */
+  &__flow-pulse path {
+    stroke-dasharray: 14 86;
+    filter: drop-shadow(0 0 4px rgba(200, 170, 120, 0.75));
+    animation: flow-packet 2.6s linear infinite;
+
+    &:nth-child(1) { animation-delay: 0s; }
+    &:nth-child(2) { animation-delay: 0.75s; }
+    &:nth-child(3) { animation-delay: 1.05s; }
+    &:nth-child(4) { animation-delay: 1.7s; }
+    &:nth-child(5) { animation-delay: 1.95s; }
+  }
+
+  &__flow-node {
+    fill: rgba(200, 170, 120, 0.05);
+    animation: flow-node 2.6s ease-in-out infinite;
+
+    line { stroke-opacity: 0.4; stroke-linecap: round; }
+
+    &:nth-child(1) { animation-delay: 0s; }
+    &:nth-child(2) { animation-delay: 0.65s; }
+    &:nth-child(3) { animation-delay: 1.3s; }
+    &:nth-child(4) { animation-delay: 1.45s; }
+    &:nth-child(5) { animation-delay: 2.1s; }
+  }
+
+  &__bars {
+    display: flex;
+    align-items: flex-end;
+    gap: 3px;
+    height: 38px;
+  }
+
+  &__bar {
+    flex: 1;
+    min-width: 3px;
+    border-radius: 1px;
+    background: linear-gradient(180deg, var(--gold), rgba(200, 170, 120, 0.15));
+    opacity: 0.7;
   }
 }
 
-@media (max-width: 600px) {
-  .projects__grid {
-    grid-template-columns: 1fr;
-    gap: 16px;
+@keyframes card-in {
+  from { opacity: 0; transform: translateX(var(--card-from, 40px)); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes flow-packet {
+  from { stroke-dashoffset: 100; }
+  to   { stroke-dashoffset: 0; }
+}
+
+@keyframes flow-node {
+  0%, 100% { stroke-opacity: 0.35; }
+  45%      { stroke-opacity: 1; }
+}
+
+/* Respiro discreto no CTA: chama o olho sem virar banner piscante. */
+@keyframes cta-attention {
+  0%, 100% {
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.3),
+      0 6px 18px rgba(200, 170, 120, 0.26);
+  }
+  50% {
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.3),
+      0 6px 22px rgba(200, 170, 120, 0.52);
+  }
+}
+
+/* ==========================================================================
+   Responsivo
+   ========================================================================== */
+
+@media (max-width: 900px) {
+  .console {
+    &__frame { padding: 14px 12px 12px; border-radius: 16px; }
+
+    &__bezel {
+      grid-template-columns: 54px 1fr 54px;
+      gap: 8px;
+    }
+
+    &__rail { gap: 12px; }
+    &__leds { display: none; }
+
+    &__arrow {
+      width: 40px;
+      height: 40px;
+
+      svg { width: 20px; height: 20px; }
+    }
+
+    &__screen {
+      padding: 20px 18px;
+      min-height: 440px;
+    }
+
+    &__corner { width: 18px; height: 18px; }
+    &__deck { display: none; }
+  }
+
+  .projects {
+    &__card { grid-template-columns: minmax(0, 1fr); gap: 18px; }
+    &__telemetry { display: none; }
+    &__title { font-size: 1.2rem; }
+    &__description { font-size: 0.85rem; line-height: 1.65; }
+  }
+}
+
+@media (max-width: 480px) {
+  .console__screen {
+    padding: 16px 14px;
+    min-height: 470px;
+  }
+
+  .console__brand-text { font-size: 0.6rem; letter-spacing: 0.3em; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .console__led,
+  .console__key,
+  .projects__flow-pulse path,
+  .projects__flow-node,
+  .projects__cta,
+  .projects__card {
+    animation: none;
   }
 }

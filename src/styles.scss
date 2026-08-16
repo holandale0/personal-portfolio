@@ -97,6 +97,42 @@ img, video {
   line-height: 1.7;
 }
 
+/* Banner ilustrativo abaixo do título da seção.
+   A vinheta é feita com `mask-image`, não pintada na imagem: as bordas
+   desvanecem para transparente e quem aparece é o fundo real da seção.
+   Assim o encontro fica exato em qualquer seção — inclusive nas que usam
+   --bg-primary e nas que usam --bg-secondary — e continua exato se a
+   paleta mudar. */
+/* Mesmas medidas do bloco `evolution` da Trajetória: caixa de 800px com a
+   imagem ocupando 35% dela (~280px), centralizada. */
+.section-banner {
+  max-width: 800px;
+  /* Fica entre o título e o subtítulo: folga curta dos dois lados para o
+     conjunto ler como um bloco único de cabeçalho. */
+  margin: 4px auto 14px;
+  display: flex;
+  justify-content: center;
+
+  picture {
+    display: block;
+    width: 35%;
+  }
+
+  img {
+    width: 100%;
+    height: auto;
+    display: block;
+    -webkit-mask-image:
+      linear-gradient(to right,  transparent 0%, #000 13%, #000 87%, transparent 100%),
+      linear-gradient(to bottom, transparent 0%, #000 16%, #000 84%, transparent 100%);
+    mask-image:
+      linear-gradient(to right,  transparent 0%, #000 13%, #000 87%, transparent 100%),
+      linear-gradient(to bottom, transparent 0%, #000 16%, #000 84%, transparent 100%);
+    -webkit-mask-composite: source-in;
+    mask-composite: intersect;
+  }
+}
+
 .btn {
   display: inline-flex;
   align-items: center;
