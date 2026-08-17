@@ -29,7 +29,7 @@
         </div>
 
         <div class="console__bezel">
-          <div class="console__rail">
+          <div class="console__rail console__rail--prev">
             <button
               type="button"
               class="console__arrow"
@@ -179,7 +179,7 @@
             <span class="console__screen-glare" aria-hidden="true"></span>
           </div>
 
-          <div class="console__rail">
+          <div class="console__rail console__rail--next">
             <button
               type="button"
               class="console__arrow"
@@ -191,19 +191,19 @@
               </svg>
             </button>
           </div>
-        </div>
 
-        <div class="console__dots">
-          @for (project of items; track project.title; let i = $index) {
-            <button
-              type="button"
-              class="console__dot"
-              [class.console__dot--active]="i === index()"
-              [attr.aria-label]="'Ir para ' + project.title"
-              [attr.aria-current]="i === index() ? 'true' : null"
-              (click)="goTo(i)"
-            ></button>
-          }
+          <div class="console__dots">
+            @for (project of items; track project.title; let i = $index) {
+              <button
+                type="button"
+                class="console__dot"
+                [class.console__dot--active]="i === index()"
+                [attr.aria-label]="'Ir para ' + project.title"
+                [attr.aria-current]="i === index() ? 'true' : null"
+                (click)="goTo(i)"
+              ></button>
+            }
+          </div>
         </div>
       </div>
 

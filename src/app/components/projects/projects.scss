@@ -73,9 +73,17 @@
   &__bezel {
     display: grid;
     grid-template-columns: 74px 1fr 74px;
+    grid-template-areas:
+      "prev screen next"
+      "dots dots   dots";
     align-items: stretch;
     gap: 14px;
   }
+
+  &__rail--prev { grid-area: prev; }
+  &__rail--next { grid-area: next; }
+  &__screen     { grid-area: screen; }
+  &__dots       { grid-area: dots; }
 
   /* ---------- Painéis laterais com LEDs + setas ---------- */
   &__rail {
@@ -199,9 +207,11 @@
   /* ---------- Paginação ---------- */
   &__dots {
     display: flex;
+    align-items: center;
     justify-content: center;
     gap: 9px;
-    margin-top: 14px;
+    /* O espaçamento vertical vem do `gap` do bezel — os dots agora são
+       célula do mesmo grid que a tela e as setas. */
   }
 
   &__dot {
@@ -494,8 +504,6 @@
       gap: 8px;
     }
 
-    &__rail { gap: 12px; }
-
     &__arrow {
       width: 40px;
       height: 40px;
@@ -519,13 +527,61 @@
   }
 }
 
+/* Abaixo disso os painéis laterais custam ~120px de largura para exibir só
+   uma seta cada. As setas descem para a barra de controles junto dos dots e
+   a tela passa a ocupar a largura inteira — é o que evita o título e o CTA
+   quebrando em duas linhas. */
+@media (max-width: 760px) {
+  .console {
+    &__bezel {
+      grid-template-columns: auto 1fr auto;
+      grid-template-areas:
+        "screen screen screen"
+        "prev   dots   next";
+      align-items: center;
+      gap: 12px 10px;
+    }
+
+    /* Sem a moldura de painel: no rodapé o botão se basta. */
+    &__rail {
+      padding: 0;
+      background: none;
+      border: 0;
+      box-shadow: none;
+    }
+
+    &__screen {
+      padding: 20px 18px;
+      min-height: 0;
+    }
+
+    &__dots {
+      margin-top: 0;
+      gap: 7px;
+    }
+
+    &__brand { margin-bottom: 10px; }
+  }
+}
+
 @media (max-width: 480px) {
-  .console__screen {
-    padding: 16px 14px;
-    min-height: 470px;
+  .console {
+    &__frame { padding: 12px 10px 10px; }
+    &__screen { padding: 18px 15px; }
+    &__brand-text { font-size: 0.6rem; letter-spacing: 0.3em; }
+    &__corner { width: 15px; height: 15px; }
   }
 
-  .console__brand-text { font-size: 0.6rem; letter-spacing: 0.3em; }
+  .projects {
+    &__title { font-size: 1.12rem; }
+    &__cta {
+      width: 100%;
+      justify-content: center;
+      padding: 13px 16px;
+    }
+    &__links { gap: 10px; }
+    &__link { flex: 1; justify-content: center; }
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
