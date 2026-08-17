@@ -14,9 +14,9 @@ export class Navbar {
   navLinks = [
     { label: 'Início', anchor: 'hero' },
     { label: 'Sobre', anchor: 'about' },
+    { label: 'Projetos', anchor: 'projects' },
     { label: 'Skills', anchor: 'skills' },
     { label: 'Experiência', anchor: 'experience' },
-    { label: 'Projetos', anchor: 'projects' },
   ];
 
   @HostListener('window:scroll')

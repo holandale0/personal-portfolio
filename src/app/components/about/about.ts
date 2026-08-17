@@ -7,11 +7,4 @@ import { CommonModule } from '@angular/common';
   templateUrl: './about.html',
   styleUrl: './about.scss'
 })
-export class About {
-  stats = [
-    { value: '10+', label: 'Anos de Experiência' },
-    { value: '4',   label: 'Empresas' },
-    { value: '20+', label: 'Tecnologias' },
-    { value: '100%', label: 'Comprometimento' },
-  ];
-}
+export class About {}

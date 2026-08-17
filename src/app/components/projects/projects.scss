@@ -91,21 +91,6 @@
     box-shadow: inset 0 1px 0 rgba(255, 245, 230, 0.05);
   }
 
-  &__leds {
-    display: flex;
-    flex-direction: column;
-    gap: 9px;
-  }
-
-  &__led {
-    width: 22px;
-    height: 8px;
-    border-radius: 2px;
-    background: rgba(200, 170, 120, 0.16);
-    box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.7);
-    animation: console-led 3.2s ease-in-out infinite;
-  }
-
   &__arrow {
     width: 46px;
     height: 46px;
@@ -242,142 +227,6 @@
     }
   }
 
-  /* ---------- Mesa de comando (base) ---------- */
-  &__deck {
-    display: grid;
-    grid-template-columns: 1fr 1.1fr 1.4fr 1.1fr 1fr;
-    gap: 10px;
-    margin: 12px 26px 0;
-    padding: 12px 14px;
-    border-radius: 0 0 16px 16px;
-    background: linear-gradient(180deg, var(--metal) 0%, var(--metal-lo) 100%);
-    border: 1px solid rgba(0, 0, 0, 0.6);
-    border-top: 0;
-    box-shadow:
-      inset 0 1px 0 rgba(255, 245, 230, 0.05),
-      0 18px 34px rgba(0, 0, 0, 0.45);
-  }
-
-  &__module {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    min-height: 58px;
-    padding: 8px 10px;
-    border-radius: 6px;
-    background: linear-gradient(180deg, rgba(255, 245, 230, 0.045), rgba(0, 0, 0, 0.3));
-    border: 1px solid rgba(0, 0, 0, 0.5);
-    box-shadow: inset 0 1px 0 rgba(255, 245, 230, 0.04);
-
-    &--display {
-      flex-direction: column;
-      gap: 2px;
-      background: #060d0a;
-      border-color: rgba(120, 220, 150, 0.16);
-      box-shadow: inset 0 0 16px rgba(0, 0, 0, 0.85);
-    }
-
-    &--keys {
-      display: grid;
-      grid-template-columns: repeat(6, 1fr);
-      gap: 6px;
-    }
-  }
-
-  &__slider {
-    position: relative;
-    width: 8px;
-    height: 34px;
-    border-radius: 3px;
-    background: #0a0908;
-    box-shadow: inset 0 0 4px rgba(0, 0, 0, 0.9);
-
-    &::after {
-      content: '';
-      position: absolute;
-      left: -3px;
-      width: 14px;
-      height: 8px;
-      border-radius: 2px;
-      background: linear-gradient(180deg, #4c453d, #241f1b);
-      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.7);
-      top: 30%;
-    }
-
-    &:nth-child(2)::after { top: 55%; }
-    &:nth-child(3)::after { top: 12%; }
-  }
-
-  &__display-label {
-    font-family: 'Courier New', monospace;
-    font-size: 0.5rem;
-    letter-spacing: 0.16em;
-    color: rgba(120, 220, 150, 0.55);
-  }
-
-  &__display-value {
-    font-family: 'Courier New', monospace;
-    font-size: 0.72rem;
-    font-weight: 700;
-    letter-spacing: 0.1em;
-    color: #7fe3a0;
-    text-shadow: 0 0 8px rgba(120, 220, 150, 0.6);
-  }
-
-  &__display-bars {
-    width: 100%;
-    height: 4px;
-    border-radius: 2px;
-    background: repeating-linear-gradient(
-      90deg,
-      rgba(120, 220, 150, 0.5) 0 4px,
-      transparent 4px 8px
-    );
-    opacity: 0.5;
-  }
-
-  &__key {
-    height: 12px;
-    border-radius: 2px;
-    background: linear-gradient(180deg, #47403a, #201c19);
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(255, 245, 230, 0.06);
-    animation: console-key 4.6s ease-in-out infinite;
-  }
-
-  &__knob {
-    width: 22px;
-    height: 22px;
-    border-radius: 50%;
-    background: radial-gradient(circle at 35% 30%, #514a42, #1c1815 70%);
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(255, 245, 230, 0.08);
-    position: relative;
-
-    &::after {
-      content: '';
-      position: absolute;
-      top: 3px;
-      left: 50%;
-      width: 2px;
-      height: 7px;
-      border-radius: 1px;
-      background: var(--gold-dim);
-      transform: translateX(-50%);
-    }
-
-    &:nth-child(2)::after { transform: translateX(-50%) rotate(120deg); transform-origin: 50% 8px; }
-    &:nth-child(3)::after { transform: translateX(-50%) rotate(-95deg); transform-origin: 50% 8px; }
-  }
-}
-
-@keyframes console-led {
-  0%, 100% { background: rgba(200, 170, 120, 0.16); box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.7); }
-  50%      { background: var(--gold); box-shadow: 0 0 10px rgba(200, 170, 120, 0.7); }
-}
-
-@keyframes console-key {
-  0%, 92%, 100% { background: linear-gradient(180deg, #47403a, #201c19); }
-  96%           { background: linear-gradient(180deg, var(--gold), #8a713f); }
 }
 
 /* ==========================================================================
@@ -646,7 +495,6 @@
     }
 
     &__rail { gap: 12px; }
-    &__leds { display: none; }
 
     &__arrow {
       width: 40px;
@@ -661,7 +509,6 @@
     }
 
     &__corner { width: 18px; height: 18px; }
-    &__deck { display: none; }
   }
 
   .projects {
@@ -682,8 +529,6 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .console__led,
-  .console__key,
   .projects__flow-pulse path,
   .projects__flow-node,
   .projects__cta,

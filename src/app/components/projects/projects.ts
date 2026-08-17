@@ -73,10 +73,6 @@ export class Projects {
    */
   readonly current = computed(() => [this.items[this.index()]]);
 
-  /** Decorativos: LEDs das laterais e teclas da mesa de controle. */
-  readonly leds = [0, 1, 2, 3, 4];
-  readonly deckKeys = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
-
   private touchStartX = 0;
 
   next(): void {

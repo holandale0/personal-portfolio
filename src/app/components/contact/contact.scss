@@ -76,13 +76,17 @@
     margin-top: 2px;
   }
 
+  /* A foto acompanha a altura da coluna de links: `align-self: stretch` faz
+     o bloco ocupar a linha inteira do grid e a imagem preenche com `cover`.
+     Assim topo e base ficam alinhados com o primeiro e o último contato
+     (Discord) em qualquer largura, sem depender de um max-width calculado. */
   &__photo {
     display: flex;
-    align-items: center;
-    justify-content: center;
+    align-self: stretch;
 
     picture {
       display: block;
+      width: 100%;
       border-radius: var(--radius-lg);
       overflow: hidden;
       border: 1px solid var(--border);
@@ -91,8 +95,7 @@
 
     img {
       width: 100%;
-      max-width: 400px;
-      height: auto;
+      height: 100%;
       display: block;
       object-fit: cover;
     }
@@ -114,6 +117,21 @@
   .contact__grid {
     grid-template-columns: 1fr;
     gap: 40px;
+  }
+
+  /* Em coluna única não há vizinho para acompanhar: a foto volta a ter
+     altura natural, senão o `height: 100%` colapsaria. */
+  .contact__photo {
+    align-self: auto;
+    justify-content: center;
+
+    picture {
+      max-width: 440px;
+    }
+
+    img {
+      height: auto;
+    }
   }
 
   .contact__form-wrapper {

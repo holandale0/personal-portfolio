@@ -30,11 +30,6 @@
 
         <div class="console__bezel">
           <div class="console__rail">
-            <div class="console__leds">
-              @for (led of leds; track led) {
-                <span class="console__led" [style.animation-delay.ms]="led * 320"></span>
-              }
-            </div>
             <button
               type="button"
               class="console__arrow"
@@ -185,11 +180,6 @@
           </div>
 
           <div class="console__rail">
-            <div class="console__leds">
-              @for (led of leds; track led) {
-                <span class="console__led" [style.animation-delay.ms]="led * 260 + 120"></span>
-              }
-            </div>
             <button
               type="button"
               class="console__arrow"
@@ -217,37 +207,6 @@
         </div>
       </div>
 
-      <div class="console__deck" aria-hidden="true">
-        <div class="console__module console__module--sliders">
-          <span class="console__slider"></span>
-          <span class="console__slider"></span>
-          <span class="console__slider"></span>
-        </div>
-
-        <div class="console__module console__module--display">
-          <span class="console__display-label">SYSTEM STATUS</span>
-          <span class="console__display-value">ONLINE</span>
-          <span class="console__display-bars"></span>
-        </div>
-
-        <div class="console__module console__module--keys">
-          @for (key of deckKeys; track key) {
-            <span class="console__key" [style.animation-delay.ms]="key * 190"></span>
-          }
-        </div>
-
-        <div class="console__module console__module--display">
-          <span class="console__display-label">PROJECT</span>
-          <span class="console__display-value">{{ index() + 1 }} / {{ items.length }}</span>
-          <span class="console__display-bars"></span>
-        </div>
-
-        <div class="console__module console__module--knobs">
-          <span class="console__knob"></span>
-          <span class="console__knob"></span>
-          <span class="console__knob"></span>
-        </div>
-      </div>
     </div>
   </div>
 </section>
