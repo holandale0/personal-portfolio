@@ -1,6 +1,6 @@
 import {
-  AfterViewInit, Component, ElementRef, NgZone,
-  OnDestroy, ViewChild, inject, signal,
+  AfterViewInit, Component, ElementRef, HostListener, NgZone,
+  OnDestroy, ViewChild, computed, inject, signal,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ExperienceCrawl } from './experience-crawl/experience-crawl';
@@ -12,10 +12,8 @@ export interface ExperienceItem {
   description: string;
   tags: string[];
   current?: boolean;
-  imageBefore?: string;
-  imageBeforeCard?: boolean;
-  imageAfter?: string;
-  imageAfterCard?: boolean;
+  /** Nome do arquivo em assets/logos, sem extensão. */
+  logo: string;
 }
 
 interface Vec { x: number; y: number; }
@@ -45,7 +43,78 @@ export class Experience implements AfterViewInit, OnDestroy {
 
   introText(i: number): string  { return INTRO_TEXTS[i] ?? ''; }
   roman(i: number): string      { return ROMAN[i] ?? String(i + 1); }
-  webpOf(path: string): string  { return path.replace('.png', '.webp'); }
+
+  // ── carrossel vertical ────────────────────────────────────────────────────
+
+  /**
+   * Ordem de exibição: mais recente primeiro, para que a empresa atual
+   * (Basis) seja o item inicial. Guarda os índices ORIGINAIS de `items`,
+   * porque `roman()` e `introText()` dependem da ordem cronológica.
+   */
+  readonly order = computed(() => this.items.map((_, i) => i).reverse());
+
+  /** Posição dentro de `order()`, não índice de `items`. */
+  readonly cursor = signal(0);
+
+  readonly currentIndex = computed(() => this.order()[this.cursor()]);
+
+  private readonly windowWidth = signal(
+    typeof window === 'undefined' ? 1200 : window.innerWidth
+  );
+
+  /**
+   * Alturas em px vivem aqui (e não no SCSS) porque o deslocamento da trilha
+   * é calculado a partir delas — mantê-las em dois lugares dessincronizaria
+   * o card ativo do centro do visor.
+   */
+  readonly metrics = computed(() => {
+    const w = this.windowWidth();
+    if (w <= 600) return { slide: 440, gap: 12, peek: 30 };
+    if (w <= 900) return { slide: 390, gap: 12, peek: 38 };
+    return { slide: 330, gap: 14, peek: 52 };
+  });
+
+  readonly viewportHeight = computed(() => {
+    const m = this.metrics();
+    return m.slide + (m.peek + m.gap) * 2;
+  });
+
+  readonly trackOffset = computed(() => {
+    const m = this.metrics();
+    return (this.viewportHeight() - m.slide) / 2 - this.cursor() * (m.slide + m.gap);
+  });
+
+  private touchStartY = 0;
+
+  @HostListener('window:resize')
+  onWindowResize(): void {
+    this.windowWidth.set(window.innerWidth);
+  }
+
+  prev(): void {
+    this.cursor.update(c => Math.max(0, c - 1));
+  }
+
+  next(): void {
+    this.cursor.update(c => Math.min(this.items.length - 1, c + 1));
+  }
+
+  /** Clique no card central abre o crawl; nos vizinhos, apenas navega até ele. */
+  onSlideClick(position: number): void {
+    if (position === this.cursor()) this.activeIndex.set(this.order()[position]);
+    else this.cursor.set(position);
+  }
+
+  onTouchStart(event: TouchEvent): void {
+    this.touchStartY = event.changedTouches[0].clientY;
+  }
+
+  onTouchEnd(event: TouchEvent): void {
+    const deltaY = event.changedTouches[0].clientY - this.touchStartY;
+    if (Math.abs(deltaY) < 45) return;
+    if (deltaY < 0) this.next();
+    else this.prev();
+  }
 
   // ── sand particle system ──────────────────────────────────────────────────
 
@@ -207,6 +276,7 @@ export class Experience implements AfterViewInit, OnDestroy {
     {
       role: 'Desenvolvedor Java',
       company: 'Embrapa',
+      logo: 'embrapa',
       period: 'Nov 2012 — Jul 2016',
       description: 'Projeto de pesquisa científica para migração de sistema de manejo florestal de Delphi para Java Swing. Persistência com Hibernate e PostgreSQL, geração de relatórios com JasperReports. Sistema utilizado por engenheiros florestais para planejamento de colheita sustentável.',
       tags: ['Java', 'Hibernate', 'PostgreSQL', 'JasperReports'],
@@ -214,6 +284,7 @@ export class Experience implements AfterViewInit, OnDestroy {
     {
       role: 'Desenvolvedor Back-End Java',
       company: 'Opah IT Consulting',
+      logo: 'opah',
       period: 'Abr 2018 — Out 2023',
       description: 'Mais de 5 anos em projetos para grandes clientes: microserviços com Quarkus e Apache Kafka para Casas Bahia; jobs batch com Spring Batch para Banco Original; sistema full stack com Node.js e Angular 7 para Grupo Fleury; BFF bancário com Node.js para Crefisa.',
       tags: ['Java', 'Quarkus', 'Kafka', 'Spring Batch', 'Node.js', 'Angular'],
@@ -221,6 +292,7 @@ export class Experience implements AfterViewInit, OnDestroy {
     {
       role: 'Desenvolvedor Back-End',
       company: 'Destaxa',
+      logo: 'destaxa',
       period: 'Mai 2024 — Out 2024',
       description: 'Plataforma de conciliação financeira de transações de adquirentes. Serviços reativos com Java 17, Spring Boot, WebFlux e R2DBC. Clean Architecture com separação entre camadas Domain, Application e Infrastructure. Containerização com Docker e observabilidade via Grafana.',
       tags: ['Java 17', 'Spring Boot', 'WebFlux', 'R2DBC', 'Docker', 'Grafana'],
@@ -228,6 +300,7 @@ export class Experience implements AfterViewInit, OnDestroy {
     {
       role: 'Desenvolvedor Back-End Java',
       company: 'Qintess',
+      logo: 'qintess',
       period: 'Out 2024 — Mar 2026',
       description: 'Desenvolvimento de soluções para carteiras digitais (Apple Pay) com integração entre Caixa Econômica Federal e Visa. APIs REST com Java 17 e Quarkus para gerenciamento do ciclo de vida de tokens, implementação de criptografia JWS/JWE e integração via Azure API Management.',
       tags: ['Java 17', 'Quarkus', 'Azure', 'REST APIs', 'JWS/JWE'],
@@ -235,6 +308,7 @@ export class Experience implements AfterViewInit, OnDestroy {
     {
       role: 'Desenvolvedor Back-End Java',
       company: 'Basis',
+      logo: 'basis',
       period: 'Mai 2026 — Atual',
       current: true,
       description: 'Atuação no time de engenharia do cliente TJPR (Tribunal de Justiça do Estado do Paraná), definindo padrões de engenharia de software, processos de desenvolvimento e gestão de tecnologias. Desenvolvimento de novas features, sustentação de sistemas legados e migração do Spring Boot 3.5 para 4.0. Observabilidade com Graylog, Grafana e Dynatrace. Suporte a front-end Angular 22.',
