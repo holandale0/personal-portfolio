@@ -99,10 +99,9 @@ export class Experience implements AfterViewInit, OnDestroy {
     this.cursor.update(c => Math.min(this.items.length - 1, c + 1));
   }
 
-  /** Clique no card central abre o crawl; nos vizinhos, apenas navega até ele. */
-  onSlideClick(position: number): void {
-    if (position === this.cursor()) this.activeIndex.set(this.order()[position]);
-    else this.cursor.set(position);
+  /** O crawl abre só pelo "Mais detalhes"; o card em si não é clicável. */
+  openDetails(): void {
+    this.activeIndex.set(this.currentIndex());
   }
 
   onTouchStart(event: TouchEvent): void {

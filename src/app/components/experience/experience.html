@@ -52,15 +52,7 @@
             >
               <article
                 class="holo__card"
-                role="button"
-                [attr.tabindex]="position === cursor() ? 0 : -1"
                 [attr.aria-hidden]="position === cursor() ? null : 'true'"
-                [attr.aria-label]="position === cursor()
-                  ? 'Ver detalhes de ' + items[index].company
-                  : 'Ir para ' + items[index].company"
-                (click)="onSlideClick(position)"
-                (keydown.enter)="onSlideClick(position)"
-                (keydown.space)="$event.preventDefault(); onSlideClick(position)"
               >
                 <div class="holo__head">
                   <img
@@ -89,12 +81,18 @@
 
                 <div class="holo__footer">
                   <span class="holo__company">{{ items[index].company }}</span>
-                  <span class="holo__hint">
+                  <button
+                    type="button"
+                    class="holo__hint"
+                    [attr.tabindex]="position === cursor() ? 0 : -1"
+                    [attr.aria-label]="'Ver detalhes de ' + items[index].company"
+                    (click)="openDetails()"
+                  >
                     <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                       <polygon points="5 3 19 12 5 21 5 3" />
                     </svg>
                     Mais detalhes
-                  </span>
+                  </button>
                 </div>
               </article>
             </div>
