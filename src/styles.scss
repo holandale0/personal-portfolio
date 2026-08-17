@@ -133,6 +133,76 @@ img, video {
   }
 }
 
+/* Controles de carrossel compartilhados por "Meus Projetos" e "Minha
+   Trajetória", para as duas seções navegarem com a mesma linguagem visual
+   do resto do site. */
+.nav-arrow {
+  width: 42px;
+  height: 42px;
+  display: grid;
+  place-items: center;
+  flex: none;
+  border-radius: var(--radius);
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  color: var(--accent);
+  transition: border-color 0.25s, background 0.25s, transform 0.15s, opacity 0.25s;
+
+  svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  &:hover:not(:disabled) {
+    border-color: var(--border-hover);
+    background: rgba(200, 170, 120, 0.08);
+  }
+
+  &:active:not(:disabled) {
+    transform: scale(0.94);
+  }
+
+  &:disabled {
+    opacity: 0.28;
+    cursor: default;
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+}
+
+.carousel-dots {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.carousel-dot {
+  width: 8px;
+  height: 8px;
+  padding: 0;
+  border-radius: 50%;
+  background: rgba(200, 170, 120, 0.22);
+  transition: background 0.25s, transform 0.25s;
+
+  &:hover {
+    background: rgba(200, 170, 120, 0.5);
+  }
+
+  &--active {
+    background: var(--accent);
+    transform: scale(1.25);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+  }
+}
+
 .btn {
   display: inline-flex;
   align-items: center;

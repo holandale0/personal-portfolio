@@ -26,19 +26,17 @@
     >
       <button
         type="button"
-        class="holo__nav holo__nav--up"
+        class="nav-arrow holo__nav"
         aria-label="Experiência mais recente"
         [disabled]="cursor() === 0"
         (click)="prev()"
       >
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
           <polyline points="5 15 12 8 19 15" />
         </svg>
       </button>
 
       <div class="holo__viewport" [style.height.px]="viewportHeight()">
-        <span class="holo__scan" aria-hidden="true"></span>
-
         <div
           class="holo__track"
           [style.gap.px]="metrics().gap"
@@ -102,19 +100,26 @@
 
       <button
         type="button"
-        class="holo__nav holo__nav--down"
+        class="nav-arrow holo__nav"
         aria-label="Experiência anterior"
         [disabled]="cursor() === items.length - 1"
         (click)="next()"
       >
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
           <polyline points="5 9 12 16 19 9" />
         </svg>
       </button>
 
-      <div class="holo__steps" aria-hidden="true">
+      <div class="carousel-dots holo__steps">
         @for (index of order(); track index; let position = $index) {
-          <span class="holo__step" [class.holo__step--active]="position === cursor()"></span>
+          <button
+            type="button"
+            class="carousel-dot"
+            [class.carousel-dot--active]="position === cursor()"
+            [attr.aria-label]="'Ir para ' + items[index].company"
+            [attr.aria-current]="position === cursor() ? 'true' : null"
+            (click)="cursor.set(position)"
+          ></button>
         }
       </div>
     </div>

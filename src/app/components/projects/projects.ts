@@ -1,4 +1,4 @@
-import { Component, computed, signal } from '@angular/core';
+import { Component, signal } from '@angular/core';
 
 export interface Project {
   title: string;
@@ -66,12 +66,6 @@ export class Projects {
 
   /** 1 = avançou (entra pela direita), -1 = voltou (entra pela esquerda). */
   readonly direction = signal(1);
-
-  /**
-   * Lista de um item só. O `track index()` no template força o Angular a
-   * recriar o nó a cada troca, disparando a animação de entrada do CSS.
-   */
-  readonly current = computed(() => [this.items[this.index()]]);
 
   private touchStartX = 0;
 

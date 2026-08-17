@@ -50,26 +50,9 @@
 }
 
 /* ==========================================================================
-   Carrossel vertical em HUD azul. O tom vem do componente holograma da home
-   (#60c8f5) para as duas telas do site falarem a mesma língua.
+   Carrossel vertical. Mesmo cartão das demais seções — a navegação é que
+   difere: setas acima e abaixo em vez das laterais.
    ========================================================================== */
-
-$holo: #60c8f5;
-$chamfer: 15px;
-
-// Chanfro nos quatro cantos, no estilo das interfaces da referência.
-@mixin chamfered($c: $chamfer) {
-  clip-path: polygon(
-    #{$c} 0,
-    calc(100% - #{$c}) 0,
-    100% #{$c},
-    100% calc(100% - #{$c}),
-    calc(100% - #{$c}) 100%,
-    #{$c} 100%,
-    0 calc(100% - #{$c}),
-    0 #{$c}
-  );
-}
 
 .holo {
   position: relative;
@@ -78,54 +61,12 @@ $chamfer: 15px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0;
+  gap: 14px;
   outline: none;
 
   &__nav {
     position: relative;
-    z-index: 3;
-    width: 76px;
-    height: 40px;
-    display: grid;
-    place-items: center;
-    border-radius: 8px;
-    background: rgba(96, 200, 245, 0.14);
-    border: 1px solid rgba(96, 200, 245, 0.45);
-    color: $holo;
-    box-shadow: 0 0 18px rgba(96, 200, 245, 0.16);
-    transition: background 0.2s, border-color 0.2s, opacity 0.2s, transform 0.15s;
-
-    svg {
-      width: 30px;
-      height: 30px;
-      filter: drop-shadow(0 0 6px rgba(96, 200, 245, 0.55));
-    }
-
-    &:hover:not(:disabled) {
-      background: rgba(96, 200, 245, 0.28);
-      border-color: $holo;
-      box-shadow: 0 0 26px rgba(96, 200, 245, 0.45);
-    }
-
-    &:active:not(:disabled) {
-      transform: scale(0.94);
-    }
-
-    &:disabled {
-      opacity: 0.2;
-      cursor: default;
-      box-shadow: none;
-    }
-
-    &:focus-visible {
-      outline: 2px solid $holo;
-      outline-offset: 2px;
-    }
-
-    /* As pontas do visor são transparentes por causa da máscara, então as
-       setas avançam sobre essa faixa vazia para encostar no card. */
-    &--up   { margin-bottom: -30px; }
-    &--down { margin-top: -30px; }
+    z-index: 2;
   }
 
   /* ---------- Visor ---------- */
@@ -134,87 +75,43 @@ $chamfer: 15px;
     width: 100%;
     overflow: hidden;
     /* Os vizinhos desaparecem nas pontas em vez de serem cortados a seco. */
-    -webkit-mask-image: linear-gradient(180deg, transparent 0, #000 16%, #000 84%, transparent 100%);
-    mask-image: linear-gradient(180deg, transparent 0, #000 16%, #000 84%, transparent 100%);
-  }
-
-  &__scan {
-    position: absolute;
-    inset: 0;
-    z-index: 2;
-    pointer-events: none;
-    background: repeating-linear-gradient(
-      180deg,
-      rgba(96, 200, 245, 0.05) 0 1px,
-      transparent 1px 4px
-    );
+    -webkit-mask-image: linear-gradient(180deg, transparent 0, #000 15%, #000 85%, transparent 100%);
+    mask-image: linear-gradient(180deg, transparent 0, #000 15%, #000 85%, transparent 100%);
   }
 
   &__track {
     display: flex;
     flex-direction: column;
-    transition: transform 0.55s cubic-bezier(0.22, 0.85, 0.3, 1);
+    transition: transform 0.5s cubic-bezier(0.22, 0.85, 0.3, 1);
     will-change: transform;
   }
 
   &__slide {
     flex: none;
     display: flex;
-    /* Só as setas navegam: clicar num vizinho (ou na faixa vazia ao lado
-       dela) não deve trocar o card. */
+    /* Só as setas navegam: clicar num vizinho não deve trocar o card. */
     pointer-events: none;
 
-    &--active {
-      pointer-events: auto;
-    }
+    &--active { pointer-events: auto; }
   }
 
   /* ---------- Card ---------- */
   &__card {
-    position: relative;
     flex: 1;
     display: flex;
     flex-direction: column;
-    gap: 10px;
-    padding: 22px 26px;
-    text-align: left;
-    /* O fundo do elemento é a moldura; o ::before por cima deixa só 2px à
-       mostra, formando uma borda que acompanha o chanfro. */
-    background: rgba(96, 200, 245, 0.35);
-    color: var(--text-primary);
-    font: inherit;
-    transform: scale(0.9);
-    opacity: 0.4;
-    cursor: default;
-    transition: transform 0.55s cubic-bezier(0.22, 0.85, 0.3, 1), opacity 0.55s ease;
-    @include chamfered;
-
-    &::before {
-      content: '';
-      position: absolute;
-      inset: 2px;
-      background: linear-gradient(160deg, #0a1a26 0%, #071119 55%, #050c12 100%);
-      @include chamfered(14px);
-    }
-
-    > * {
-      position: relative;
-      z-index: 1;
-    }
-
-    &:focus-visible {
-      outline: 2px solid $holo;
-      outline-offset: 3px;
-    }
+    gap: 12px;
+    padding: 26px 28px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    opacity: 0.45;
+    transition: opacity 0.5s ease, border-color 0.3s;
   }
 
   &__slide--active &__card {
-    transform: scale(1);
     opacity: 1;
-    background: rgba(96, 200, 245, 0.75);
-    box-shadow:
-      0 0 26px rgba(96, 200, 245, 0.25),
-      0 18px 40px rgba(0, 0, 0, 0.5);
+    border-color: rgba(200, 170, 120, 0.22);
   }
 
   /* ---------- Conteúdo ---------- */
@@ -223,45 +120,42 @@ $chamfer: 15px;
     align-items: flex-start;
     justify-content: space-between;
     gap: 12px;
-    min-height: 34px;
+    min-height: 32px;
   }
 
   /* Todas as logos vêm na mesma caixa 320x96, então uma medida única basta.
      O filtro as reduz a silhueta clara: as originais vão de preto (Qintess)
      a branco (Basis) e não teriam contraste uniforme sobre o card escuro. */
   &__logo {
-    width: 112px;
-    height: 34px;
+    width: 106px;
+    height: 32px;
     object-fit: contain;
     object-position: left center;
     filter: brightness(0) invert(1);
-    opacity: 0.82;
-    transition: opacity 0.4s ease, filter 0.4s ease;
+    opacity: 0.72;
+    transition: opacity 0.4s ease;
   }
 
-  &__slide--active &__logo {
-    opacity: 1;
-    filter: brightness(0) invert(1) drop-shadow(0 0 10px rgba(96, 200, 245, 0.45));
+  &__slide--active &__logo { opacity: 0.95; }
+
+  &__badge {
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 3px 9px;
+    border-radius: 4px;
+    color: var(--accent);
+    background: rgba(200, 170, 120, 0.1);
+    border: 1px solid rgba(200, 170, 120, 0.3);
   }
 
   &__period {
     font-size: 0.72rem;
     font-weight: 600;
-    letter-spacing: 0.1em;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
-    color: rgba(96, 200, 245, 0.85);
-  }
-
-  &__badge {
-    font-size: 0.62rem;
-    font-weight: 800;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    padding: 3px 9px;
-    border-radius: 3px;
-    color: #04121a;
-    background: $holo;
-    box-shadow: 0 0 12px rgba(96, 200, 245, 0.5);
+    color: var(--text-muted);
   }
 
   &__role {
@@ -272,8 +166,8 @@ $chamfer: 15px;
 
   &__description {
     flex: 1;
-    font-size: 0.85rem;
-    line-height: 1.65;
+    font-size: 0.87rem;
+    line-height: 1.7;
     color: var(--text-secondary);
     overflow: hidden;
   }
@@ -285,13 +179,13 @@ $chamfer: 15px;
   }
 
   &__tag {
-    font-size: 0.7rem;
+    font-size: 0.72rem;
     font-weight: 600;
-    padding: 3px 9px;
-    border-radius: 3px;
-    color: rgba(96, 200, 245, 0.9);
-    background: rgba(96, 200, 245, 0.09);
-    border: 1px solid rgba(96, 200, 245, 0.22);
+    padding: 3px 10px;
+    border-radius: 4px;
+    background: rgba(255, 255, 255, 0.04);
+    color: var(--text-secondary);
+    border: 1px solid var(--border);
   }
 
   &__footer {
@@ -299,16 +193,14 @@ $chamfer: 15px;
     align-items: center;
     justify-content: space-between;
     gap: 12px;
-    margin-top: 2px;
-    padding-top: 10px;
-    border-top: 1px solid rgba(96, 200, 245, 0.18);
+    padding-top: 12px;
+    border-top: 1px solid var(--border);
   }
 
   &__company {
     font-size: 0.95rem;
     font-weight: 700;
-    color: $holo;
-    text-shadow: 0 0 14px rgba(96, 200, 245, 0.45);
+    color: var(--accent);
   }
 
   /* Único ponto de entrada para o crawl. */
@@ -316,51 +208,26 @@ $chamfer: 15px;
     display: inline-flex;
     align-items: center;
     gap: 5px;
-    padding: 5px 10px;
-    border-radius: 5px;
+    padding: 7px 12px;
+    border-radius: 6px;
     background: transparent;
-    border: 1px solid transparent;
+    border: 1px solid rgba(200, 170, 120, 0.25);
     font-family: inherit;
-    font-size: 0.72rem;
+    font-size: 0.75rem;
     font-weight: 600;
-    color: rgba(96, 200, 245, 0.75);
+    color: var(--text-secondary);
     cursor: pointer;
-    animation: hint-crackle 3.6s ease-in-out infinite;
     transition: color 0.2s, background 0.2s, border-color 0.2s;
 
     &:hover {
-      animation: none;
-      opacity: 1;
-      color: $holo;
-      background: rgba(96, 200, 245, 0.12);
-      border-color: rgba(96, 200, 245, 0.4);
+      color: var(--accent);
+      border-color: var(--accent);
+      background: rgba(200, 170, 120, 0.08);
     }
 
     &:focus-visible {
-      outline: 2px solid $holo;
+      outline: 2px solid var(--accent);
       outline-offset: 2px;
-    }
-  }
-
-  /* ---------- Indicadores ---------- */
-  &__steps {
-    display: flex;
-    gap: 7px;
-    /* A seta de baixo sobe 30px sobre a máscara do visor; sem esta folga os
-       indicadores encostam nela. */
-    margin-top: 18px;
-  }
-
-  &__step {
-    width: 22px;
-    height: 3px;
-    border-radius: 2px;
-    background: rgba(96, 200, 245, 0.2);
-    transition: background 0.3s, box-shadow 0.3s;
-
-    &--active {
-      background: $holo;
-      box-shadow: 0 0 10px rgba(96, 200, 245, 0.7);
     }
   }
 }
@@ -369,13 +236,10 @@ $chamfer: 15px;
   .holo {
     max-width: 100%;
 
-    &__card {
-      padding: 18px 18px;
-      gap: 8px;
-    }
-
+    &__card { padding: 20px 18px; gap: 10px; }
     &__role { font-size: 1.05rem; }
-    &__description { font-size: 0.82rem; line-height: 1.6; }
+    &__description { font-size: 0.83rem; line-height: 1.6; }
+    &__footer { flex-wrap: wrap; }
   }
 }
 
@@ -383,9 +247,5 @@ $chamfer: 15px;
   .holo__track,
   .holo__card {
     transition: none;
-  }
-
-  .holo__hint {
-    animation: none;
   }
 }
