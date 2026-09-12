@@ -26,6 +26,12 @@
     position: relative;
     width: 35%;
 
+    /* Mesma medida do .section-banner no celular. O canvas de areia
+       acompanha sozinho: ResizeObserver + coordenadas normalizadas. */
+    @media (max-width: 768px) {
+      width: min(100%, 380px);
+    }
+
     picture {
       display: block;
       width: 100%;

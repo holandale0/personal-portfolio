@@ -116,6 +116,15 @@ img, video {
   picture {
     display: block;
     width: 35%;
+
+    /* No celular a caixa inteira encolhe para ~350px e 35% dela vira uma
+       miniatura ilegível. Aqui a imagem toma toda a largura da caixa (a
+       vinheta come ~13% de cada lado, então ela parece menor do que mede);
+       o teto só segura tablets. A Trajetória
+       replica a medida em .experience__sand-host. */
+    @media (max-width: 768px) {
+      width: min(100%, 380px);
+    }
   }
 
   img {
