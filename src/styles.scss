@@ -104,7 +104,7 @@ img, video {
    --bg-primary e nas que usam --bg-secondary — e continua exato se a
    paleta mudar. */
 /* Mesmas medidas do bloco `evolution` da Trajetória: caixa de 800px com a
-   imagem ocupando 35% dela (~280px), centralizada. */
+   imagem ocupando 52% dela (~416px), centralizada. */
 .section-banner {
   max-width: 800px;
   /* Fica entre o título e o subtítulo: folga curta dos dois lados para o
@@ -115,7 +115,7 @@ img, video {
 
   picture {
     display: block;
-    width: 35%;
+    width: 52%;
 
     /* No celular a caixa inteira encolhe para ~350px e 35% dela vira uma
        miniatura ilegível. Aqui a imagem toma toda a largura da caixa (a
