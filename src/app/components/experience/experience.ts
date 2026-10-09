@@ -1,5 +1,5 @@
 import {
-  AfterViewInit, Component, ElementRef, HostListener, NgZone,
+  AfterViewInit, Component, ElementRef, NgZone,
   OnDestroy, ViewChild, computed, inject, signal,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -44,7 +44,7 @@ export class Experience implements AfterViewInit, OnDestroy {
   introText(i: number): string  { return INTRO_TEXTS[i] ?? ''; }
   roman(i: number): string      { return ROMAN[i] ?? String(i + 1); }
 
-  // ── carrossel vertical ────────────────────────────────────────────────────
+  // ── carrossel horizontal ──────────────────────────────────────────────────
 
   /**
    * Ordem de exibição: mais recente primeiro, para que a empresa atual
@@ -58,45 +58,29 @@ export class Experience implements AfterViewInit, OnDestroy {
 
   readonly currentIndex = computed(() => this.order()[this.cursor()]);
 
-  private readonly windowWidth = signal(
-    typeof window === 'undefined' ? 1200 : window.innerWidth
-  );
+  /** 1 = avançou (entra pela direita), -1 = voltou (entra pela esquerda). */
+  readonly direction = signal(1);
 
-  /**
-   * Alturas em px vivem aqui (e não no SCSS) porque o deslocamento da trilha
-   * é calculado a partir delas — mantê-las em dois lugares dessincronizaria
-   * o card ativo do centro do visor.
-   */
-  readonly metrics = computed(() => {
-    const w = this.windowWidth();
-    if (w <= 600) return { slide: 440, gap: 12, peek: 30 };
-    if (w <= 900) return { slide: 390, gap: 12, peek: 38 };
-    return { slide: 330, gap: 14, peek: 52 };
-  });
-
-  readonly viewportHeight = computed(() => {
-    const m = this.metrics();
-    return m.slide + (m.peek + m.gap) * 2;
-  });
-
-  readonly trackOffset = computed(() => {
-    const m = this.metrics();
-    return (this.viewportHeight() - m.slide) / 2 - this.cursor() * (m.slide + m.gap);
-  });
-
-  private touchStartY = 0;
-
-  @HostListener('window:resize')
-  onWindowResize(): void {
-    this.windowWidth.set(window.innerWidth);
-  }
+  private touchStartX = 0;
 
   prev(): void {
-    this.cursor.update(c => Math.max(0, c - 1));
+    this.step(-1);
   }
 
   next(): void {
-    this.cursor.update(c => Math.min(this.items.length - 1, c + 1));
+    this.step(1);
+  }
+
+  goTo(position: number): void {
+    if (position === this.cursor()) return;
+    this.direction.set(position > this.cursor() ? 1 : -1);
+    this.cursor.set(position);
+  }
+
+  private step(delta: number): void {
+    const total = this.items.length;
+    this.direction.set(delta);
+    this.cursor.update(c => (c + delta + total) % total);
   }
 
   /** O crawl abre só pelo "Mais detalhes"; o card em si não é clicável. */
@@ -105,13 +89,13 @@ export class Experience implements AfterViewInit, OnDestroy {
   }
 
   onTouchStart(event: TouchEvent): void {
-    this.touchStartY = event.changedTouches[0].clientY;
+    this.touchStartX = event.changedTouches[0].clientX;
   }
 
   onTouchEnd(event: TouchEvent): void {
-    const deltaY = event.changedTouches[0].clientY - this.touchStartY;
-    if (Math.abs(deltaY) < 45) return;
-    if (deltaY < 0) this.next();
+    const deltaX = event.changedTouches[0].clientX - this.touchStartX;
+    if (Math.abs(deltaX) < 45) return;
+    if (deltaX < 0) this.next();
     else this.prev();
   }
 

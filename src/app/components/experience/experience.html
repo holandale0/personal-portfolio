@@ -19,94 +19,85 @@
       role="group"
       aria-roledescription="carrossel"
       aria-label="Trajetória profissional"
-      (keydown.arrowup)="prev()"
-      (keydown.arrowdown)="next()"
+      (keydown.arrowleft)="prev()"
+      (keydown.arrowright)="next()"
       (touchstart)="onTouchStart($event)"
       (touchend)="onTouchEnd($event)"
     >
       <button
         type="button"
-        class="nav-arrow holo__nav"
+        class="nav-arrow holo__arrow holo__arrow--prev"
         aria-label="Experiência mais recente"
-        [disabled]="cursor() === 0"
         (click)="prev()"
       >
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <polyline points="5 15 12 8 19 15" />
+          <polyline points="15 5 8 12 15 19" />
         </svg>
       </button>
 
-      <div class="holo__viewport" [style.height.px]="viewportHeight()">
-        <div
-          class="holo__track"
-          [style.gap.px]="metrics().gap"
-          [style.transform]="'translateY(' + trackOffset() + 'px)'"
-        >
-          @for (index of order(); track index; let position = $index) {
-            <div
-              class="holo__slide"
-              [class.holo__slide--active]="position === cursor()"
-              [style.height.px]="metrics().slide"
-            >
-              <article
-                class="holo__card"
-                [attr.aria-hidden]="position === cursor() ? null : 'true'"
-              >
-                <div class="holo__head">
-                  <img
-                    class="holo__logo"
-                    [src]="'assets/logos/' + items[index].logo + '.webp'"
-                    [alt]="items[index].company"
-                    width="320"
-                    height="96"
-                    loading="lazy"
-                  />
-                  @if (items[index].current) {
-                    <span class="holo__badge">Atual</span>
-                  }
-                </div>
-
-                <span class="holo__period">{{ items[index].period }}</span>
-
-                <h3 class="holo__role">{{ items[index].role }}</h3>
-                <p class="holo__description">{{ items[index].description }}</p>
-
-                <div class="holo__tags">
-                  @for (tag of items[index].tags; track tag) {
-                    <span class="holo__tag">{{ tag }}</span>
-                  }
-                </div>
-
-                <div class="holo__footer">
-                  <span class="holo__company">{{ items[index].company }}</span>
-                  <button
-                    type="button"
-                    class="holo__hint"
-                    [attr.tabindex]="position === cursor() ? 0 : -1"
-                    [attr.aria-label]="'Ver detalhes de ' + items[index].company"
-                    (click)="openDetails()"
-                  >
-                    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                      <polygon points="5 3 19 12 5 21 5 3" />
-                    </svg>
-                    Mais detalhes
-                  </button>
-                </div>
-              </article>
+      <div
+        class="holo__stage"
+        aria-live="polite"
+        [style.--card-from]="direction() * 34 + 'px'"
+      >
+        @for (index of order(); track index; let position = $index) {
+          <article
+            class="holo__card"
+            [class.holo__card--active]="position === cursor()"
+            [attr.aria-hidden]="position === cursor() ? null : 'true'"
+          >
+            <div class="holo__head">
+              <img
+                class="holo__logo"
+                [src]="'assets/logos/' + items[index].logo + '.webp'"
+                [alt]="items[index].company"
+                width="320"
+                height="96"
+                loading="lazy"
+              />
+              @if (items[index].current) {
+                <span class="holo__badge">Atual</span>
+              }
             </div>
-          }
-        </div>
+
+            <span class="holo__period">{{ items[index].period }}</span>
+
+            <h3 class="holo__role">{{ items[index].role }}</h3>
+            <p class="holo__description">{{ items[index].description }}</p>
+
+            <div class="holo__tags">
+              @for (tag of items[index].tags; track tag) {
+                <span class="holo__tag">{{ tag }}</span>
+              }
+            </div>
+
+            <div class="holo__footer">
+              <span class="holo__company">{{ items[index].company }}</span>
+              <button
+                type="button"
+                class="holo__hint"
+                [attr.tabindex]="position === cursor() ? 0 : -1"
+                [attr.aria-label]="'Ver detalhes de ' + items[index].company"
+                (click)="openDetails()"
+              >
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <polygon points="5 3 19 12 5 21 5 3" />
+                </svg>
+                Mais detalhes
+              </button>
+            </div>
+          </article>
+        }
       </div>
 
       <button
         type="button"
-        class="nav-arrow holo__nav"
+        class="nav-arrow holo__arrow holo__arrow--next"
         aria-label="Experiência anterior"
-        [disabled]="cursor() === items.length - 1"
         (click)="next()"
       >
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <polyline points="5 9 12 16 19 9" />
+          <polyline points="9 5 16 12 9 19" />
         </svg>
       </button>
 
@@ -118,7 +109,7 @@
             [class.carousel-dot--active]="position === cursor()"
             [attr.aria-label]="'Ir para ' + items[index].company"
             [attr.aria-current]="position === cursor() ? 'true' : null"
-            (click)="cursor.set(position)"
+            (click)="goTo(position)"
           ></button>
         }
       </div>
