@@ -1,4 +1,6 @@
-<nav class="navbar" [class.navbar--scrolled]="isScrolled()" aria-label="Navegação principal">
+<nav class="navbar"
+     [class.navbar--scrolled]="isScrolled()"
+     [class.navbar--hidden]="isHidden()" aria-label="Navegação principal">
   <div class="container navbar__inner">
     <a class="navbar__logo"
        aria-label="Ir ao topo"

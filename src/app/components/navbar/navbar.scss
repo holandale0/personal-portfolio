@@ -5,7 +5,13 @@
   right: 0;
   z-index: 1000;
   height: var(--nav-height);
-  transition: background 0.3s ease, box-shadow 0.3s ease;
+  transition: background 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+
+  /* Sai inteira da tela em vez de ficar meio encoberta pela barra do
+     navegador embutido. Ver o comentário em navbar.ts. */
+  &--hidden {
+    transform: translateY(-100%);
+  }
 
   &--scrolled {
     background: rgba(13, 9, 7, 0.92);
@@ -163,5 +169,11 @@
     &--scrolled {
       background: rgba(13, 9, 7, 0.97);
     }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .navbar {
+    transition: none;
   }
 }
