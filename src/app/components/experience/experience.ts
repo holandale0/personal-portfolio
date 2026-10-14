@@ -86,6 +86,12 @@ export class Experience implements AfterViewInit, OnDestroy {
   /** O crawl abre só pelo "Mais detalhes"; o card em si não é clicável. */
   openDetails(): void {
     this.activeIndex.set(this.currentIndex());
+    this.pause();
+  }
+
+  closeDetails(): void {
+    this.activeIndex.set(null);
+    this.resume();
   }
 
   onTouchStart(event: TouchEvent): void {
@@ -103,12 +109,20 @@ export class Experience implements AfterViewInit, OnDestroy {
 
   private raf       = 0;
   private lastTs    = 0;
+  private onScreen  = false;
+  private tick?:    (ts: number) => void;
+  private viewObserver?:   IntersectionObserver;
+  private resizeObserver?: ResizeObserver;
   private cycleAge  = 0;
   private readonly  PAUSE  = 4;          // seconds of silence before each breeze
   private readonly  EFFECT = 4;          // seconds the breeze takes to cross
   private readonly  CYCLE  = 8;          // PAUSE + EFFECT
   private readonly  N      = 180;        // grains per burst
+  private readonly  R_MIN  = 1.4;        // menor raio de grão
+  private readonly  R_SPAN = 3.8;        // amplitude dos raios
   private grains:   Grain[] = [];
+  private readonly  SPRITE_BUCKETS = 6;
+  private sprites:  HTMLCanvasElement[] = [];
   private spineA    = this.mkSpine();    // current burst path
   private spineB    = this.mkSpine();    // next burst path (for morphing)
 
@@ -117,7 +131,9 @@ export class Experience implements AfterViewInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    cancelAnimationFrame(this.raf);
+    this.pause();
+    this.viewObserver?.disconnect();
+    this.resizeObserver?.disconnect();
   }
 
   private gauss(): number {
@@ -156,8 +172,49 @@ export class Experience implements AfterViewInit, OnDestroy {
       delay: Math.max(0, this.gauss() * 0.45), // delays relative to effect start
       speed: 0.32 + Math.random() * 0.22,       // fast enough to finish within EFFECT
       perp:  this.gauss(),
-      r:     1.4 + Math.random() * 3.8,
+      r:     this.R_MIN + Math.random() * this.R_SPAN,
     }));
+  }
+
+  /**
+   * Grãos pré-renderizados, um por faixa de tamanho.
+   *
+   * O halo saía de `ctx.shadowBlur` aplicado a CADA `fill()`: com ~90 grãos
+   * visíveis por frame eram ~5.400 desfoques por segundo, e era daí que vinha
+   * o travamento ao rolar sobre a seção. Aqui o mesmo desfoque é calculado uma
+   * única vez por faixa, na inicialização, e o laço de desenho só copia a
+   * imagem pronta.
+   *
+   * São várias faixas, e não um sprite só escalado, porque escalar encolheria
+   * o halo junto com o grão — cada faixa é desenhada no tamanho final, com a
+   * espessura de halo sempre igual.
+   */
+  private mkSprites(): void {
+    const PAD = 16;   // folga para o halo não ser cortado na borda do sprite
+
+    this.sprites = Array.from({ length: this.SPRITE_BUCKETS }, (_, i) => {
+      const r  = this.R_MIN + this.R_SPAN * (i / (this.SPRITE_BUCKETS - 1));
+      const rx = r * 1.9;
+      const ry = r * 0.55;
+
+      const sprite  = document.createElement('canvas');
+      sprite.width  = Math.ceil((rx + PAD) * 2);
+      sprite.height = Math.ceil((ry + PAD) * 2);
+
+      const sx = sprite.getContext('2d')!;
+      sx.shadowBlur  = 12;
+      sx.shadowColor = 'rgba(190,145,60,0.45)';
+      sx.fillStyle   = 'rgba(218,182,110,1)';
+      sx.beginPath();
+      sx.ellipse(sprite.width / 2, sprite.height / 2, rx, ry, 0, 0, Math.PI * 2);
+      sx.fill();
+      return sprite;
+    });
+  }
+
+  private spriteFor(r: number): HTMLCanvasElement {
+    const i = Math.round(((r - this.R_MIN) / this.R_SPAN) * (this.SPRITE_BUCKETS - 1));
+    return this.sprites[Math.max(0, Math.min(this.SPRITE_BUCKETS - 1, i))];
   }
 
   private boot(): void {
@@ -171,11 +228,13 @@ export class Experience implements AfterViewInit, OnDestroy {
       }
     };
     sync();
-    new ResizeObserver(sync).observe(host);
+    this.resizeObserver = new ResizeObserver(sync);
+    this.resizeObserver.observe(host);
 
+    this.mkSprites();
     this.mkGrains();
 
-    const tick = (ts: number) => {
+    this.tick = (ts: number) => {
       const dt = Math.min((ts - this.lastTs) / 1000, 0.05);
       this.lastTs    = ts;
       this.cycleAge += dt;
@@ -188,10 +247,40 @@ export class Experience implements AfterViewInit, OnDestroy {
       }
 
       this.draw(canvas, dt);
-      this.raf = requestAnimationFrame(tick);
+      this.raf = requestAnimationFrame(this.tick!);
     };
 
-    this.raf = requestAnimationFrame(ts => { this.lastTs = ts; tick(ts); });
+    /* O loop só roda com a seção à vista. Antes ele seguia desenhando depois
+       que a seção saía da tela — milhares de elipses por segundo que ninguém
+       via, concorrendo com a rolagem do resto da página. */
+    this.viewObserver = new IntersectionObserver(
+      ([entry]) => {
+        this.onScreen = entry.isIntersecting;
+        if (this.onScreen) this.resume();
+        else this.pause();
+      },
+      { threshold: 0 },
+    );
+    this.viewObserver.observe(host);
+  }
+
+  private resume(): void {
+    // O crawl cobre a tela inteira: não há o que animar atrás dele.
+    if (this.raf || !this.onScreen || this.activeIndex() !== null || !this.tick) return;
+
+    /* Fora da zona do Angular em qualquer caminho de entrada: `resume()` também
+       é chamado ao fechar o crawl, de dentro da zona, e aí o rAF arrastaria uma
+       detecção de mudanças por frame. */
+    this.zone.runOutsideAngular(() => {
+      /* O primeiro frame só acerta o relógio: reaproveitar o `lastTs` antigo
+         daria um dt enorme e faria o efeito saltar ao voltar para a tela. */
+      this.raf = requestAnimationFrame(ts => { this.lastTs = ts; this.tick!(ts); });
+    });
+  }
+
+  private pause(): void {
+    cancelAnimationFrame(this.raf);
+    this.raf = 0;
   }
 
   private draw(canvas: HTMLCanvasElement, dt: number): void {
@@ -217,10 +306,6 @@ export class Experience implements AfterViewInit, OnDestroy {
       y: a.y + (this.spineB[i].y - a.y) * blend,
     }));
 
-    ctx.shadowBlur  = 12;
-    ctx.shadowColor = 'rgba(190,145,60,0.45)';
-    ctx.fillStyle   = 'rgba(218,182,110,1)';
-
     for (const g of this.grains) {
       if (effectAge < g.delay) continue;
       if (g.t > 1.08) continue;
@@ -243,14 +328,16 @@ export class Experience implements AfterViewInit, OnDestroy {
       const alpha = env * cycleFade * 0.90;
       if (alpha < 0.015) continue;
 
+      // `globalAlpha` cobre o halo junto com o grão, como fazia com o shadow.
       ctx.globalAlpha = alpha;
-      ctx.beginPath();
-      ctx.ellipse(px, py, g.r * 1.9, g.r * 0.55, Math.atan2(tan.y, tan.x), 0, Math.PI * 2);
-      ctx.fill();
+      const sprite = this.spriteFor(g.r);
+      // A tangente vira a matriz direto: mais barato que translate + rotate.
+      ctx.setTransform(tan.x, tan.y, -tan.y, tan.x, px, py);
+      ctx.drawImage(sprite, -sprite.width / 2, -sprite.height / 2);
     }
 
+    ctx.setTransform(1, 0, 0, 1, 0, 0);
     ctx.globalAlpha = 1;
-    ctx.shadowBlur  = 0;
   }
 
   // ── experience data ───────────────────────────────────────────────────────

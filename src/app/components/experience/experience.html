@@ -122,6 +122,6 @@
     [item]="items[activeIndex()!]"
     [introText]="introText(activeIndex()!)"
     [episodeNumber]="roman(activeIndex()!)"
-    (closed)="activeIndex.set(null)"
+    (closed)="closeDetails()"
   />
 }
