@@ -24,6 +24,12 @@ export class Projects {
       highlight: true
     },
     {
+      title: 'StandardPay',
+      description: 'Simulador de plataforma de pagamentos no estilo Stripe ou PayPal — nenhum dinheiro real é movimentado. Reproduz o fluxo completo: criação da cobrança, checkout hospedado com cartão e PIX simulados, webhooks assinados com HMAC via padrão outbox, estornos e expiração. Arquitetura BCE validada por ArchUnit no build.',
+      tags: ['Java 21', 'Quarkus', 'PostgreSQL', 'Hibernate Panache', 'Flyway', 'Qute', 'OpenAPI', 'Docker'],
+      github: 'https://github.com/holandale0/standard-pay'
+    },
+    {
       title: 'Este Portfolio',
       description: 'Portfolio profissional desenvolvido com Angular 21 e design moderno. Estruturado como SPA com seções dedicadas para apresentação, skills, experiência e contato.',
       tags: ['Angular', 'TypeScript', 'SCSS'],
