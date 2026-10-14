@@ -82,14 +82,13 @@ personal-portfolio/
 │       ├── cv.pdf
 │       └── fotos/                    ← Imagens em PNG + WebP (geradas via script)
 ├── scripts/
-│   ├── convert-to-webp.mjs           ← Converte todos os PNGs para WebP com sharp
-│   └── remove-blade.mjs              ← Remove lâmina do sabre de luz das imagens
+│   └── convert-to-webp.mjs           ← Converte todos os PNGs para WebP com sharp
 ├── src/
 │   ├── app/
 │   │   ├── components/
 │   │   │   ├── navbar/               ← Navbar fixa com menu mobile animado
 │   │   │   ├── hero/                 ← Apresentação com avatar e vídeo YouTube
-│   │   │   ├── about/                ← Bio, estatísticas e download do CV
+│   │   │   ├── about/                ← Bio e download do CV
 │   │   │   ├── skills/               ← Grid de habilidades com ranking Jedi
 │   │   │   │   └── shared/
 │   │   │   │       └── skill-insight/  ← Tooltip com histórico de uso real
