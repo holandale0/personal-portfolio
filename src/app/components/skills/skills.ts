@@ -1,4 +1,7 @@
-import { Component, signal } from '@angular/core';
+import {
+  AfterViewInit, Component, ElementRef, NgZone, OnDestroy, ViewChild,
+  inject, signal,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SkillInsight } from '../shared/skill-insight/skill-insight';
 
@@ -23,7 +26,190 @@ interface SkillCategory {
   templateUrl: './skills.html',
   styleUrl: './skills.scss'
 })
-export class Skills {
+export class Skills implements AfterViewInit, OnDestroy {
+  // ── pontinhos de energia percorrendo as linhas ────────────────────────────
+  //
+  // A arte já traz as linhas ligando cada ícone ao cérebro. As coordenadas
+  // abaixo foram TRAÇADAS da própria imagem (ampliando-a sobre uma grade em
+  // porcentagem e conferindo o traçado sobreposto à arte), não estimadas: por
+  // isso cada ponto corre exatamente em cima da linha desenhada, em qualquer
+  // tamanho de tela, já que tudo é fração do canvas.
+  //
+  // Sentido: do ícone para o cérebro — a competência alimentando o centro.
+
+  /** Polilinhas em fração do canvas, do ícone (primeiro ponto) ao cérebro. */
+  private readonly PATHS: ReadonlyArray<ReadonlyArray<readonly [number, number]>> = [
+    // codigo-limpo
+    [[0.314, 0.143], [0.354, 0.143], [0.392, 0.211], [0.418, 0.211]],
+    // arquitetura
+    [[0.271, 0.313], [0.345, 0.313], [0.378, 0.354], [0.415, 0.354]],
+    // resolucao
+    [[0.276, 0.489], [0.322, 0.489], [0.346, 0.512], [0.374, 0.512], [0.405, 0.476]],
+    // pensamento
+    [[0.323, 0.658], [0.364, 0.658], [0.4, 0.591], [0.425, 0.531]],
+    // domain-driven
+    [[0.677, 0.16], [0.639, 0.16], [0.605, 0.209], [0.583, 0.209]],
+    // design-patterns
+    [[0.706, 0.343], [0.62, 0.343], [0.604, 0.334]],
+    // microsservicos
+    [[0.712, 0.506], [0.658, 0.506], [0.622, 0.415], [0.568, 0.415]],
+    // automacao
+    [[0.692, 0.656], [0.653, 0.656], [0.572, 0.563]],
+  ];
+
+  /** Defasagem por linha, para os oito fluxos não andarem em bloco. */
+  private readonly OFFSETS = [0, 0.37, 0.68, 0.14, 0.52, 0.81, 0.26, 0.93];
+
+  private readonly DOTS_PER_PATH = 2;
+  private readonly CYCLE = 2.8;        // segundos para um ponto ir ponta a ponta
+
+  @ViewChild('pulseCanvas') private canvasRef!: ElementRef<HTMLCanvasElement>;
+
+  private readonly zone = inject(NgZone);
+
+  /** Grão luminoso pré-renderizado: desenhar o brilho por quadro custa caro. */
+  private sprite?: HTMLCanvasElement;
+  /** Geometria em pixels do canvas, recalculada quando ele muda de tamanho. */
+  private tracks: { pts: { x: number; y: number }[]; cum: number[]; len: number }[] = [];
+
+  private raf      = 0;
+  private lastTs   = 0;
+  private cycleAge = 0;
+  private onScreen = false;
+  private tick?: (ts: number) => void;
+  private viewObserver?: IntersectionObserver;
+  private resizeObserver?: ResizeObserver;
+
+  ngAfterViewInit(): void {
+    this.zone.runOutsideAngular(() => this.boot());
+  }
+
+  ngOnDestroy(): void {
+    this.pause();
+    this.viewObserver?.disconnect();
+    this.resizeObserver?.disconnect();
+  }
+
+  private boot(): void {
+    const canvas = this.canvasRef.nativeElement;
+    const host   = canvas.parentElement!;
+
+    const measure = () => {
+      const dpr = Math.min(2, window.devicePixelRatio || 1);
+      const w = Math.round(host.clientWidth * dpr);
+      const h = Math.round(host.clientHeight * dpr);
+      if (!w || !h || (canvas.width === w && canvas.height === h)) return;
+      canvas.width  = w;
+      canvas.height = h;
+      this.buildTracks(w, h);
+      this.buildSprite(w);
+    };
+    measure();
+    this.resizeObserver = new ResizeObserver(measure);
+    this.resizeObserver.observe(host);
+
+    this.tick = (ts: number) => {
+      const dt = Math.min((ts - this.lastTs) / 1000, 0.05);
+      this.lastTs   = ts;
+      this.cycleAge = (this.cycleAge + dt) % this.CYCLE;
+      this.draw(canvas);
+      this.raf = requestAnimationFrame(this.tick!);
+    };
+
+    this.viewObserver = new IntersectionObserver(
+      ([entry]) => {
+        this.onScreen = entry.isIntersecting;
+        if (this.onScreen) this.resume();
+        else this.pause();
+      },
+      { threshold: 0 },
+    );
+    this.viewObserver.observe(host);
+  }
+
+  private resume(): void {
+    if (this.raf || !this.onScreen || !this.tick) return;
+    this.zone.runOutsideAngular(() => {
+      // O primeiro quadro só acerta o relógio, senão o fluxo salta ao voltar.
+      this.raf = requestAnimationFrame(ts => { this.lastTs = ts; this.tick!(ts); });
+    });
+  }
+
+  private pause(): void {
+    cancelAnimationFrame(this.raf);
+    this.raf = 0;
+  }
+
+  /** Converte as frações em pixels e acumula os comprimentos de segmento, para
+      o ponto andar em velocidade constante mesmo com segmentos desiguais. */
+  private buildTracks(w: number, h: number): void {
+    this.tracks = this.PATHS.map(path => {
+      const pts = path.map(([x, y]) => ({ x: x * w, y: y * h }));
+      const cum = [0];
+      for (let i = 1; i < pts.length; i++) {
+        cum.push(cum[i - 1] + Math.hypot(pts[i].x - pts[i - 1].x, pts[i].y - pts[i - 1].y));
+      }
+      return { pts, cum, len: cum[cum.length - 1] };
+    });
+  }
+
+  private buildSprite(w: number): void {
+    const core = Math.max(1.1, w * 0.0021);
+    const size = Math.ceil(core * 10);
+    const c = document.createElement('canvas');
+    c.width = c.height = size;
+    const ctx = c.getContext('2d')!;
+    const mid = size / 2;
+
+    // Núcleo quase branco desvanecendo para o dourado da arte e daí para nada.
+    const g = ctx.createRadialGradient(mid, mid, 0, mid, mid, mid);
+    g.addColorStop(0,    'rgba(255, 244, 214, 1)');
+    g.addColorStop(0.12, 'rgba(255, 214, 132, 0.88)');
+    g.addColorStop(0.30, 'rgba(228, 168, 74, 0.30)');
+    g.addColorStop(1,    'rgba(198, 136, 56, 0)');
+    ctx.fillStyle = g;
+    ctx.fillRect(0, 0, size, size);
+    this.sprite = c;
+  }
+
+  /** Posição ao longo da polilinha, com `t` de 0 (ícone) a 1 (cérebro). */
+  private pointAt(track: { pts: { x: number; y: number }[]; cum: number[]; len: number }, t: number) {
+    const d = t * track.len;
+    let i = 1;
+    while (i < track.cum.length - 1 && track.cum[i] < d) i++;
+    const seg = track.cum[i] - track.cum[i - 1] || 1;
+    const k   = (d - track.cum[i - 1]) / seg;
+    const a   = track.pts[i - 1];
+    const b   = track.pts[i];
+    return { x: a.x + (b.x - a.x) * k, y: a.y + (b.y - a.y) * k };
+  }
+
+  private draw(canvas: HTMLCanvasElement): void {
+    const ctx = canvas.getContext('2d');
+    const sprite = this.sprite;
+    if (!ctx || !sprite || !this.tracks.length) return;
+
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    const half = sprite.width / 2;
+    const base = this.cycleAge / this.CYCLE;
+
+    for (let p = 0; p < this.tracks.length; p++) {
+      const track = this.tracks[p];
+      for (let k = 0; k < this.DOTS_PER_PATH; k++) {
+        const t = (base + this.OFFSETS[p] + k / this.DOTS_PER_PATH) % 1;
+
+        // Acende saindo do ícone e se dissolve ao entrar no cérebro.
+        const fade = Math.min(1, t / 0.12, (1 - t) / 0.22);
+        if (fade <= 0) continue;
+
+        const pos = this.pointAt(track, t);
+        ctx.globalAlpha = fade;
+        ctx.drawImage(sprite, pos.x - half, pos.y - half);
+      }
+    }
+    ctx.globalAlpha = 1;
+  }
+
   readonly activeSkill = signal<string | null>(null);
   readonly flashSkill  = signal<string>('');
 

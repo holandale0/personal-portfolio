@@ -2,10 +2,13 @@
   <div class="container">
     <h2 class="section-title">Entre em <span>Contato</span></h2>
     <div class="section-banner">
-      <picture>
-        <source srcset="assets/fotos/contact-me.webp" type="image/webp">
-        <img src="assets/fotos/contact-me.png" alt="Convite para entrar em contato" loading="lazy" />
-      </picture>
+      <div class="contact__holo-host" appInView>
+        <picture>
+          <source srcset="assets/fotos/contact-me.webp" type="image/webp">
+          <img #holoImg src="assets/fotos/contact-me.png" alt="Convite para entrar em contato" loading="lazy" />
+        </picture>
+        <canvas #holoCanvas class="contact__holo" aria-hidden="true"></canvas>
+      </div>
     </div>
 
     <p class="section-subtitle">Vamos conversar sobre oportunidades, projetos ou apenas trocar uma ideia</p>
