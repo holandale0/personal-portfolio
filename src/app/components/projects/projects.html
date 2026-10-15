@@ -3,10 +3,13 @@
     <h2 class="section-title">Meus <span>Projetos</span></h2>
 
     <div class="section-banner">
-      <picture>
-        <source srcset="assets/fotos/projects.webp" type="image/webp">
-        <img src="assets/fotos/projects.png" alt="Ilustração da seção de projetos" loading="lazy" />
-      </picture>
+      <div class="projects__term-host">
+        <picture>
+          <source srcset="assets/fotos/projects.webp" type="image/webp">
+          <img #termImg src="assets/fotos/projects.png" alt="Ilustração da seção de projetos" loading="lazy" />
+        </picture>
+        <canvas #termCanvas class="projects__term" aria-hidden="true"></canvas>
+      </div>
     </div>
 
     <p class="section-subtitle">Alguns projetos e POCs que desenvolvi.</p>
