@@ -25,6 +25,19 @@
   --nav-height:       50px;
   --gold:             #c8aa78;
   --gold-dim:         rgba(200, 170, 120, 0.65);
+
+  /* Largura da ilustração de cabeçalho das seções. Fica aqui, e não solta em
+     cada componente, porque os hosts animados (Trajetória, Contato) precisam
+     casar exatamente com a caixa da imagem. */
+  --banner-img-width: 52%;
+}
+
+/* No celular a caixa inteira encolhe para ~350px e 52% dela viraria uma
+   miniatura ilegível; aqui a imagem toma toda a largura disponível. */
+@media (max-width: 768px) {
+  :root {
+    --banner-img-width: min(100%, 380px);
+  }
 }
 
 html {
@@ -115,16 +128,9 @@ img, video {
 
   picture {
     display: block;
-    width: 52%;
-
-    /* No celular a caixa inteira encolhe para ~350px e 35% dela vira uma
-       miniatura ilegível. Aqui a imagem toma toda a largura da caixa (a
-       vinheta come ~13% de cada lado, então ela parece menor do que mede);
-       o teto só segura tablets. A Trajetória
-       replica a medida em .experience__sand-host. */
-    @media (max-width: 768px) {
-      width: min(100%, 380px);
-    }
+    /* A vinheta come ~13% de cada lado, então a imagem sempre parece um
+       pouco menor do que mede. */
+    width: var(--banner-img-width);
   }
 
   img {

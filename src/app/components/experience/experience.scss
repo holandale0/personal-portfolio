@@ -24,13 +24,9 @@
 
   &__sand-host {
     position: relative;
-    width: 52%;
-
-    /* Mesma medida do .section-banner no celular. O canvas de areia
+    /* Mesma medida da ilustração das demais seções. O canvas de areia
        acompanha sozinho: ResizeObserver + coordenadas normalizadas. */
-    @media (max-width: 768px) {
-      width: min(100%, 380px);
-    }
+    width: var(--banner-img-width);
 
     picture {
       display: block;
